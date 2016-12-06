@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MoreShopActivity">
+
+    <include layout="@layout/title_layout" />
+
+    <ListView
+        android:id="@+id/moreShop_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="3px"
+        android:listSelector="#00000000"
+        android:scrollbars="none">
+
+    </ListView>
+
+</LinearLayout>

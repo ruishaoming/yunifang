@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/home_rb_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/home_tab_selector"
+            android:fadingEdge="none"
+            android:gravity="center_horizontal"
+            android:padding="2px"
+            android:text="首页"
+            android:textColor="@color/colorTextMain"
+            android:textSize="@dimen/common_text" />
+
+        <RadioButton
+            android:id="@+id/category_rb_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/category_tab_selector"
+            android:fadingEdge="none"
+            android:gravity="center_horizontal"
+            android:padding="2px"
+            android:text="分类"
+            android:textSize="@dimen/common_text" />
+
+        <RadioButton
+            android:id="@+id/cart_rb_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/cart_tab_selector"
+            android:fadingEdge="none"
+            android:gravity="center_horizontal"
+            android:padding="2px"
+            android:text="购物车"
+            android:textSize="@dimen/common_text" />
+
+        <RadioButton
+            android:id="@+id/mine_rb_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/mine_tab_selector"
+            android:fadingEdge="none"
+            android:gravity="center_horizontal"
+            android:padding="2px"
+            android:text="我的"
+            android:textSize="@dimen/common_text" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/bg_line_main"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:layout_above="@id/rg_main"
+        android:background="#706b6b" />
+
+    <com.rui.yunifang.view.NoScrollViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bg_line_main"></com.rui.yunifang.view.NoScrollViewPager>
+</RelativeLayout>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="20px"
+        android:text="御泥坊VIP商城"
+        android:textColor="@color/colorTextMain"
+        android:textSize="@dimen/title" />
+
+    <com.liaoinstan.springview.widget.SpringView
+        android:id="@+id/home_springView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--ViewPager无限轮播-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="350px">
+
+                    <com.rui.yunifang.view.RootViewPager
+                        android:id="@+id/home_vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="450px"></com.rui.yunifang.view.RootViewPager>
+
+                    <LinearLayout
+                        android:id="@+id/home_line_dot"
+                        android:layout_width="260px"
+                        android:layout_height="20px"
+                        android:layout_alignBottom="@+id/home_vp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10px"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <!--每日签到、积分商城-->
+                <LinearLayout
+                    android:id="@+id/home_line_ad5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></LinearLayout>
+
+                <com.rui.yunifang.view.InnerGridView
+                    android:id="@+id/home_gv_ad5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:horizontalSpacing="10px"
+                    android:listSelector="#00000000"
+                    android:numColumns="4"
+                    android:verticalSpacing="20px">
+
+                </com.rui.yunifang.view.InnerGridView>
+                <!--本周热销-->
+                <TextView
+                    android:id="@+id/home_line_hot_week_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/common_text" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5px"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/home_line_hot_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20px"
+                    android:layout_marginTop="20px"
+                    android:gravity="center_horizontal"
+                    android:text="-- 优惠活动 --"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/common_text" />
+
+                <!-- 优惠活动 -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10px"
+                    android:clipChildren="false">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/home_activity_vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="300px"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="110px"
+                        android:layout_marginRight="110px"
+                        android:clipChildren="false"></android.support.v4.view.ViewPager>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20px"
+                    android:layout_marginTop="20px"
+                    android:gravity="center_horizontal"
+                    android:text="-- 热门专题 --"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/common_text" />
+
+                <com.rui.yunifang.view.InnerGridView
+                    android:id="@+id/home_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:listSelector="#00000000"
+                    android:numColumns="1"
+                    android:verticalSpacing="30px">
+
+                </com.rui.yunifang.view.InnerGridView>
+
+                <!--底部GridView-->
+                <com.rui.yunifang.view.InnerGridView
+                    android:id="@+id/home_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:horizontalSpacing="10px"
+                    android:listSelector="#00000000"
+                    android:numColumns="2"
+                    android:padding="5px"
+                    android:verticalSpacing="20px"></com.rui.yunifang.view.InnerGridView>
+
+                <TextView
+                    android:id="@+id/home_bottom_tv_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10px"
+                    android:layout_marginTop="30px"
+                    android:gravity="center_horizontal"
+                    android:text="查看所有商品"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/common_text" />
+            </LinearLayout>
+        </ScrollView>
+    </com.liaoinstan.springview.widget.SpringView>
+
+</LinearLayout>

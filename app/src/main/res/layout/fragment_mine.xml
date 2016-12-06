@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250px"
+            android:background="@mipmap/user_center_bg">
+
+            <ImageView
+                android:id="@+id/mine_settings_iv"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:src="@mipmap/mine_setting" />
+
+            <com.rui.yunifang.view.XCRoundImageView
+                android:id="@+id/mine_login_iv"
+                android:layout_width="160px"
+                android:layout_height="160px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/user_icon_no_set" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/mine_login_btn"
+            android:layout_width="280px"
+            android:layout_height="55px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10px"
+            android:background="@mipmap/login_btn_bg"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/colorTextBlue"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="30px">
+
+            <TextView
+                android:id="@+id/tv_mine_wait_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/mine_wait_pay"
+                android:gravity="center_horizontal"
+                android:text="待付款"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_wait_send_good"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/mine_wait_send_good"
+                android:gravity="center_horizontal"
+                android:text="待发货"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_wait_receive_good"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/mine_wait_receive_good"
+                android:gravity="center_horizontal"
+                android:text="待收货"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_wait_evaluate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/mine_wait_evaluate"
+                android:gravity="center_horizontal"
+                android:text="待评价"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_wait_refund"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/mine_wait_refund"
+                android:gravity="center_horizontal"
+                android:text="退款"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7px"
+            android:background="#706b6b" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px">
+
+            <TextView
+                android:id="@+id/tv_mine_order_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_order_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   我的订单"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <View
+                android:id="@+id/mine_view_color_top"
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:layout_below="@+id/tv_mine_order_icon"
+                android:background="#e4dbd4" />
+
+            <TextView
+                android:id="@+id/tv_mine_invite_gift_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/mine_view_color_top"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_invite_gift_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   邀请有礼"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_face_test_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/tv_mine_invite_gift_icon"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_face_test_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   刷脸测尺寸"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <View
+                android:id="@+id/mine_view_color_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:layout_below="@+id/tv_mine_face_test_icon"
+                android:background="#e4dbd4" />
+
+            <TextView
+                android:id="@+id/tv_mine_coupon_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/mine_view_color_bottom"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_coupon_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   我的现金券"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_lottery_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/tv_mine_coupon_icon"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_lottery_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   我的抽奖单"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_collection_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/tv_mine_lottery_icon"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_collection_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   我收藏的商品"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_mine_contact_service_icon"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_below="@+id/tv_mine_collection_icon"
+                android:layout_marginBottom="10px"
+                android:layout_marginTop="10px"
+                android:drawableLeft="@mipmap/mine_contact_service_icon"
+                android:drawableRight="@mipmap/mine_vip_arrows_right"
+                android:gravity="center_vertical"
+                android:padding="15px"
+                android:text="   联系客服"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="11sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

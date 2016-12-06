@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <SearchView
+        android:id="@+id/category_ed_search"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_margin="20px"
+        android:background="@null"
+        android:drawableLeft="@mipmap/icon_search"
+        android:scrollbars="none"
+        android:textColor="@color/colorTextBlack">
+
+    </SearchView>
+
+    <com.liaoinstan.springview.widget.SpringView
+        android:id="@+id/category_springView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--按属性-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="500px"
+                    android:background="@color/colorWhite">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/classify_facial_mask" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@mipmap/classify_emollient_water" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@mipmap/classify_body_lotion" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@mipmap/classify_facial_cleanser" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@mipmap/classify_other" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_kit" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!--按功效-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200px"
+                    android:layout_marginTop="30px"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="按功效"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:gravity="center_horizontal"
+                        android:text="美丽从选对产品开始"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5px"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_hydrating" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5px"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_soothing" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5px"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_control_oil" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5px"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_whitening" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5px"
+                            android:layout_weight="1"
+                            android:src="@mipmap/classify_firming" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--按肤质-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30px"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="按肤质"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:gravity="center_horizontal"
+                        android:text="适合自己的才是最好的"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp" />
+
+                    <com.rui.yunifang.view.InnerGridView
+                        android:id="@+id/category_skin_gv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:horizontalSpacing="20px"
+                        android:listSelector="#00000000"
+                        android:numColumns="2"
+                        android:padding="20px"
+                        android:verticalSpacing="30px">
+
+                    </com.rui.yunifang.view.InnerGridView>
+
+                </LinearLayout>
+
+                <!--明星产品-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30px"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="80px"
+                            android:layout_height="50px"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/classify_triangle" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_horizontal"
+                            android:text="明星产品"
+                            android:textColor="@color/colorTextBlack"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <com.rui.yunifang.view.InnerGridView
+                        android:id="@+id/category_star_gv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:horizontalSpacing="10px"
+                        android:listSelector="#00000000"
+                        android:numColumns="2"
+                        android:padding="5px"
+                        android:verticalSpacing="10px"></com.rui.yunifang.view.InnerGridView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:gravity="center_horizontal"
+                    android:text="查看所有商品"
+                    android:textColor="@color/colorGray" />
+            </LinearLayout>
+        </ScrollView>
+    </com.liaoinstan.springview.widget.SpringView>
+</LinearLayout>
