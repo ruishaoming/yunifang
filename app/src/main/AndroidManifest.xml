@@ -22,18 +22,18 @@
             android:value="1280" />
 
         <activity android:name=".activity.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.LaunchActivity">
 
         </activity>
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AllGoodsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.DynamicActivity" />
         <activity android:name=".activity.MoreShopActivity" />

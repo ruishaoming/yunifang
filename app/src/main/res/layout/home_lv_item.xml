@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="900px"
+    android:layout_height="750px"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/home_lv_item_iv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop" />
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/home_lv_item_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/home_special_triangle" />
+    </RelativeLayout>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5px"
-        android:layout_weight="1"
-        android:fadingEdge="none"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/home_lv_item_line"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_lv_item_recycler"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ImageView
+                android:layout_width="200px"
+                android:layout_margin="10px"
+                android:padding="50px"
+                android:background="#ece8e8"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/home_rank_list_more" />
         </LinearLayout>
     </HorizontalScrollView>
 </LinearLayout>

@@ -27,7 +27,7 @@ public class MainActivity extends AutoLayoutActivity {
         getSupportActionBar().hide();
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
-/**********/
+
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +27,13 @@ import com.rui.yunifang.activity.AllGoodsActivity;
 import com.rui.yunifang.activity.MoreShopActivity;
 import com.rui.yunifang.R;
 import com.rui.yunifang.activity.SubjectActivity;
+import com.rui.yunifang.adapter.HomeLvRecyclerAdapter;
 import com.rui.yunifang.adapter.ViewHolder;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.BaseFragment;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.HomeData;
+import com.rui.yunifang.divider.SpacesItemDecoration;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
 import com.rui.yunifang.utils.UrlUtils;
@@ -108,7 +113,6 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                     Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_EMPTY);
                 } else {
                     Home_Fragment.this.data = data;
-                    Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
                 }
             }
 
@@ -137,6 +141,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         options = ImageLoaderUtils.initOptions();
         Gson gson = new Gson();
         homeData = gson.fromJson(data, HomeData.class);
+        Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
         //动态初始化布局
         if (homeData != null) {
             initViewData();
@@ -314,9 +319,14 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                             getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
                         }
                     });
-                    LinearLayout home_lv_item_line = holder.getView(R.id.home_lv_item_line);
                     ImageLoader.getInstance().displayImage(item.image, imageView, options);
-                    initLvitem(home_lv_item_line, item);
+                    RecyclerView home_lv_recy = holder.getView(R.id.home_lv_item_recycler);
+
+                    home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                    home_lv_recy.addItemDecoration(new SpacesItemDecoration(8));//设置间距
+                    home_lv_recy.setAdapter(new HomeLvRecyclerAdapter(getActivity(), item.goodsList));
+//                    LinearLayout home_lv_item_line = holder.getView(R.id.home_lv_item_line);
+                    //initLvitem(home_lv_item_line, item);
                 }
             };
             home_lv.setAdapter(lvCommonAdapter);
