@@ -3,6 +3,9 @@ package com.rui.yunifang.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,8 @@ import android.widget.Toast;
 
 import com.rui.yunifang.activity.LoginActivity;
 import com.rui.yunifang.R;
+import com.rui.yunifang.activity.MainActivity;
+import com.rui.yunifang.activity.SettingsActivity;
 import com.rui.yunifang.utils.CommonUtils;
 
 /**
@@ -57,6 +62,9 @@ public class Mine_Fragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_mine_contact_service_icon:
                 Toast.makeText(getActivity(), "515", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mine_settings_iv:
+                CommonUtils.startActivity(getActivity(), SettingsActivity.class);
                 break;
         }
     }

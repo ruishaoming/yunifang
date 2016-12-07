@@ -5,9 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/shop_title" />
+    <include
+        android:id="@+id/goods_top_title"
+        layout="@layout/shop_title" />
 
-    <ScrollView
+    <com.rui.yunifang.view.GoodsScrollView
+        android:id="@+id/goods_scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -19,7 +22,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100px"
+                android:layout_height="600px"
                 android:background="#60f0">
 
                 <android.support.v4.view.ViewPager
@@ -38,7 +41,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150px">
+                android:layout_height="200px">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -52,6 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lines="2"
+                        android:padding="5px"
                         android:text="数据库尽vdzklvlk的vzmlk"
                         android:textColor="@color/colorTextBlack"
                         android:textSize="@dimen/title" />
@@ -100,7 +104,7 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150px"
                     android:layout_gravity="center_vertical"
                     android:button="@null"
                     android:drawableTop="@drawable/shop_collect"
@@ -201,7 +205,8 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
                 android:paddingRight="30px"
-                android:text="双十二狂欢趴：扫货攻略" />
+                android:text="双十二狂欢趴：扫货攻略"
+                android:textSize="@dimen/shop_price" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -211,19 +216,35 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
                 android:paddingRight="30px"
-                android:text="邀请有礼·270元面膜免费领" />
+                android:text="邀请有礼·270元面膜免费领"
+                android:textSize="@dimen/shop_price" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50px"
+                android:layout_marginBottom="20px"
                 android:layout_marginTop="35px"
                 android:drawableRight="@mipmap/ico_big_right"
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
                 android:paddingRight="30px"
-                android:text="购物须知·客服时间8:30-23:30" />
+                android:text="购物须知·客服时间8:30-23:30"
+                android:textSize="@dimen/shop_price" />
+
+            <include
+                layout="@layout/goods_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="100px" />
+
+            <com.rui.yunifang.view.InnerGridView
+                android:id="@+id/goods_bottom_iv_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="1"></com.rui.yunifang.view.InnerGridView>
         </LinearLayout>
-    </ScrollView>
+
+
+    </com.rui.yunifang.view.GoodsScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -235,9 +256,9 @@
             android:layout_weight="2"
             android:drawableLeft="@mipmap/public_contact_service_icon"
             android:gravity="center_vertical"
-            android:textSize="@dimen/shop_title"
             android:paddingLeft="20px"
-            android:text=" 客服" />
+            android:text=" 客服"
+            android:textSize="@dimen/shop_title" />
 
         <TextView
             android:layout_width="0dp"

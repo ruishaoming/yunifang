@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".application.MyApplication"
@@ -21,24 +22,23 @@
             android:name="design_height"
             android:value="1280" />
 
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.LaunchActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.AllGoodsActivity" />
+        <activity android:name=".activity.DynamicActivity" />
+        <activity android:name=".activity.MoreShopActivity" />
+        <activity android:name=".activity.SubjectActivity" />
+        <activity android:name=".activity.GoodsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LaunchActivity">
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.TestActivity">
 
-        </activity>
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.AllGoodsActivity">
-
-        </activity>
-        <activity android:name=".activity.DynamicActivity" />
-        <activity android:name=".activity.MoreShopActivity" />
-        <activity android:name=".activity.SubjectActivity" />
-        <activity android:name=".activity.GoodsActivity">
         </activity>
     </application>
 

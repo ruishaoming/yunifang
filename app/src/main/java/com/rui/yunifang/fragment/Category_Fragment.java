@@ -23,6 +23,7 @@ import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.SortBean;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.utils.UrlUtils;
 import com.rui.yunifang.view.InnerGridView;
 import com.rui.yunifang.view.ShowingPage;
@@ -44,6 +45,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     private InnerGridView star_gv;
     private DisplayImageOptions imageOptions;
     private SpringView springView;
+    private View rootView;
 
     @Override
     protected void onLoad() {
@@ -52,7 +54,14 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
 
     @Override
     protected View createSuccessView() {
-        View view = CommonUtils.inflate(R.layout.fragment_category);
+        if (rootView == null) {
+            rootView = CommonUtils.inflate(R.layout.fragment_category);
+            initView(rootView);
+        }
+        return rootView;
+    }
+
+    private void initView(View view) {
         skin_gv = (InnerGridView) view.findViewById(R.id.category_skin_gv);
         star_gv = (InnerGridView) view.findViewById(R.id.category_star_gv);
         springView = (SpringView) view.findViewById(R.id.category_springView);
@@ -60,12 +69,16 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
         imageOptions = ImageLoaderUtils.initOptions();
-        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (data != null) {
             initData();
         }
@@ -144,5 +157,13 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     @Override
     public void onLoadmore() {
         stopLoad();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (rootView != null) {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
     }
 }

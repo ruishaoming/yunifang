@@ -36,6 +36,7 @@ import com.rui.yunifang.bean.HomeData;
 import com.rui.yunifang.divider.SpacesItemDecoration;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.utils.UrlUtils;
 import com.rui.yunifang.view.InnerGridView;
 import com.rui.yunifang.view.RootViewPager;
@@ -68,6 +69,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     private CommonAdapter<HomeData.DataBean.SubjectsBean> lvCommonAdapter;
     private CommonAdapter<HomeData.DataBean.DefaultGoodsListBean> gvCommonAdapter;
     private InnerGridView ad5_gv;
+    private View rootView;
 
     @Override
     protected void onLoad() {
@@ -76,9 +78,11 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
     @Override
     protected View createSuccessView() {
-        View view = CommonUtils.inflate(R.layout.fragment_home);
-        initView(view);
-        return view;
+        if (rootView == null) {
+            rootView = CommonUtils.inflate(R.layout.fragment_home);
+            initView(rootView);
+        }
+        return rootView;
     }
 
     private void initView(View view) {
@@ -102,7 +106,6 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData(data);
     }
 
     private void loadData(int time) {
@@ -113,7 +116,9 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                     Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_EMPTY);
                 } else {
                     Home_Fragment.this.data = data;
+                    Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
                 }
+
             }
 
             @Override
@@ -130,6 +135,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             springView.scrollTo(0, 0);
         if (homeData != null)
             home_lv.setFocusable(false);
+        initData(data);
     }
 
     /**
@@ -141,7 +147,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         options = ImageLoaderUtils.initOptions();
         Gson gson = new Gson();
         homeData = gson.fromJson(data, HomeData.class);
-        Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
+
         //动态初始化布局
         if (homeData != null) {
             initViewData();
@@ -264,38 +270,38 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
     //优惠活动
     private void initYhVpData() {
-        if (pagerAdapter == null) {
-            pagerAdapter = new PagerAdapter() {
-                @Override
-                public int getCount() {
-                    return Integer.MAX_VALUE;
-                }
+//        if (pagerAdapter == null) {
+        pagerAdapter = new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return Integer.MAX_VALUE;
+            }
 
-                @Override
-                public boolean isViewFromObject(View view, Object object) {
-                    return view == object;
-                }
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
 
-                @Override
-                public void destroyItem(ViewGroup container, int position, Object object) {
-                    container.removeView((View) object);
-                }
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
 
-                @Override
-                public Object instantiateItem(ViewGroup container, int position) {
-                    ImageView imageView = new ImageView(getActivity());
-                    ImageLoader.getInstance().displayImage(homeData.data.activityInfo.activityInfoList.get(position % homeData.data.activityInfo.activityInfoList.size()).activityImg, imageView, options);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-                    imageView.setPadding(1, 1, 1, 1);
-                    imageView.setBackgroundResource(R.drawable.share_square);
-                    container.addView(imageView, params);
-                    return imageView;
-                }
-            };
-            yh_vp.setAdapter(pagerAdapter);
-        } else {
-            pagerAdapter.notifyDataSetChanged();
-        }
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView imageView = new ImageView(getActivity());
+                ImageLoader.getInstance().displayImage(homeData.data.activityInfo.activityInfoList.get(position % homeData.data.activityInfo.activityInfoList.size()).activityImg, imageView, options);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+                imageView.setPadding(1, 1, 1, 1);
+                imageView.setBackgroundResource(R.drawable.share_square);
+                container.addView(imageView, params);
+                return imageView;
+            }
+        };
+        yh_vp.setAdapter(pagerAdapter);
+//        } else {
+//            pagerAdapter.notifyDataSetChanged();
+//        }
         yh_vp.setOffscreenPageLimit(3);
         yh_vp.setPageMargin(30);
         yh_vp.setCurrentItem(100 * homeData.data.activityInfo.activityInfoList.size());
@@ -303,36 +309,36 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
     //ListView（大图 + HorizontalScrollView）
     private void initLvData() {
-        if (lvCommonAdapter == null) {
-            lvCommonAdapter = new CommonAdapter<HomeData.DataBean.SubjectsBean>(getActivity(), homeData.data.subjects, R.layout.home_lv_item) {
-                @Override
-                public void convert(ViewHolder holder, final HomeData.DataBean.SubjectsBean item) {
-                    ImageView imageView = holder.getView(R.id.home_lv_item_iv);
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), SubjectActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("subject", item);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
-                        }
-                    });
-                    ImageLoader.getInstance().displayImage(item.image, imageView, options);
-                    RecyclerView home_lv_recy = holder.getView(R.id.home_lv_item_recycler);
+//        if (lvCommonAdapter == null) {
+        lvCommonAdapter = new CommonAdapter<HomeData.DataBean.SubjectsBean>(getActivity(), homeData.data.subjects, R.layout.home_lv_item) {
+            @Override
+            public void convert(ViewHolder holder, final HomeData.DataBean.SubjectsBean item) {
+                ImageView imageView = holder.getView(R.id.home_lv_item_iv);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), SubjectActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("subject", item);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
+                    }
+                });
+                ImageLoader.getInstance().displayImage(item.image, imageView, options);
+                RecyclerView home_lv_recy = holder.getView(R.id.home_lv_item_recycler);
 
-                    home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                    home_lv_recy.addItemDecoration(new SpacesItemDecoration(8));//设置间距
-                    home_lv_recy.setAdapter(new HomeLvRecyclerAdapter(getActivity(), item.goodsList));
+                home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                home_lv_recy.addItemDecoration(new SpacesItemDecoration(8));//设置间距
+                home_lv_recy.setAdapter(new HomeLvRecyclerAdapter(getActivity(), item.goodsList));
 //                    LinearLayout home_lv_item_line = holder.getView(R.id.home_lv_item_line);
-                    //initLvitem(home_lv_item_line, item);
-                }
-            };
-            home_lv.setAdapter(lvCommonAdapter);
-        } else {
-            lvCommonAdapter.notifyDataSetChanged();
-        }
+                //initLvitem(home_lv_item_line, item);
+            }
+        };
+        home_lv.setAdapter(lvCommonAdapter);
+//        } else {
+//            lvCommonAdapter.notifyDataSetChanged();
+//        }
     }
 
     //ListView条目
@@ -372,28 +378,28 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
     //底部GridView
     private void initGvData() {
-        if (gvCommonAdapter == null) {
-            gvCommonAdapter = new CommonAdapter<HomeData.DataBean.DefaultGoodsListBean>(getActivity(), homeData.data.defaultGoodsList, R.layout.home_gv_item) {
-                @Override
-                public void convert(ViewHolder holder, HomeData.DataBean.DefaultGoodsListBean item) {
-                    ImageView image = holder.getView(R.id.home_gv_item_iv);
-                    TextView title = holder.getView(R.id.home_gv_item_tv_title);
-                    TextView des = holder.getView(R.id.home_gv_item_tv_des);
-                    TextView price = holder.getView(R.id.home_gv_item_tv_price);
-                    TextView oldprice = holder.getView(R.id.home_gv_item_tv_oldPrice);
+//        if (gvCommonAdapter == null) {
+        gvCommonAdapter = new CommonAdapter<HomeData.DataBean.DefaultGoodsListBean>(getActivity(), homeData.data.defaultGoodsList, R.layout.home_gv_item) {
+            @Override
+            public void convert(ViewHolder holder, HomeData.DataBean.DefaultGoodsListBean item) {
+                ImageView image = holder.getView(R.id.home_gv_item_iv);
+                TextView title = holder.getView(R.id.home_gv_item_tv_title);
+                TextView des = holder.getView(R.id.home_gv_item_tv_des);
+                TextView price = holder.getView(R.id.home_gv_item_tv_price);
+                TextView oldprice = holder.getView(R.id.home_gv_item_tv_oldPrice);
 
-                    ImageLoader.getInstance().displayImage(item.goods_img, image, options);
-                    title.setText(item.efficacy);
-                    des.setText(item.goods_name);
-                    price.setText("￥" + item.shop_price);
-                    oldprice.setText("￥" + item.market_price);
-                    oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                }
-            };
-            home_gv.setAdapter(gvCommonAdapter);
-        } else {
-            gvCommonAdapter.notifyDataSetChanged();
-        }
+                ImageLoader.getInstance().displayImage(item.goods_img, image, options);
+                title.setText(item.efficacy);
+                des.setText(item.goods_name);
+                price.setText("￥" + item.shop_price);
+                oldprice.setText("￥" + item.market_price);
+                oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+        };
+        home_gv.setAdapter(gvCommonAdapter);
+//        } else {
+//            gvCommonAdapter.notifyDataSetChanged();
+//        }
     }
 
     //跳转的方法
@@ -441,8 +447,10 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (rootView != null) {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
     }
 }

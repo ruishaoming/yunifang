@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goods_line_top"
+    android:layout_width="match_parent"
+    android:layout_height="100px"
+    android:background="#fff"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="产品详情"
+        android:textColor="@color/colorTextMain"
+        android:textSize="@dimen/shop_price" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="产品参数"
+        android:textColor="@color/colortvGray"
+        android:textSize="@dimen/shop_price" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="评论(0)"
+        android:textColor="@color/colortvGray"
+        android:textSize="@dimen/shop_price" />
+
+</LinearLayout>

@@ -218,13 +218,14 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
                 break;
             case R.id.allgoods_order_desc:
                 Collections.reverse(goodsBean.data);
-//                Collections.sort(goodsBean.data,Collections.reverseOrder());
                 initGvData();
                 order_asc.setTextColor(getResources().getColor(R.color.colorTextBlack));
                 order_desc.setTextColor(getResources().getColor(R.color.colorTextMain));
                 order_normal.setTextColor(getResources().getColor(R.color.colorTextBlack));
                 break;
             case R.id.allgoods_order_normal:
+                goodsAdapter = null;
+                getData(BaseData.SHORT_TIME);
                 initGvData();
                 order_asc.setTextColor(getResources().getColor(R.color.colorTextBlack));
                 order_desc.setTextColor(getResources().getColor(R.color.colorTextBlack));

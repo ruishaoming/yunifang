@@ -15,6 +15,8 @@ import com.rui.yunifang.factory.FragmentFactory;
 import com.rui.yunifang.view.NoScrollViewPager;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.util.TimerTask;
+
 public class MainActivity extends AutoLayoutActivity {
 
     private NoScrollViewPager vp;
@@ -27,6 +29,7 @@ public class MainActivity extends AutoLayoutActivity {
         getSupportActionBar().hide();
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
+        vp.setOffscreenPageLimit(3);
 
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -54,6 +57,7 @@ public class MainActivity extends AutoLayoutActivity {
                 }
             }
         });
+
 
     }
 }

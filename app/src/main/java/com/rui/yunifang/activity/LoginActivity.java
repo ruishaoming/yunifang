@@ -58,11 +58,17 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
         logintvother.setOnClickListener(this);
         getCode.setOnClickListener(this);
         imageOptions = ImageLoaderUtils.initOptions();
-//        login_bg.setBackgroundResource(R.mipmap.bg_login);
-    }
 
+    }
     public void login_btn(View view) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        login_bg.setBackgroundResource(R.mipmap.bg_login);
     }
 
     @Override

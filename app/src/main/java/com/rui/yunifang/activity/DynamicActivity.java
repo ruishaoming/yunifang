@@ -1,5 +1,6 @@
 package com.rui.yunifang.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -34,6 +35,19 @@ public class DynamicActivity extends AutoLayoutActivity implements View.OnClickL
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                title.setText(view.getTitle());
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                title.setText(view.getTitle());
             }
         });
         WebSettings settings = webView.getSettings();
