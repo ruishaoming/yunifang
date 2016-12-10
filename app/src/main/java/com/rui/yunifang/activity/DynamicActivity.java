@@ -3,6 +3,7 @@ package com.rui.yunifang.activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -52,6 +53,14 @@ public class DynamicActivity extends AutoLayoutActivity implements View.OnClickL
         });
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+
+            }
+        });
     }
 
     @Override

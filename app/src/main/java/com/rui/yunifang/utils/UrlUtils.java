@@ -16,10 +16,13 @@ public class UrlUtils {
     public static final String AWARD = "http://m.yunifang.com/yunifang/mobile/lottery/detail?random=50522&encode=797e1dc6c5a130a1787349d316084ed5&id=142";
 
     //商品详情
-    public static final String GOODS_URL = "http://m.yunifang.com/yunifang/mobile/goods/detail?random=6716&encode=b02382bd9e457e06e09b68a6a4f26eb4&id=14";
+    public static final String GOODS_URL = "http://m.yunifang.com/yunifang/mobile/goods/detail?random=6716&encode=b02382bd9e457e06e09b68a6a4f26eb4&id=";
 
     //分类页
-    public static final String SORT_URL = "http://m.yunifang.com/yunifang/mobile/category/list?random=60729&encode=d5f7520dad446ad974110b1b2cb499c8";
+    public static final String SORT_URL = "http://m.yunifang.com/yunifang/mobile/goods/getall?random=92414&encode=33984fb43bc319ca16f9b7efb4baf895&category_id=";
+
+    //分类Fragment
+    public static final String CATEGORY_URL="http://m.yunifang.com/yunifang/mobile/category/list?random=60729&encode=d5f7520dad446ad974110b1b2cb499c8";
 
     //
 //    public static final String THREE_ROLL = "http://m.yunifang.com/yunifang/mobile/cohere/list?random=25623&encode=fc002fa3f5925ac6d2efc666c05d7576&rowNum=0";

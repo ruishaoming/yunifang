@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/goods_comment_icon"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:padding="10px"
+        android:src="@mipmap/user_icon_no_set" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10px">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/goods_comment_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textColor="@color/colorTextMain"
+                android:textSize="@dimen/common_text" />
+
+            <TextView
+                android:id="@+id/goods_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="2016/12/07"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/common_text" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/goods_comment_contnet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="内容"
+            android:textColor="@color/colortvGray"
+            android:textSize="@dimen/shop_title" />
+
+        <com.rui.yunifang.view.InnerGridView
+            android:id="@+id/goods_comment_item_gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="4"></com.rui.yunifang.view.InnerGridView>
+    </LinearLayout>
+</LinearLayout>

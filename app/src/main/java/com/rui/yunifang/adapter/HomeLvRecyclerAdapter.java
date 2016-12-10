@@ -24,6 +24,7 @@ public class HomeLvRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerHold
     private Context context;
     private List<HomeData.DataBean.SubjectsBean.GoodsListBean> listGoods;
     private final DisplayImageOptions imageOptions;
+    private OnitemClickListener onitemClickListener;
 
     public HomeLvRecyclerAdapter(Context context, List<HomeData.DataBean.SubjectsBean.GoodsListBean> listSubject) {
         this.context = context;
@@ -39,16 +40,30 @@ public class HomeLvRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerHold
     }
 
     @Override
-    public void onBindViewHolder(HomeRecyclerHolder holder, int position) {
-            ImageLoader.getInstance().displayImage(listGoods.get(position).goods_img, holder.hotweek_iv, imageOptions);
-            holder.hotweek_title.setText(listGoods.get(position).goods_name);
-            holder.hotweek_price.setText("￥" + listGoods.get(position).shop_price);
-            holder.hotweek_oldprice.setText("￥" + listGoods.get(position).market_price);
-            holder.hotweek_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+    public void onBindViewHolder(HomeRecyclerHolder holder, final int position) {
+        ImageLoader.getInstance().displayImage(listGoods.get(position).goods_img, holder.hotweek_iv, imageOptions);
+        holder.hotweek_title.setText(listGoods.get(position).goods_name);
+        holder.hotweek_price.setText("￥" + listGoods.get(position).shop_price);
+        holder.hotweek_oldprice.setText("￥" + listGoods.get(position).market_price);
+        holder.hotweek_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.hotweek_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onitemClickListener.itemClickListener(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return 6;
+    }
+
+    public interface OnitemClickListener {
+        void itemClickListener(int position);
+    }
+
+    public void setOnitemClickListener(OnitemClickListener onitemClickListener) {
+        HomeLvRecyclerAdapter.this.onitemClickListener = onitemClickListener;
     }
 }

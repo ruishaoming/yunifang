@@ -3,76 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.AllGoodsActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/title_layout" />
 
     <RadioGroup
-        android:id="@+id/allgoods_order_rg"
+        android:id="@+id/soatmask_rg"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@color/colorWhite"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/allgoods_order_normal"
+            android:id="@+id/soatmask_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/goods_radio_bg_button_select"
             android:button="@null"
             android:checked="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:padding="5px"
-            android:text="默认排序"
+            android:text="贴式面膜"
             android:textColor="@color/colorTextMain"
             android:textSize="@dimen/shop_price" />
 
         <RadioButton
-            android:id="@+id/allgoods_order_asc"
+            android:id="@+id/soatmask_sleep"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/goods_radio_bg_button_select"
             android:button="@null"
             android:drawableRight="@mipmap/good_list_arrows_above"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:padding="5px"
-            android:text="价格升序"
+            android:text="睡眠面膜"
             android:textColor="@color/colorTextBlack"
             android:textSize="@dimen/shop_price" />
 
         <RadioButton
-            android:id="@+id/allgoods_order_desc"
+            android:id="@+id/soatmask_mud"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/goods_radio_bg_button_select"
             android:button="@null"
             android:drawableRight="@mipmap/good_list_arrows_below"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:padding="5px"
-            android:text="价格降序"
+            android:text="泥浆面膜"
             android:textColor="@color/colorTextBlack"
             android:textSize="@dimen/shop_price" />
     </RadioGroup>
 
-
     <com.liaoinstan.springview.widget.SpringView
-        android:id="@+id/goods_springView"
+        android:id="@+id/soatmask_springView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <GridView
-            android:id="@+id/goods_gv"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/soatmask_vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:horizontalSpacing="20px"
-            android:listSelector="#00000000"
-            android:numColumns="2"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:verticalSpacing="15px"></GridView>
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
     </com.liaoinstan.springview.widget.SpringView>
 </LinearLayout>

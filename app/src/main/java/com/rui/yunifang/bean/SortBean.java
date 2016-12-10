@@ -7,9 +7,10 @@ import java.util.List;
  */
 public class SortBean {
 
+
     private int code;
-    private DataBean data;
     private String msg;
+    private DataBean data;
 
     public int getCode() {
         return code;
@@ -19,20 +20,20 @@ public class SortBean {
         this.code = code;
     }
 
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
     public String getMsg() {
         return msg;
     }
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public static class DataBean {
@@ -58,19 +59,11 @@ public class SortBean {
         }
 
         public static class CategoryBean {
-            private String cat_name;
             private String id;
+            private String cat_name;
             private String is_leaf;
 
             private List<ChildrenBean> children;
-
-            public String getCat_name() {
-                return cat_name;
-            }
-
-            public void setCat_name(String cat_name) {
-                this.cat_name = cat_name;
-            }
 
             public String getId() {
                 return id;
@@ -78,6 +71,14 @@ public class SortBean {
 
             public void setId(String id) {
                 this.id = id;
+            }
+
+            public String getCat_name() {
+                return cat_name;
+            }
+
+            public void setCat_name(String cat_name) {
+                this.cat_name = cat_name;
             }
 
             public String getIs_leaf() {
@@ -97,17 +98,9 @@ public class SortBean {
             }
 
             public static class ChildrenBean {
-                private String cat_name;
                 private String id;
+                private String cat_name;
                 private String is_leaf;
-
-                public String getCat_name() {
-                    return cat_name;
-                }
-
-                public void setCat_name(String cat_name) {
-                    this.cat_name = cat_name;
-                }
 
                 public String getId() {
                     return id;
@@ -115,6 +108,14 @@ public class SortBean {
 
                 public void setId(String id) {
                     this.id = id;
+                }
+
+                public String getCat_name() {
+                    return cat_name;
+                }
+
+                public void setCat_name(String cat_name) {
+                    this.cat_name = cat_name;
                 }
 
                 public String getIs_leaf() {
@@ -128,28 +129,21 @@ public class SortBean {
         }
 
         public static class GoodsBriefBean {
-            private String efficacy;
-            private String goods_img;
-            private String goods_name;
             private String id;
-            private double market_price;
-            private boolean reservable;
+            private String goods_name;
             private double shop_price;
+            private double market_price;
+            private String goods_img;
+            private boolean reservable;
+            private String efficacy;
+            private String watermarkUrl;
 
-            public String getEfficacy() {
-                return efficacy;
+            public String getId() {
+                return id;
             }
 
-            public void setEfficacy(String efficacy) {
-                this.efficacy = efficacy;
-            }
-
-            public String getGoods_img() {
-                return goods_img;
-            }
-
-            public void setGoods_img(String goods_img) {
-                this.goods_img = goods_img;
+            public void setId(String id) {
+                this.id = id;
             }
 
             public String getGoods_name() {
@@ -160,12 +154,12 @@ public class SortBean {
                 this.goods_name = goods_name;
             }
 
-            public String getId() {
-                return id;
+            public double getShop_price() {
+                return shop_price;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setShop_price(double shop_price) {
+                this.shop_price = shop_price;
             }
 
             public double getMarket_price() {
@@ -176,6 +170,14 @@ public class SortBean {
                 this.market_price = market_price;
             }
 
+            public String getGoods_img() {
+                return goods_img;
+            }
+
+            public void setGoods_img(String goods_img) {
+                this.goods_img = goods_img;
+            }
+
             public boolean isReservable() {
                 return reservable;
             }
@@ -184,14 +186,21 @@ public class SortBean {
                 this.reservable = reservable;
             }
 
-            public double getShop_price() {
-                return shop_price;
+            public String getEfficacy() {
+                return efficacy;
             }
 
-            public void setShop_price(double shop_price) {
-                this.shop_price = shop_price;
+            public void setEfficacy(String efficacy) {
+                this.efficacy = efficacy;
+            }
+
+            public String getWatermarkUrl() {
+                return watermarkUrl;
+            }
+
+            public void setWatermarkUrl(String watermarkUrl) {
+                this.watermarkUrl = watermarkUrl;
             }
         }
     }
-
 }

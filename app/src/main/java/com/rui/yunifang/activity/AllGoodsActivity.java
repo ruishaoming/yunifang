@@ -11,6 +11,8 @@ import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,15 +38,15 @@ import java.util.Collections;
 
 public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClickListener, SpringView.OnFreshListener {
 
+    private static final String TAG = "TAG";
     private GridView gv;
     private DisplayImageOptions imageOptions;
     private SpringView springView;
     private CommonAdapter goodsAdapter;
     private AllGoodsBean goodsBean;
-    private LinearLayout line_order;
-    private TextView order_asc;
-    private TextView order_desc;
-    private TextView order_normal;
+    private RadioGroup rg_order;
+    private LinearLayout line;
+    private boolean pullFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,11 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
 
         getData(BaseData.LONG_TIME);
 
-        if (goodsBean == null)
-            return;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initGvData();
     }
 
@@ -88,6 +93,7 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
     //初始化控件
     private void initView() {
         getSupportActionBar().hide();
+//        line = (LinearLayout) findViewById(R.id.allgoods_line);
         findViewById(R.id.title_right_tv).setVisibility(View.INVISIBLE);
         TextView title_center = (TextView) findViewById(R.id.title_center_tv);
         title_center.setText("全部商品");
@@ -99,13 +105,33 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
         imageOptions = ImageLoaderUtils.initOptions();
-        line_order = (LinearLayout) findViewById(R.id.allgoods_order_line);
-        order_asc = (TextView) findViewById(R.id.allgoods_order_asc);
-        order_desc = (TextView) findViewById(R.id.allgoods_order_desc);
-        order_normal = (TextView) findViewById(R.id.allgoods_order_normal);
-        order_asc.setOnClickListener(this);
-        order_desc.setOnClickListener(this);
-        order_normal.setOnClickListener(this);
+        rg_order = (RadioGroup) findViewById(R.id.allgoods_order_rg);
+        rg_order.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (int i = 0; i < rg_order.getChildCount(); i++) {
+                    RadioButton radioButton = (RadioButton) group.getChildAt(i);
+                    if (radioButton.getId() == checkedId) {
+                        radioButton.setChecked(true);
+                        radioButton.setTextColor(getResources().getColor(R.color.colorTextMain));
+                        if (i == 0) {
+                            goodsAdapter = null;
+                            getData(BaseData.SHORT_TIME);
+                            initGvData();
+                        } else if (i == 1) {
+                            Collections.sort(goodsBean.data);
+                            goodsAdapter.notifyDataSetChanged();
+                        } else {
+                            Collections.reverse(goodsBean.data);
+                            goodsAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        radioButton.setChecked(false);
+                        radioButton.setTextColor(getResources().getColor(R.color.colorTextBlack));
+                    }
+                }
+            }
+        });
         gvScroll();
     }
 
@@ -129,11 +155,17 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
                 if (scrollFlag) {
 
                     if (firstVisibleItem > lastVisibleItemPosition) {
+                        //上拉
+                        Log.i(TAG, "onScroll: 上拉----------------");
                         scrollVisibAnim(true);
                     }
 
                     if (firstVisibleItem < lastVisibleItemPosition) {
-                        scrollVisibAnim(false);
+                        //下拉
+                        Log.i(TAG, "onScroll: 下拉----------------");
+                        if (pullFlag) {
+                            scrollVisibAnim(false);
+                        }
                     }
 
                     if (firstVisibleItem == lastVisibleItemPosition) {
@@ -151,40 +183,45 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
     private void scrollVisibAnim(final boolean down) {
         TranslateAnimation translateAnimation = null;
         if (down) {
+            pullFlag = true;
             translateAnimation = new TranslateAnimation(
                     Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, -1.0f);
+                    Animation.RELATIVE_TO_SELF, -0.2f);
         } else {
+            pullFlag = false;
             translateAnimation = new TranslateAnimation(
                     Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, -1.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
+                    Animation.RELATIVE_TO_SELF, -0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.2f);
         }
-        translateAnimation.setDuration(300);
-        line_order.setAnimation(translateAnimation);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+        if (translateAnimation != null) {
+            translateAnimation.setDuration(300);
+//        translateAnimation.setRepeatMode(Animation.REVERSE);
+            rg_order.setAnimation(translateAnimation);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if (down) {
-                    line_order.setVisibility(View.GONE);
-                } else {
-                    line_order.setVisibility(View.VISIBLE);
                 }
-            }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (down) {
+                        rg_order.setVisibility(View.GONE);
+                    } else {
+                        rg_order.setVisibility(View.VISIBLE);
+                    }
+                }
 
-            }
-        });
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
     }
 
     //获取数据
@@ -206,31 +243,6 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.title_back_iv:
-                CommonUtils.finishActivity(AllGoodsActivity.this);
-                break;
-            case R.id.allgoods_order_asc:
-                Collections.sort(goodsBean.data);
-                initGvData();
-                order_asc.setTextColor(getResources().getColor(R.color.colorTextMain));
-                order_desc.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                order_normal.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                break;
-            case R.id.allgoods_order_desc:
-                Collections.reverse(goodsBean.data);
-                initGvData();
-                order_asc.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                order_desc.setTextColor(getResources().getColor(R.color.colorTextMain));
-                order_normal.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                break;
-            case R.id.allgoods_order_normal:
-                goodsAdapter = null;
-                getData(BaseData.SHORT_TIME);
-                initGvData();
-                order_asc.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                order_desc.setTextColor(getResources().getColor(R.color.colorTextBlack));
-                order_normal.setTextColor(getResources().getColor(R.color.colorTextMain));
-                break;
         }
     }
 

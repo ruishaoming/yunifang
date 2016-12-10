@@ -22,7 +22,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="600px"
+                android:layout_height="100px"
                 android:background="#60f0">
 
                 <android.support.v4.view.ViewPager
@@ -118,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40px"
                 android:paddingLeft="30px"
+                android:layout_marginBottom="10px"
                 android:paddingRight="30px">
 
                 <LinearLayout
@@ -134,6 +135,7 @@
                         android:textSize="@dimen/common_text" />
 
                     <TextView
+                        android:id="@+id/goods_sell_type"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -158,6 +160,7 @@
                         android:textSize="@dimen/common_text" />
 
                     <TextView
+                        android:id="@+id/goods_sell_num"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -182,6 +185,7 @@
                         android:textSize="@dimen/common_text" />
 
                     <TextView
+                        android:id="@+id/goods_collect_num"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
@@ -192,15 +196,15 @@
             </LinearLayout>
 
             <View
+                android:background="@color/grayBg"
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="20px"
-                android:background="@color/colortvGray" />
+                android:padding="10px"
+                android:layout_height="20px"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50px"
-                android:layout_marginTop="30px"
+                android:layout_height="70px"
+                android:layout_marginTop="20px"
                 android:drawableRight="@mipmap/ico_big_right"
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
@@ -209,9 +213,10 @@
                 android:textSize="@dimen/shop_price" />
 
             <TextView
+                android:layout_marginTop="10px"
+                android:background="@drawable/share_square"
                 android:layout_width="match_parent"
-                android:layout_height="50px"
-                android:layout_marginTop="35px"
+                android:layout_height="80px"
                 android:drawableRight="@mipmap/ico_big_right"
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
@@ -221,9 +226,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50px"
+                android:layout_height="70px"
                 android:layout_marginBottom="20px"
-                android:layout_marginTop="35px"
                 android:drawableRight="@mipmap/ico_big_right"
                 android:gravity="center_vertical"
                 android:paddingLeft="30px"
@@ -231,16 +235,19 @@
                 android:text="购物须知·客服时间8:30-23:30"
                 android:textSize="@dimen/shop_price" />
 
-            <include
-                layout="@layout/goods_top_layout"
-                android:layout_width="match_parent"
-                android:layout_height="100px" />
+            <include layout="@layout/goods_top_layout" />
 
-            <com.rui.yunifang.view.InnerGridView
-                android:id="@+id/goods_bottom_iv_lv"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:numColumns="1"></com.rui.yunifang.view.InnerGridView>
+                android:layout_height="match_parent">
+
+                <com.rui.yunifang.view.MyListView
+                    android:id="@+id/goods_bottom_iv_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.rui.yunifang.view.MyListView>
+
+            </LinearLayout>
         </LinearLayout>
 
 

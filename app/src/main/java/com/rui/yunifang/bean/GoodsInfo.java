@@ -7,10 +7,8 @@ import java.util.List;
  */
 public class GoodsInfo {
 
-
     public int code;
     public String msg;
-
     public DataBean data;
 
     public static class DataBean {
@@ -19,8 +17,6 @@ public class GoodsInfo {
         public boolean collected;
         public boolean reserved;
         public int commentNumber;
-
-        public MatchPriceRuleBean matchPriceRule;
 
         public List<CommentsBean> comments;
 
@@ -56,15 +52,10 @@ public class GoodsInfo {
             public String redeem_goods_restrict_flag;
             public String is_allow_credit;
             public double commission_scale;
+            public String watermarkUrl;
             public String goods_type;
 
             public List<GalleryBean> gallery;
-            /**
-             * id : 151
-             * goods_id : 14
-             * attr_name : 上市时间
-             * attr_value : 2014年
-             */
 
             public List<AttributesBean> attributes;
 
@@ -96,11 +87,6 @@ public class GoodsInfo {
             public String id;
             public String createtime;
             public String content;
-            /**
-             * id : 3586640
-             * nick_name : ynf_6615
-             * icon : http://image.hmeili.com/yunifang/web/assets/images/app/no-icon-2.png
-             */
 
             public UserBean user;
 

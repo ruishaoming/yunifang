@@ -41,7 +41,7 @@
             android:gravity="center"
             android:text="登录"
             android:textColor="@color/colorTextBlue"
-            android:textSize="16sp" />
+            android:textSize="@dimen/goods_price" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:gravity="center_horizontal"
                 android:text="待付款"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="10sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_wait_send_good"
@@ -69,7 +69,7 @@
                 android:gravity="center_horizontal"
                 android:text="待发货"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="10sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_wait_receive_good"
@@ -80,7 +80,7 @@
                 android:gravity="center_horizontal"
                 android:text="待收货"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="10sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_wait_evaluate"
@@ -91,7 +91,7 @@
                 android:gravity="center_horizontal"
                 android:text="待评价"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="10sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_wait_refund"
@@ -102,7 +102,7 @@
                 android:gravity="center_horizontal"
                 android:text="退款"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="10sp" />
+                android:textSize="@dimen/common_text" />
         </LinearLayout>
 
         <View
@@ -127,7 +127,7 @@
                 android:padding="15px"
                 android:text="   我的订单"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <View
                 android:id="@+id/mine_view_color_top"
@@ -149,7 +149,7 @@
                 android:padding="15px"
                 android:text="   邀请有礼"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_face_test_icon"
@@ -164,7 +164,7 @@
                 android:padding="15px"
                 android:text="   刷脸测尺寸"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <View
                 android:id="@+id/mine_view_color_bottom"
@@ -186,7 +186,7 @@
                 android:padding="15px"
                 android:text="   我的现金券"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_lottery_icon"
@@ -197,12 +197,11 @@
                 android:layout_marginTop="10px"
                 android:drawableLeft="@mipmap/mine_lottery_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
-
                 android:gravity="center_vertical"
                 android:padding="15px"
                 android:text="   我的抽奖单"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_collection_icon"
@@ -217,7 +216,7 @@
                 android:padding="15px"
                 android:text="   我收藏的商品"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/tv_mine_contact_service_icon"
@@ -232,7 +231,7 @@
                 android:padding="15px"
                 android:text="   联系客服"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="11sp" />
+                android:textSize="@dimen/common_text" />
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

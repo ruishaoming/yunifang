@@ -1,5 +1,6 @@
 package com.rui.yunifang.fragment;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
+import com.rui.yunifang.activity.SoatMaskActivity;
 import com.rui.yunifang.adapter.ViewHolder;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.BaseFragment;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 /**
  * Created by 少明 on 2016/11/28.
  */
-public class Category_Fragment extends BaseFragment implements SpringView.OnFreshListener {
+public class Category_Fragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
     private InnerGridView skin_gv;
     private String data;
@@ -46,6 +48,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     private DisplayImageOptions imageOptions;
     private SpringView springView;
     private View rootView;
+    private SortBean sortBean;
 
     @Override
     protected void onLoad() {
@@ -65,10 +68,13 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         skin_gv = (InnerGridView) view.findViewById(R.id.category_skin_gv);
         star_gv = (InnerGridView) view.findViewById(R.id.category_star_gv);
         springView = (SpringView) view.findViewById(R.id.category_springView);
+        view.findViewById(R.id.category_mask_normal).setOnClickListener(this);
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
         imageOptions = ImageLoaderUtils.initOptions();
+        skin_gv.setFocusable(false);
+        star_gv.setFocusable(false);
     }
 
     @Override
@@ -79,15 +85,10 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     @Override
     public void onResume() {
         super.onResume();
-        if (data != null) {
-            initData();
-        }
     }
 
     private void initData() {
         initSkinColor();
-        Gson gson = new Gson();
-        SortBean sortBean = gson.fromJson(data, SortBean.class);
 
         skin_gv.setAdapter(new com.zhy.adapter.abslistview.CommonAdapter<SortBean.DataBean.CategoryBean.ChildrenBean>(getActivity(), R.layout.category_skin_tv_item, sortBean.getData().getCategory().get(2).getChildren()) {
             @Override
@@ -131,9 +132,19 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         BaseData baseData = new BaseData() {
 
             @Override
-            protected void setResultData(String data) {
+            protected void setResultData(final String data) {
                 Category_Fragment.this.data = data;
                 Category_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        sortBean = gson.fromJson(data, SortBean.class);
+                        if (sortBean != null) {
+                            initData();
+                        }
+                    }
+                });
             }
 
             @Override
@@ -141,7 +152,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
 
             }
         };
-        baseData.getData(UrlUtils.SORT_URL, "", time, 0);
+        baseData.getData(UrlUtils.CATEGORY_URL, "", time, 0);
     }
 
     @Override
@@ -164,6 +175,16 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         super.onDestroyView();
         if (rootView != null) {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.category_mask_normal:
+                Intent intent = new Intent(getActivity(), SoatMaskActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }

@@ -24,6 +24,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.activity.DynamicActivity;
 import com.rui.yunifang.activity.AllGoodsActivity;
+import com.rui.yunifang.activity.GoodsActivity;
 import com.rui.yunifang.activity.MoreShopActivity;
 import com.rui.yunifang.R;
 import com.rui.yunifang.activity.SubjectActivity;
@@ -207,6 +208,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 TextView home_line_item_tv = holder.getView(R.id.home_line_item_tv);
                 ImageLoader.getInstance().displayImage(item.image, home_line_item_iv, options);
                 home_line_item_tv.setText(item.title);
+//                home_line_item_tv.setTextSize(CommonUtils.dip2px(13));
 //                //设置权重
 //                home_line_item.setLayoutParams(new LinearLayout.LayoutParams(0, 250, 1.0f));
 //                line_ad5.addView(home_line_item);
@@ -314,15 +316,17 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             @Override
             public void convert(ViewHolder holder, final HomeData.DataBean.SubjectsBean item) {
                 ImageView imageView = holder.getView(R.id.home_lv_item_iv);
+                ImageView more_iv = holder.getView(R.id.home_lv_item_more);
+                more_iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoSubject(item);
+                    }
+                });
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), SubjectActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("subject", item);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
+                        gotoSubject(item);
                     }
                 });
                 ImageLoader.getInstance().displayImage(item.image, imageView, options);
@@ -330,7 +334,16 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
                 home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                 home_lv_recy.addItemDecoration(new SpacesItemDecoration(8));//设置间距
-                home_lv_recy.setAdapter(new HomeLvRecyclerAdapter(getActivity(), item.goodsList));
+                HomeLvRecyclerAdapter recyclerAdapter = new HomeLvRecyclerAdapter(getActivity(), item.goodsList);
+                home_lv_recy.setAdapter(recyclerAdapter);
+                recyclerAdapter.setOnitemClickListener(new HomeLvRecyclerAdapter.OnitemClickListener() {
+                    @Override
+                    public void itemClickListener(int position) {
+                        Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("id", item.goodsList.get(position).id);
+                        startActivity(intent);
+                    }
+                });
 //                    LinearLayout home_lv_item_line = holder.getView(R.id.home_lv_item_line);
                 //initLvitem(home_lv_item_line, item);
             }
@@ -341,39 +354,13 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 //        }
     }
 
-    //ListView条目
-    private void initLvitem(LinearLayout linearLayout, final HomeData.DataBean.SubjectsBean subject) {
-        linearLayout.removeAllViews();
-        for (int i = 0; i < 6; i++) {
-            View hotweek_item = CommonUtils.inflate(R.layout.home_line_hotweek_item);
-            ImageView hotweek_iv = (ImageView) hotweek_item.findViewById(R.id.home_line_hot_week_iv);
-            TextView hotweek_title = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_title);
-            TextView hotweek_price = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_price);
-            TextView hotweek_oldprice = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_oldPrice);
-            ImageLoader.getInstance().displayImage(subject.goodsList.get(i).goods_img, hotweek_iv, options);
-            hotweek_title.setText(subject.goodsList.get(i).goods_name);
-            hotweek_price.setText("￥" + subject.goodsList.get(i).shop_price);
-            hotweek_oldprice.setText("￥" + subject.goodsList.get(i).market_price);
-            hotweek_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            hotweek_item.setLayoutParams(new LinearLayout.LayoutParams(300, 480, 1.0f));
-            linearLayout.addView(hotweek_item);
-        }
-        ImageView hotweek_right_iv = new ImageView(getActivity());
-        hotweek_right_iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MoreShopActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("subject", subject);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        hotweek_right_iv.setImageResource(R.mipmap.home_rank_list_more);
-        LinearLayout.LayoutParams hotweek_right_iv_params = new LinearLayout.LayoutParams(100, 100);
-        hotweek_right_iv_params.setMargins(20, 0, 20, 0);
-        hotweek_right_iv.setLayoutParams(hotweek_right_iv_params);
-        linearLayout.addView(hotweek_right_iv);
+    private void gotoSubject(HomeData.DataBean.SubjectsBean item) {
+        Intent intent = new Intent(getActivity(), SubjectActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("subject", item);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
     }
 
     //底部GridView
@@ -400,6 +387,14 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 //        } else {
 //            gvCommonAdapter.notifyDataSetChanged();
 //        }
+        home_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                intent.putExtra("id", homeData.data.defaultGoodsList.get(position).id);
+                startActivity(intent);
+            }
+        });
     }
 
     //跳转的方法
