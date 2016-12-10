@@ -75,6 +75,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         imageOptions = ImageLoaderUtils.initOptions();
         skin_gv.setFocusable(false);
         star_gv.setFocusable(false);
+
     }
 
     @Override
