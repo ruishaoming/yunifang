@@ -5,6 +5,6 @@
     android:layout_height="150px"
     android:gravity="center"
     android:orientation="vertical"
-    android:textColor="@color/colorWhite">
+    android:textColor="@drawable/soat_btn_color">
 
 </TextView>

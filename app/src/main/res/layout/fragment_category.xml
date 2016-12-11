@@ -43,6 +43,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/classify_facial_mask" />
 
                     <LinearLayout
@@ -57,15 +58,19 @@
                             android:layout_weight="1">
 
                             <ImageView
+                                android:id="@+id/category_emollient_water"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@mipmap/classify_emollient_water" />
 
                             <ImageView
+                                android:id="@+id/category_body_lotion"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@mipmap/classify_body_lotion" />
                         </LinearLayout>
 
@@ -75,22 +80,28 @@
                             android:layout_weight="1">
 
                             <ImageView
+                                android:id="@+id/category_facial_cleanser"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@mipmap/classify_facial_cleanser" />
 
                             <ImageView
+                                android:id="@+id/category_other"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@mipmap/classify_other" />
                         </LinearLayout>
 
                         <ImageView
+                            android:id="@+id/category_kit"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:scaleType="fitXY"
                             android:src="@mipmap/classify_kit" />
                     </LinearLayout>
                 </LinearLayout>
@@ -124,6 +135,7 @@
                         android:layout_marginTop="10px">
 
                         <ImageView
+                            android:id="@+id/category_hydrating"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="5px"
@@ -131,6 +143,7 @@
                             android:src="@mipmap/classify_hydrating" />
 
                         <ImageView
+                            android:id="@+id/category_soothing"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="5px"
@@ -138,6 +151,7 @@
                             android:src="@mipmap/classify_soothing" />
 
                         <ImageView
+                            android:id="@+id/category_control_oil"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="5px"
@@ -145,6 +159,7 @@
                             android:src="@mipmap/classify_control_oil" />
 
                         <ImageView
+                            android:id="@+id/category_whitening"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="5px"
@@ -152,6 +167,7 @@
                             android:src="@mipmap/classify_whitening" />
 
                         <ImageView
+                            android:id="@+id/category_firming"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="5px"
@@ -239,12 +255,14 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/category_allshop_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20px"
                     android:gravity="center_horizontal"
                     android:text="查看所有商品"
-                    android:textColor="@color/colorGray" />
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/shop_title" />
             </LinearLayout>
         </ScrollView>
     </com.liaoinstan.springview.widget.SpringView>

@@ -10,61 +10,18 @@
     <RadioGroup
         android:id="@+id/soatmask_rg"
         android:layout_width="match_parent"
-        android:layout_height="80px"
+        android:layout_height="100px"
         android:background="@color/colorWhite"
-        android:orientation="horizontal">
+        android:orientation="horizontal"></RadioGroup>
 
-        <RadioButton
-            android:id="@+id/soatmask_normal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/goods_radio_bg_button_select"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:padding="5px"
-            android:text="贴式面膜"
-            android:textColor="@color/colorTextMain"
-            android:textSize="@dimen/shop_price" />
-
-        <RadioButton
-            android:id="@+id/soatmask_sleep"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/goods_radio_bg_button_select"
-            android:button="@null"
-            android:drawableRight="@mipmap/good_list_arrows_above"
-            android:gravity="center"
-            android:padding="5px"
-            android:text="睡眠面膜"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/shop_price" />
-
-        <RadioButton
-            android:id="@+id/soatmask_mud"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/goods_radio_bg_button_select"
-            android:button="@null"
-            android:drawableRight="@mipmap/good_list_arrows_below"
-            android:gravity="center"
-            android:padding="5px"
-            android:text="泥浆面膜"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/shop_price" />
-    </RadioGroup>
-
-    <com.liaoinstan.springview.widget.SpringView
-        android:id="@+id/soatmask_springView"
+    <HorizontalScrollView
+        android:id="@+id/soatmask_hs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="100px"
+        android:scrollbars="none"></HorizontalScrollView>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/soatmask_vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
-    </com.liaoinstan.springview.widget.SpringView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/soatmask_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 </LinearLayout>

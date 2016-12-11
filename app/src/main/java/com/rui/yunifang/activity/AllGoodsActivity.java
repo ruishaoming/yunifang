@@ -61,7 +61,6 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        initGvData();
     }
 
     //初始化GridView
@@ -231,6 +230,12 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
             protected void setResultData(String data) {
                 Gson gson = new Gson();
                 goodsBean = gson.fromJson(data, AllGoodsBean.class);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initGvData();
+                    }
+                });
             }
 
             @Override

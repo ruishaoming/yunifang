@@ -3,14 +3,19 @@ package com.rui.yunifang.activity;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,36 +31,32 @@ import com.rui.yunifang.adapter.ViewHolder;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.MaskInfo;
+import com.rui.yunifang.bean.SortBean;
+import com.rui.yunifang.fragment.SoatMaskFragment;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.utils.UrlUtils;
-import com.rui.yunifang.view.InnerGridView;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClickListener, SpringView.OnFreshListener {
+public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClickListener {
 
-    public static final int SUCCESS = 0;
-    private MaskInfo maskInfo;
+    private static final String TAG = "TAG";
     private RadioGroup mask_rg;
     private SpringView springView;
-    private GridView maskGv;
     private String currentUrl;
     private DisplayImageOptions imageOptions;
-    private Handler hd = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == SUCCESS) {
-                initData();
-            }
-        }
-    };
     private ViewPager maskVp;
-    private ArrayList<String> listUrl;
     private CommonAdapter gv_adapter;
+    private GridView maskGv;
+    private TextView title;
+    private SortBean.DataBean.CategoryBean maskData;
+    private SortBean.DataBean.CategoryBean.ChildrenBean child;
+    private int getId;
+    private HorizontalScrollView horizontal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,54 +64,36 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         setContentView(R.layout.activity_soat_mask);
         getSupportActionBar().hide();
         initView();
-        getData(UrlUtils.SORT_URL + "9");
     }
 
-    private void getData(String url) {
-        currentUrl = url;
-        new BaseData() {
+    private void initData(final RadioGroup rg, final int size, final int id) {
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            protected void setResultData(String data) {
-                Gson gson = new Gson();
-                maskInfo = gson.fromJson(data, MaskInfo.class);
-                hd.obtainMessage(SUCCESS).sendToTarget();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    if (group.getChildAt(i).getId() == checkedId) {
+                        maskVp.setCurrentItem(i);
+                    }
+                }
             }
+        });
 
+        maskVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            protected void setFailData(String error_type) {
-
+            public Fragment getItem(int position) {
+                if (id == 0) {
+                    return SoatMaskFragment.getUrlData(maskData.children.get(position).id + "");
+                } else if (id == -1) {
+                    return SoatMaskFragment.getUrlData(maskData.children.get(position + 6).id + "");
+                } else {
+                    return SoatMaskFragment.getUrlData(id + "");
+                }
             }
-        }.getData(url, "", BaseData.LONG_TIME, 0);
-    }
-
-    private void initData() {
-        listUrl = new ArrayList<>();
-        listUrl.add(UrlUtils.SORT_URL + "9");
-        listUrl.add(UrlUtils.SORT_URL + "10");
-        listUrl.add(UrlUtils.SORT_URL + "23");
-        maskVp.setAdapter(new PagerAdapter() {
 
             @Override
             public int getCount() {
-                return listUrl.size();
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                maskGv = (GridView) CommonUtils.inflate(R.layout.mask_lv);
-                getData(listUrl.get(0));
-                container.addView(maskGv);
-                return maskGv;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View) object);
+                return size;
             }
         });
 
@@ -122,33 +105,11 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
 
             @Override
             public void onPageSelected(int position) {
-                for (int i = 0; i < mask_rg.getChildCount(); i++) {
-                    RadioButton rb = (RadioButton) mask_rg.getChildAt(i);
+                for (int i = 0; i < rg.getChildCount(); i++) {
+                    RadioButton rb = (RadioButton) rg.getChildAt(i);
                     if (i == position) {
                         rb.setChecked(true);
                         rb.setTextColor(getResources().getColor(R.color.colorTextMain));
-                        getData(listUrl.get(position));
-                        if (gv_adapter == null) {
-                            gv_adapter = new CommonAdapter<MaskInfo.DataBean>(SoatMaskActivity.this, maskInfo.data, R.layout.home_gv_item) {
-                                @Override
-                                public void convert(ViewHolder holder, MaskInfo.DataBean item) {
-                                    ImageView image = holder.getView(R.id.home_gv_item_iv);
-                                    TextView title = holder.getView(R.id.home_gv_item_tv_title);
-                                    TextView des = holder.getView(R.id.home_gv_item_tv_des);
-                                    TextView price = holder.getView(R.id.home_gv_item_tv_price);
-                                    TextView oldprice = holder.getView(R.id.home_gv_item_tv_oldPrice);
-                                    ImageLoader.getInstance().displayImage(item.goods_img, image, imageOptions);
-                                    title.setText(item.goods_name);
-                                    des.setText(item.efficacy);
-                                    price.setText("￥" + item.shop_price);
-                                    oldprice.setText("￥" + item.market_price);
-                                    oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                                }
-                            };
-                            maskGv.setAdapter(gv_adapter);
-                        } else {
-                            gv_adapter.notifyDataSetChanged();
-                        }
                     } else {
                         rb.setChecked(false);
                         rb.setTextColor(getResources().getColor(R.color.colorTextBlack));
@@ -161,52 +122,105 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
 
             }
         });
+
     }
 
     private void initView() {
         findViewById(R.id.title_back_iv).setOnClickListener(this);
-        TextView title = (TextView) findViewById(R.id.title_center_tv);
+        title = (TextView) findViewById(R.id.title_center_tv);
         title.setText("面膜");
         findViewById(R.id.title_right_tv).setVisibility(View.INVISIBLE);
         mask_rg = (RadioGroup) findViewById(R.id.soatmask_rg);
-        springView = (SpringView) findViewById(R.id.soatmask_springView);
         maskVp = (ViewPager) findViewById(R.id.soatmask_vp);
-        springView.setFocusable(false);
-        springView.setHeader(new DefaultHeader(this));
-        springView.setFooter(new DefaultFooter(this));
-        springView.setListener(this);
-        springView.setType(SpringView.Type.FOLLOW);
+        horizontal = (HorizontalScrollView) findViewById(R.id.soatmask_hs);
+
+        maskData = (SortBean.DataBean.CategoryBean) getIntent().getSerializableExtra("mask");
+        child = (SortBean.DataBean.CategoryBean.ChildrenBean) getIntent().getSerializableExtra("child");
+        getId = getIntent().getIntExtra("id", -1);
+        if (maskData.cat_name.equals("按功效")) {
+            virtueMask();
+        } else if (maskData.cat_name.equals("按属性")) {
+            natureMask();
+        } else if (maskData.cat_name.equals("按肤质")) {
+            skinMask();
+        }
+
         imageOptions = ImageLoaderUtils.initOptions();
-        mask_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                for (int i = 0; i < group.getChildCount(); i++) {
-                    RadioButton radioButton = (RadioButton) group.getChildAt(i);
-                    if (radioButton.getId() == checkedId) {
-                        maskVp.setCurrentItem(i);
-                    }
-                }
+    }
+
+    //肤质
+    private void skinMask() {
+        horizontal.setVisibility(View.VISIBLE);
+        mask_rg.setVisibility(View.GONE);
+        title.setText(maskData.cat_name);
+        RadioGroup hotiRadioGroup = new RadioGroup(this);
+        hotiRadioGroup.setOrientation(RadioGroup.HORIZONTAL);
+        for (int i = 0; i < maskData.children.size(); i++) {
+            RadioButton radioButton = initRadipButton(0, i);
+            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(0, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
+            hotiRadioGroup.addView(radioButton, params);
+        }
+        horizontal.addView(hotiRadioGroup);
+        initData(hotiRadioGroup, maskData.children.size(), 0);
+        maskVp.setCurrentItem(getId);
+    }
+
+    //初始化RadioButton
+    public RadioButton initRadipButton(int selectId, int i) {
+        RadioButton radioButton = (RadioButton) CommonUtils.inflate(R.layout.radiobutton_layout);
+        radioButton.setText(maskData.children.get(i).cat_name);
+        if (i == selectId) {
+            radioButton.setChecked(true);
+            radioButton.setTextColor(getResources().getColor(R.color.colorTextMain));
+        } else {
+            radioButton.setChecked(false);
+            radioButton.setTextColor(getResources().getColor(R.color.colorTextBlack));
+        }
+        return radioButton;
+    }
+
+    //属性
+    private void natureMask() {
+        horizontal.setVisibility(View.GONE);
+        if (getId == 0) {
+            title.setText("面膜");
+            mask_rg.setVisibility(View.VISIBLE);
+            for (int i = 6; i < maskData.children.size(); i++) {
+                RadioButton radioButton = initRadipButton(6, i);
+                RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(0, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
+                mask_rg.addView(radioButton, params);
             }
-        });
+            initData(mask_rg, 3, -1);
+        } else {
+            title.setText(child.cat_name);
+            mask_rg.setVisibility(View.GONE);
+            initData(mask_rg, 1, Integer.parseInt(child.id));
+        }
+
+    }
+
+    //功效
+    private void virtueMask() {
+        horizontal.setVisibility(View.GONE);
+        mask_rg.setVisibility(View.VISIBLE);
+        title.setText(maskData.cat_name);
+        mask_rg.removeAllViews();
+        for (int i = 0; i < maskData.children.size(); i++) {
+            RadioButton radioButton = initRadipButton(0, i);
+            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(0, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
+            mask_rg.addView(radioButton, params);
+        }
+        initData(mask_rg, maskData.children.size(), 0);
+        maskVp.setCurrentItem(getId);
     }
 
     @Override
     public void onClick(View v) {
-        stopLoad();
+        switch (v.getId()) {
+            case R.id.title_back_iv:
+                CommonUtils.finishActivity(SoatMaskActivity.this);
+                break;
+        }
     }
 
-    @Override
-    public void onRefresh() {
-        getData(currentUrl);
-        stopLoad();
-    }
-
-    public void stopLoad() {
-        springView.scrollTo(0, 0);
-    }
-
-    @Override
-    public void onLoadmore() {
-
-    }
 }

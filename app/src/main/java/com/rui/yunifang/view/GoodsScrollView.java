@@ -85,5 +85,4 @@ public class GoodsScrollView extends ScrollView {
          */
         public void onScroll(int scrollY);
     }
-
 }

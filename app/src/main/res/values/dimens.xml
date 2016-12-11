@@ -2,9 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="common_text">24px</dimen>
-    <dimen name="shop_title">25px</dimen>
-    <dimen name="shop_price">25px</dimen>
-    <dimen name="title">27px</dimen>
-    <dimen name="goods_price">30px</dimen>
+    <dimen name="common_text">34px</dimen>
+    <dimen name="shop_title">35px</dimen>
+    <dimen name="shop_price">35px</dimen>
+    <dimen name="title">37px</dimen>
+    <dimen name="goods_price">40px</dimen>
 </resources>

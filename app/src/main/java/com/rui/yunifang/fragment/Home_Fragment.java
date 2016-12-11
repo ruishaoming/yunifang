@@ -119,7 +119,15 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                     Home_Fragment.this.data = data;
                     Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
                 }
-
+                options = ImageLoaderUtils.initOptions();
+                Gson gson = new Gson();
+                homeData = gson.fromJson(data, HomeData.class);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initViewData();
+                    }
+                });
             }
 
             @Override
@@ -136,24 +144,8 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             springView.scrollTo(0, 0);
         if (homeData != null)
             home_lv.setFocusable(false);
-        initData(data);
     }
 
-    /**
-     * 数据解析
-     *
-     * @param data
-     */
-    private void initData(String data) {
-        options = ImageLoaderUtils.initOptions();
-        Gson gson = new Gson();
-        homeData = gson.fromJson(data, HomeData.class);
-
-        //动态初始化布局
-        if (homeData != null) {
-            initViewData();
-        }
-    }
 
     private void initViewData() {
 
@@ -309,7 +301,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         yh_vp.setCurrentItem(100 * homeData.data.activityInfo.activityInfoList.size());
     }
 
-    //ListView（大图 + HorizontalScrollView）
+    //ListView（大图 + RecyclerView）
     private void initLvData() {
 //        if (lvCommonAdapter == null) {
         lvCommonAdapter = new CommonAdapter<HomeData.DataBean.SubjectsBean>(getActivity(), homeData.data.subjects, R.layout.home_lv_item) {

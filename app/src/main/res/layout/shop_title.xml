@@ -9,7 +9,7 @@
         android:layout_width="40px"
         android:layout_height="40px"
         android:layout_gravity="center_vertical"
-        android:src="@mipmap/back_normal" />
+        android:src="@drawable/back_iv" />
 
     <TextView
         android:id="@+id/shop_title_tv"

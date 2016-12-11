@@ -123,7 +123,7 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
         popWindow = new PopupWindow(view,
-                WindowManager.LayoutParams.MATCH_PARENT, 280);
+                WindowManager.LayoutParams.MATCH_PARENT, 350);
 
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
         popWindow.setFocusable(true);

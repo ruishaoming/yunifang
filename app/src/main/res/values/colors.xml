@@ -6,6 +6,7 @@
     <color name="colorTextMain">#FC6B87</color>
     <color name="colorTextBlue">#96D9F8</color>
     <color name="colorTextBlack">#535050</color>
+    <color name="colorClickBg">#c1bcbc</color>
     <color name="colorGray">#848181</color>
     <color name="colortvGray">#666666</color>
     <color name="colorWhite">#fff</color>

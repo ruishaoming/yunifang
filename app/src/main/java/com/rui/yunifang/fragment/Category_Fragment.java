@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
+import com.rui.yunifang.activity.AllGoodsActivity;
+import com.rui.yunifang.activity.GoodsActivity;
 import com.rui.yunifang.activity.SoatMaskActivity;
 import com.rui.yunifang.adapter.ViewHolder;
 import com.rui.yunifang.base.BaseData;
@@ -41,11 +44,11 @@ import java.util.ArrayList;
  */
 public class Category_Fragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
+    private static final String TAG = "TAG";
     private InnerGridView skin_gv;
     private String data;
     private ArrayList<Integer> colorSkinArray = new ArrayList<>();
     private InnerGridView star_gv;
-    private DisplayImageOptions imageOptions;
     private SpringView springView;
     private View rootView;
     private SortBean sortBean;
@@ -69,10 +72,20 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         star_gv = (InnerGridView) view.findViewById(R.id.category_star_gv);
         springView = (SpringView) view.findViewById(R.id.category_springView);
         view.findViewById(R.id.category_mask_normal).setOnClickListener(this);
+        view.findViewById(R.id.category_emollient_water).setOnClickListener(this);
+        view.findViewById(R.id.category_body_lotion).setOnClickListener(this);
+        view.findViewById(R.id.category_facial_cleanser).setOnClickListener(this);
+        view.findViewById(R.id.category_other).setOnClickListener(this);
+        view.findViewById(R.id.category_kit).setOnClickListener(this);
+        view.findViewById(R.id.category_hydrating).setOnClickListener(this);
+        view.findViewById(R.id.category_soothing).setOnClickListener(this);
+        view.findViewById(R.id.category_control_oil).setOnClickListener(this);
+        view.findViewById(R.id.category_whitening).setOnClickListener(this);
+        view.findViewById(R.id.category_firming).setOnClickListener(this);
+        view.findViewById(R.id.category_allshop_tv).setOnClickListener(this);
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
-        imageOptions = ImageLoaderUtils.initOptions();
         skin_gv.setFocusable(false);
         star_gv.setFocusable(false);
 
@@ -91,16 +104,21 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     private void initData() {
         initSkinColor();
 
-        skin_gv.setAdapter(new com.zhy.adapter.abslistview.CommonAdapter<SortBean.DataBean.CategoryBean.ChildrenBean>(getActivity(), R.layout.category_skin_tv_item, sortBean.getData().getCategory().get(2).getChildren()) {
+        skin_gv.setAdapter(new com.zhy.adapter.abslistview.CommonAdapter<SortBean.DataBean.CategoryBean.ChildrenBean>(getActivity(), R.layout.category_skin_tv_item, sortBean.data.category.get(2).children) {
             @Override
             protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, SortBean.DataBean.CategoryBean.ChildrenBean item, int position) {
                 TextView textView = viewHolder.getView(R.id.category_skin_tv);
-                textView.setText("#" + item.getCat_name() + "#");
+                textView.setText("#" + item.cat_name + "#");
                 textView.setBackgroundColor(colorSkinArray.get(position));
             }
         });
-
-        star_gv.setAdapter(new com.zhy.adapter.abslistview.CommonAdapter<SortBean.DataBean.GoodsBriefBean>(getActivity(), R.layout.home_gv_item, sortBean.getData().getGoodsBrief()) {
+        skin_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                enterActivity(sortBean.data.category.get(2), null, position);
+            }
+        });
+        star_gv.setAdapter(new com.zhy.adapter.abslistview.CommonAdapter<SortBean.DataBean.GoodsBriefBean>(getActivity(), R.layout.home_gv_item, sortBean.data.goodsBrief) {
             @Override
             protected void convert(com.zhy.adapter.abslistview.ViewHolder holder, SortBean.DataBean.GoodsBriefBean item, int position) {
                 ImageView image = holder.getView(R.id.home_gv_item_iv);
@@ -108,12 +126,20 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
                 TextView des = holder.getView(R.id.home_gv_item_tv_des);
                 TextView price = holder.getView(R.id.home_gv_item_tv_price);
                 TextView oldprice = holder.getView(R.id.home_gv_item_tv_oldPrice);
-                ImageLoader.getInstance().displayImage(item.getGoods_img(), image, imageOptions);
-                title.setText(item.getEfficacy());
-                des.setText(item.getGoods_name());
-                price.setText("￥" + item.getShop_price());
-                oldprice.setText("￥" + item.getMarket_price());
+                ImageLoader.getInstance().displayImage(item.goods_img, image);
+                title.setText(item.efficacy);
+                des.setText(item.goods_name);
+                price.setText("￥" + item.shop_price);
+                oldprice.setText("￥" + item.market_price);
                 oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+        });
+        star_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                intent.putExtra("id", sortBean.data.goodsBrief.get(position).id);
+                startActivity(intent);
             }
         });
     }
@@ -163,7 +189,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     }
 
     public void stopLoad() {
-        springView.scrollTo(0, 0);
+        springView.onFinishFreshAndLoad();
     }
 
     @Override
@@ -182,10 +208,58 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //属性
             case R.id.category_mask_normal:
-                Intent intent = new Intent(getActivity(), SoatMaskActivity.class);
-                startActivity(intent);
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(0), 0);
                 break;
+            case R.id.category_kit:
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(5), 33);
+                break;
+            case R.id.category_emollient_water:
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(1), 39);
+                break;
+            case R.id.category_body_lotion:
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(2), 40);
+                break;
+            case R.id.category_facial_cleanser:
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(3), 24);
+                break;
+            case R.id.category_other:
+                enterActivity(sortBean.data.category.get(1), sortBean.data.category.get(1).children.get(4), 35);
+                break;
+
+            //按功效
+            case R.id.category_hydrating:
+                enterActivity(sortBean.data.category.get(0), null, 0);
+                break;
+            case R.id.category_soothing:
+                enterActivity(sortBean.data.category.get(0), null, 1);
+                break;
+            case R.id.category_control_oil:
+                enterActivity(sortBean.data.category.get(0), null, 2);
+                break;
+            case R.id.category_whitening:
+                enterActivity(sortBean.data.category.get(0), null, 3);
+                break;
+            case R.id.category_firming:
+                enterActivity(sortBean.data.category.get(0), null, 4);
+                break;
+
+            //查询所有商品
+            case R.id.category_allshop_tv:
+                CommonUtils.startActivity(getActivity(), AllGoodsActivity.class);
+                break;
+
         }
+    }
+
+    private void enterActivity(SortBean.DataBean.CategoryBean bean, SortBean.DataBean.CategoryBean.ChildrenBean child, int id) {
+        Intent intent = new Intent(getActivity(), SoatMaskActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("mask", bean);
+        bundle.putSerializable("child", child);
+        intent.putExtras(bundle);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }

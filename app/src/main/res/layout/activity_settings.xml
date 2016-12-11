@@ -14,9 +14,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/settings_tv_notice"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/click_bg"
             android:drawableRight="@mipmap/mine_vip_arrows_right"
             android:gravity="center_vertical"
             android:padding="20px"
@@ -25,9 +27,11 @@
             android:textSize="@dimen/common_text" />
 
         <TextView
+            android:id="@+id/settings_tv_idea"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/click_bg"
             android:drawableRight="@mipmap/mine_vip_arrows_right"
             android:gravity="center_vertical"
             android:padding="20px"
@@ -36,9 +40,11 @@
             android:textSize="@dimen/common_text" />
 
         <LinearLayout
+            android:id="@+id/settings_tv_clearCache"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/click_bg">
 
             <TextView
                 android:layout_width="0dp"
@@ -51,6 +57,7 @@
                 android:textSize="@dimen/common_text" />
 
             <TextView
+                android:id="@+id/settings_tv_cacheSize"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
@@ -64,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/click_bg"
             android:drawableRight="@mipmap/mine_vip_arrows_right">
 
             <TextView
@@ -86,9 +94,11 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/settings_line_call"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/click_bg">
 
             <TextView
                 android:layout_width="0dp"
@@ -101,6 +111,7 @@
                 android:textSize="@dimen/common_text" />
 
             <TextView
+                android:id="@+id/settings_tv_number"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
@@ -111,9 +122,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/settings_line_update"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/click_bg">
 
             <TextView
                 android:layout_width="0dp"

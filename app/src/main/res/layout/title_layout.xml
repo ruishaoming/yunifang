@@ -9,7 +9,7 @@
         android:layout_width="40px"
         android:layout_height="30px"
         android:layout_centerVertical="true"
-        android:src="@mipmap/back_normal"></ImageView>
+        android:src="@drawable/back_iv"></ImageView>
 
     <TextView
         android:id="@+id/title_center_tv"

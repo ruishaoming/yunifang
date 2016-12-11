@@ -1,15 +1,27 @@
 package com.rui.yunifang.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rui.yunifang.R;
 import com.rui.yunifang.utils.CommonUtils;
+import com.rui.yunifang.utils.DataClearManager;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.io.File;
+
 public class SettingsActivity extends AutoLayoutActivity implements View.OnClickListener {
+
+    private LinearLayout line_clearCache;
+    private TextView tv_cacheSize;
+    private String cacheSize;
+    private TextView tv_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +36,64 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
         title.setText("设置");
         findViewById(R.id.title_right_tv).setVisibility(View.GONE);
         findViewById(R.id.title_back_iv).setOnClickListener(this);
+        line_clearCache = (LinearLayout) findViewById(R.id.settings_tv_clearCache);
+        tv_cacheSize = (TextView) findViewById(R.id.settings_tv_cacheSize);
+        findViewById(R.id.settings_tv_notice).setOnClickListener(this);
+        findViewById(R.id.settings_tv_idea).setOnClickListener(this);
+        findViewById(R.id.settings_tv_about_us).setOnClickListener(this);
+        findViewById(R.id.settings_line_call).setOnClickListener(this);
+        tv_number = (TextView) findViewById(R.id.settings_tv_number);
+        findViewById(R.id.settings_line_update).setOnClickListener(this);
+        line_clearCache.setOnClickListener(this);
+        getCacheSize();
+    }
+
+    private void getCacheSize() {
+        File cacheDir = getCacheDir();
+        try {
+            cacheSize = DataClearManager.getCacheSize(cacheDir);
+            tv_cacheSize.setText(cacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_back_iv:
+                CommonUtils.finishActivity(SettingsActivity.this);
+                break;
+            case R.id.settings_tv_clearCache:
+                Toast.makeText(SettingsActivity.this, "clear", Toast.LENGTH_SHORT).show();
+                DataClearManager.cleanApplicationData(this);
+                getCacheSize();
+                break;
+            //购物须知
+            case R.id.settings_tv_notice:
+                CommonUtils.finishActivity(SettingsActivity.this);
+                break;
+            //意见反馈
+            case R.id.settings_tv_idea:
+                CommonUtils.finishActivity(SettingsActivity.this);
+                break;
+            //关于我们
+            case R.id.settings_tv_about_us:
+                CommonUtils.finishActivity(SettingsActivity.this);
+                break;
+            //拨打电话
+            case R.id.settings_line_call:
+                String number = tv_number.getText().toString().trim();
+                if (TextUtils.isEmpty(number)) {
+                    Toast.makeText(SettingsActivity.this, "号码有误！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+                break;
+            //版本更新
+            case R.id.settings_line_update:
                 CommonUtils.finishActivity(SettingsActivity.this);
                 break;
         }
