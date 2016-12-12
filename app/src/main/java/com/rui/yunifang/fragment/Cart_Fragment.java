@@ -33,10 +33,10 @@ public class Cart_Fragment extends BaseFragment {
 
             @Override
             protected void setFailData(String error_type) {
-                Toast.makeText(getActivity(), "数据请求失败--" + error_type, Toast.LENGTH_SHORT).show();
+                
             }
         };
-        baseData.getData(UrlUtils.HOME_URl, "",BaseData.SHORT_TIME, 0);
+        baseData.getData(UrlUtils.HOME_URl, "",BaseData.SHORT_TIME, 0,false);
 
     }
 

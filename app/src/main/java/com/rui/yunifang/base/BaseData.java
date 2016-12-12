@@ -37,14 +37,14 @@ public abstract class BaseData {
         }
     }
 
-    public void getData(String path, String args, int time, int index) {
+    public void getData(String path, String args, int time, int index,boolean joinCache) {
         if (time == 0) {
-            getDataFromNet(path, args, time, index);
+            getDataFromNet(path, args, time, index,joinCache);
         } else {
             String data = getDataFromLocal(path, args, time, index);
             if (TextUtils.isEmpty(data)) {
                 //如果本地没有数据，则请求网络
-                getDataFromNet(path, args, time, index);
+                getDataFromNet(path, args, time, index,joinCache);
             } else {
                 //将本地获取到的数据返回
                 setResultData(data);
@@ -69,7 +69,7 @@ public abstract class BaseData {
      * @param time
      * @param index
      */
-    private void getDataFromNet(final String path, String args, int time, int index) {
+    private void getDataFromNet(final String path, String args, int time, int index, final boolean joinCache) {
         //创建okHttpClient对象
         OkHttpClient mOkHttpClient = new OkHttpClient();
         //创建一个Request
@@ -94,12 +94,14 @@ public abstract class BaseData {
                     setFailData("网络异常");
                 } else {
                     setResultData(data);//将数据作返回
-                    CommonUtils.executeRunnalbe(new Runnable() {
-                        @Override
-                        public void run() {
-                            saveDataToLocal(path, data);//将数据存入本地
-                        }
-                    });
+                    if (joinCache) {
+                        CommonUtils.executeRunnalbe(new Runnable() {
+                            @Override
+                            public void run() {
+                                saveDataToLocal(path, data);//将数据存入本地
+                            }
+                        });
+                    }
                 }
             }
         });

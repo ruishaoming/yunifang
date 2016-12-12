@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="450px"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/goods_pop_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="450px"
+        android:layout_marginTop="25px"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:paddingLeft="20px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/goods_pop_icon"
+                android:layout_width="200px"
+                android:layout_height="match_parent"
+                android:padding="10px"
+                android:src="@drawable/default_1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="10px">
+
+                <TextView
+                    android:id="@+id/goods_pop_price_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="135153"
+                    android:textColor="@color/colorTextMain"
+                    android:textSize="@dimen/common_text" />
+
+                <TextView
+                    android:id="@+id/goods_pop_savenum_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="135153"
+                    android:textColor="@color/colortvGray"
+                    android:textSize="@dimen/common_text" />
+
+                <TextView
+                    android:id="@+id/goods_pop_limit_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="135153"
+                    android:textColor="@color/colortvGray"
+                    android:textSize="@dimen/common_text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="购买数量"
+                android:textColor="@color/colortvGray" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="90px"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/share_square"
+                android:gravity="center_vertical"
+                android:padding="10px">
+
+                <ImageButton
+                    android:id="@+id/goods_pop_ib_reduce"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:src="@mipmap/reduce_unable" />
+
+                <TextView
+                    android:id="@+id/goods_pop_num_tv"
+                    android:paddingLeft="10px"
+                    android:paddingRight="10px"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/share_square"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/title"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/goods_pop_ib_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:src="@mipmap/add_able" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/goods_pop_btn"
+                android:layout_width="250px"
+                android:layout_height="80px"
+                android:background="@color/colorTextMain"
+                android:text="确定"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/goods_pop_close"
+        android:layout_width="70px"
+        android:layout_height="70px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30px"
+        android:background="@drawable/pop_close_iv"
+        android:padding="7px"
+        android:src="@mipmap/dialog_close" />
+
+</RelativeLayout>

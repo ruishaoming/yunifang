@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.rui.yunifang.R;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.utils.CommonUtils;
+import com.rui.yunifang.utils.NetUtils;
 import com.rui.yunifang.utils.UrlUtils;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -80,23 +81,27 @@ public class LaunchActivity extends AutoLayoutActivity implements View.OnClickLi
      * 初始化主界面的数据
      */
     private void initMainData() {
+        int netWorkType = NetUtils.getNetWorkType(CommonUtils.getContext());
+        if (netWorkType != NetUtils.NETWORKTYPE_INVALID) {
+            CommonUtils.executeRunnalbe(new Runnable() {
+                @Override
+                public void run() {
+                    BaseData baseData = new BaseData() {
+                        @Override
+                        protected void setResultData(String data) {
 
-        CommonUtils.executeRunnalbe(new Runnable() {
-            @Override
-            public void run() {
-                new BaseData() {
-                    @Override
-                    protected void setResultData(String data) {
+                        }
 
-                    }
+                        @Override
+                        protected void setFailData(String error_type) {
 
-                    @Override
-                    protected void setFailData(String error_type) {
-
-                    }
-                }.getData(UrlUtils.HOME_URl, "", BaseData.NO_TIME, 0);
-            }
-        });
+                        }
+                    };
+                    baseData.getData(UrlUtils.HOME_URl, "", BaseData.NO_TIME, 0, true);
+                    baseData.getData(UrlUtils.CATEGORY_URL, "", BaseData.NO_TIME, 0, true);
+                }
+            });
+        }
     }
 
     @Override

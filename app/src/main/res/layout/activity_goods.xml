@@ -290,6 +290,7 @@
             android:textSize="@dimen/shop_title" />
 
         <TextView
+            android:id="@+id/goods_joinCar_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -304,6 +305,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#8f00"
+            android:id="@+id/goods_buy_tv"
             android:gravity="center"
             android:text="立即购买"
             android:textColor="@color/colorWhite"

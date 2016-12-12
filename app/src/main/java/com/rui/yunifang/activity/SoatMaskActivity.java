@@ -46,12 +46,7 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
 
     private static final String TAG = "TAG";
     private RadioGroup mask_rg;
-    private SpringView springView;
-    private String currentUrl;
-    private DisplayImageOptions imageOptions;
     private ViewPager maskVp;
-    private CommonAdapter gv_adapter;
-    private GridView maskGv;
     private TextView title;
     private SortBean.DataBean.CategoryBean maskData;
     private SortBean.DataBean.CategoryBean.ChildrenBean child;
@@ -66,7 +61,36 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         initView();
     }
 
-    private void initData(final RadioGroup rg, final int size, final int id) {
+    //初始化控件
+    private void initView() {
+        findViewById(R.id.title_back_iv).setOnClickListener(this);
+        title = (TextView) findViewById(R.id.title_center_tv);
+        title.setText("面膜");
+        findViewById(R.id.title_right_tv).setVisibility(View.INVISIBLE);
+        mask_rg = (RadioGroup) findViewById(R.id.soatmask_rg);
+        maskVp = (ViewPager) findViewById(R.id.soatmask_vp);
+        horizontal = (HorizontalScrollView) findViewById(R.id.soatmask_hs);
+
+        maskData = (SortBean.DataBean.CategoryBean) getIntent().getSerializableExtra("mask");
+        child = (SortBean.DataBean.CategoryBean.ChildrenBean) getIntent().getSerializableExtra("child");
+        getId = getIntent().getIntExtra("id", -1);
+        //按类型划分，显示不同的界面
+        if (maskData.cat_name.equals("按功效")) {
+            virtueMask();
+        } else if (maskData.cat_name.equals("按属性")) {
+            natureMask();
+        } else if (maskData.cat_name.equals("按肤质")) {
+            skinMask();
+        }
+    }
+
+    /**
+     *
+     * @param rg 设置需要加载的RadioGroup
+     * @param size 设置ViewPager中Fragment的个数
+     * @param typeId 判断当前传入的条目的类型
+     */
+    private void initData(final RadioGroup rg, final int size, final int typeId) {
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -82,12 +106,12 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         maskVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if (id == 0) {
+                if (typeId == 0) {
                     return SoatMaskFragment.getUrlData(maskData.children.get(position).id + "");
-                } else if (id == -1) {
+                } else if (typeId == -1) {
                     return SoatMaskFragment.getUrlData(maskData.children.get(position + 6).id + "");
                 } else {
-                    return SoatMaskFragment.getUrlData(id + "");
+                    return SoatMaskFragment.getUrlData(typeId + "");
                 }
             }
 
@@ -125,29 +149,6 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
 
     }
 
-    private void initView() {
-        findViewById(R.id.title_back_iv).setOnClickListener(this);
-        title = (TextView) findViewById(R.id.title_center_tv);
-        title.setText("面膜");
-        findViewById(R.id.title_right_tv).setVisibility(View.INVISIBLE);
-        mask_rg = (RadioGroup) findViewById(R.id.soatmask_rg);
-        maskVp = (ViewPager) findViewById(R.id.soatmask_vp);
-        horizontal = (HorizontalScrollView) findViewById(R.id.soatmask_hs);
-
-        maskData = (SortBean.DataBean.CategoryBean) getIntent().getSerializableExtra("mask");
-        child = (SortBean.DataBean.CategoryBean.ChildrenBean) getIntent().getSerializableExtra("child");
-        getId = getIntent().getIntExtra("id", -1);
-        if (maskData.cat_name.equals("按功效")) {
-            virtueMask();
-        } else if (maskData.cat_name.equals("按属性")) {
-            natureMask();
-        } else if (maskData.cat_name.equals("按肤质")) {
-            skinMask();
-        }
-
-        imageOptions = ImageLoaderUtils.initOptions();
-    }
-
     //肤质
     private void skinMask() {
         horizontal.setVisibility(View.VISIBLE);
@@ -160,23 +161,9 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
             RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(0, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
             hotiRadioGroup.addView(radioButton, params);
         }
-        horizontal.addView(hotiRadioGroup);
+        horizontal.addView(hotiRadioGroup,new RadioGroup.LayoutParams(1000,RadioGroup.LayoutParams.MATCH_PARENT));
         initData(hotiRadioGroup, maskData.children.size(), 0);
         maskVp.setCurrentItem(getId);
-    }
-
-    //初始化RadioButton
-    public RadioButton initRadipButton(int selectId, int i) {
-        RadioButton radioButton = (RadioButton) CommonUtils.inflate(R.layout.radiobutton_layout);
-        radioButton.setText(maskData.children.get(i).cat_name);
-        if (i == selectId) {
-            radioButton.setChecked(true);
-            radioButton.setTextColor(getResources().getColor(R.color.colorTextMain));
-        } else {
-            radioButton.setChecked(false);
-            radioButton.setTextColor(getResources().getColor(R.color.colorTextBlack));
-        }
-        return radioButton;
     }
 
     //属性
@@ -196,7 +183,6 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
             mask_rg.setVisibility(View.GONE);
             initData(mask_rg, 1, Integer.parseInt(child.id));
         }
-
     }
 
     //功效
@@ -212,6 +198,20 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         }
         initData(mask_rg, maskData.children.size(), 0);
         maskVp.setCurrentItem(getId);
+    }
+
+    //初始化RadioButton
+    public RadioButton initRadipButton(int selectId, int i) {
+        RadioButton radioButton = (RadioButton) CommonUtils.inflate(R.layout.radiobutton_layout);
+        radioButton.setText(maskData.children.get(i).cat_name);
+        if (i == selectId) {
+            radioButton.setChecked(true);
+            radioButton.setTextColor(getResources().getColor(R.color.colorTextMain));
+        } else {
+            radioButton.setChecked(false);
+            radioButton.setTextColor(getResources().getColor(R.color.colorTextBlack));
+        }
+        return radioButton;
     }
 
     @Override

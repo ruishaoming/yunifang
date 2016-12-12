@@ -117,9 +117,9 @@ public class RootViewPager extends ViewPager {
         public Object instantiateItem(ViewGroup container, int position) {
             this.position = position;
             ImageView imageView = new ImageView(getContext());
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             ImageLoader.getInstance().displayImage(imageList.get(position % imageList.size()), imageView, imageOptions);
             container.addView(imageView,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnTouchListener(this);
             return imageView;
         }

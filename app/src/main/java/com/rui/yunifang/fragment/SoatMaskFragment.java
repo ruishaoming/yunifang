@@ -42,7 +42,7 @@ public class SoatMaskFragment extends BaseFragment implements SpringView.OnFresh
     private static final String TAG = "TAG";
     private GridView maskGv;
     private CommonAdapter gv_adapter;
-    private String getUrl;
+    private String getUrlId;
     private String currentUrl;
     private SpringView springView;
     private Handler hd = new Handler() {
@@ -61,8 +61,9 @@ public class SoatMaskFragment extends BaseFragment implements SpringView.OnFresh
         SoatMaskFragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
     }
 
-    private void getData(String url, int time) {
-        currentUrl = url;
+    //请求数据
+    private void getData(String urlId, int time) {
+        currentUrl = urlId;
         new BaseData() {
             @Override
             protected void setResultData(String data) {
@@ -75,7 +76,7 @@ public class SoatMaskFragment extends BaseFragment implements SpringView.OnFresh
             protected void setFailData(String error_type) {
 
             }
-        }.getData(UrlUtils.SORT_URL+url, "", time, 0);
+        }.getData(UrlUtils.SORT_URL + urlId, "", time, 0, false);
     }
 
     @Override
@@ -87,8 +88,9 @@ public class SoatMaskFragment extends BaseFragment implements SpringView.OnFresh
         springView.setFooter(new DefaultFooter(getActivity()));
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);
-        getUrl = getArguments().getString("url");
-        getData(getUrl, BaseData.LONG_TIME);
+        //获取需要拼接的urlId
+        getUrlId = getArguments().getString("urlId");
+        getData(getUrlId, BaseData.NO_TIME);
         return rootView;
     }
 
@@ -122,10 +124,12 @@ public class SoatMaskFragment extends BaseFragment implements SpringView.OnFresh
         });
     }
 
-    public static Fragment getUrlData(String url) {
+    //对外提供一个加载自己的方法
+    public static Fragment getUrlData(String urlId) {
         SoatMaskFragment fragment = new SoatMaskFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("url", url);
+        //根据URLId的不同，获取不同的数据
+        bundle.putString("urlId", urlId);
         fragment.setArguments(bundle);
         return fragment;
     }

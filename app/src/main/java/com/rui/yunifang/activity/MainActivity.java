@@ -29,7 +29,7 @@ public class MainActivity extends AutoLayoutActivity {
         getSupportActionBar().hide();
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
-        vp.setOffscreenPageLimit(3);
+//        vp.setOffscreenPageLimit(3);
 
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -57,7 +57,6 @@ public class MainActivity extends AutoLayoutActivity {
                 }
             }
         });
-
 
     }
 }

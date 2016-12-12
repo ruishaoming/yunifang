@@ -179,7 +179,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
 
             }
         };
-        baseData.getData(UrlUtils.CATEGORY_URL, "", time, 0);
+        baseData.getData(UrlUtils.CATEGORY_URL, "", time, 0,true);
     }
 
     @Override

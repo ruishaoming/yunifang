@@ -134,7 +134,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             protected void setFailData(String error_type) {
                 Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_ERROR);
             }
-        }.getData(UrlUtils.HOME_URl, "", time, 0);
+        }.getData(UrlUtils.HOME_URl, "", time, 0,true);
     }
 
     @Override

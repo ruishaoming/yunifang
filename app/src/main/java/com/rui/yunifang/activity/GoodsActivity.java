@@ -11,13 +11,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +71,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
     private LinearLayout top_line;
     private LinearLayout bottom_line;
     private LinearLayout line_getY;
+    private int pop_tag = 1;
     private Handler hd = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -76,6 +81,10 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
             }
         }
     };
+    private PopupWindow popWindow;
+    private ImageButton add_ib;
+    private ImageButton re_ib;
+    private TextView pop_num_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +205,9 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         bottom_line = (LinearLayout) findViewById(R.id.goods_bottom_line);
         line_getY = (LinearLayout) findViewById(R.id.goods_line_getY);
 
+        findViewById(R.id.goods_joinCar_tv).setOnClickListener(this);
+        findViewById(R.id.goods_buy_tv).setOnClickListener(this);
+
         scrollView.setOnScrollListener(this);
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         screenWidth = mWindowManager.getDefaultDisplay().getWidth();
@@ -213,7 +225,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             searchLayoutTop = line_getY.getBottom();//获取searchLayout的顶部位置
         }
     }
@@ -221,14 +233,14 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
     //监听滚动Y值变化，通过addView和removeView来实现悬停效果
     @Override
     public void onScroll(int scrollY) {
-        if(scrollY >= searchLayoutTop){
-            if (top.getParent()!=top_line) {
+        if (scrollY >= searchLayoutTop) {
+            if (top.getParent() != top_line) {
                 bottom_line.removeView(top);
                 top_line.addView(top);
                 top_line.setVisibility(View.VISIBLE);
             }
-        }else{
-            if (top.getParent()!=bottom_line) {
+        } else {
+            if (top.getParent() != bottom_line) {
                 top_line.removeView(top);
                 bottom_line.addView(top);
                 top_line.setVisibility(View.GONE);
@@ -252,7 +264,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
 
             }
         };
-        baseData.getData(UrlUtils.GOODS_URL + id, "", BaseData.LONG_TIME, 0);
+        baseData.getData(UrlUtils.GOODS_URL + id, "", BaseData.NO_TIME, 0, false);
     }
 
     @Override
@@ -282,6 +294,119 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
             case R.id.shop_title_back:
                 CommonUtils.finishActivity(GoodsActivity.this);
                 break;
+            //加入购物车、立即购买
+            case R.id.goods_joinCar_tv:
+            case R.id.goods_buy_tv:
+                if (goodsInfo == null) {
+                    return;
+                }
+                showPopwindow();
+                break;
+            //弹出窗确定购买
+            case R.id.goods_pop_btn:
+                Toast.makeText(GoodsActivity.this, "确定购买", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.goods_pop_close:
+                closePopupWindow();
+                break;
+            case R.id.goods_pop_ib_add:
+                if (pop_tag == goodsInfo.data.goods.restrict_purchase_num) {
+                    return;
+                }
+                pop_tag++;
+                initPopTag();
+                break;
+            case R.id.goods_pop_ib_reduce:
+                if (pop_tag == 1) {
+                    return;
+                }
+                pop_tag--;
+                initPopTag();
+                break;
+        }
+    }
+
+    private void initPopTag() {
+        if (pop_tag > 1 && pop_tag < 5) {
+            re_ib.setImageResource(R.mipmap.reduce_able);
+        } else if (pop_tag == goodsInfo.data.goods.restrict_purchase_num) {
+            add_ib.setImageResource(R.mipmap.add_unable);
+        } else {
+            re_ib.setImageResource(R.mipmap.reduce_unable);
+            add_ib.setImageResource(R.mipmap.add_able);
+        }
+        pop_num_tv.setText("" + pop_tag);
+    }
+
+    /**
+     * 显示popupWindow
+     */
+    private void showPopwindow() {
+
+        // 利用layoutInflater获得View
+        View view = CommonUtils.inflate(R.layout.goods_pop);
+        initPopView(view);
+        initPopTag();
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        popWindow = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT, 450);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        popWindow.setFocusable(true);
+        setBackgroundAlpha();
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                closePopupWindow();
+                return false;
+            }
+        });
+        // 设置popWindow的显示和消失动画
+        popWindow.setAnimationStyle(R.style.popupAnimation);
+        // 在底部显示
+        popWindow.showAtLocation(gods_price, Gravity.BOTTOM, 0, 0);
+    }
+
+    //初始化PopWindow控件
+    private void initPopView(View view) {
+        ImageView pop_icon = (ImageView) view.findViewById(R.id.goods_pop_icon);
+        ImageView pop_close_iv = (ImageView) view.findViewById(R.id.goods_pop_close);
+        add_ib = (ImageButton) view.findViewById(R.id.goods_pop_ib_add);
+        re_ib = (ImageButton) view.findViewById(R.id.goods_pop_ib_reduce);
+        TextView limit_tv = (TextView) view.findViewById(R.id.goods_pop_limit_tv);
+        pop_num_tv = (TextView) view.findViewById(R.id.goods_pop_num_tv);
+        TextView price_tv = (TextView) view.findViewById(R.id.goods_pop_price_tv);
+        TextView save_tv = (TextView) view.findViewById(R.id.goods_pop_savenum_tv);
+        Button pop_btn = (Button) view.findViewById(R.id.goods_pop_btn);
+        pop_btn.setOnClickListener(this);
+        pop_close_iv.setOnClickListener(this);
+        add_ib.setOnClickListener(this);
+        re_ib.setOnClickListener(this);
+        ImageLoader.getInstance().displayImage(goodsInfo.data.goods.gallery.get(0).normal_url, pop_icon);
+        price_tv.setText("￥" + goodsInfo.data.goods.shop_price);
+        limit_tv.setText("限购" + goodsInfo.data.goods.restrict_purchase_num + "件");
+        save_tv.setText("库存" + goodsInfo.data.goods.stock_number + "件");
+    }
+
+    //设置当前窗口背景背景
+    public void setBackgroundAlpha() {
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.alpha = 0.7f;
+        this.getWindow().setAttributes(params);
+    }
+
+    //关闭PopWindow
+    private void closePopupWindow() {
+        if (popWindow != null && popWindow.isShowing()) {
+            popWindow.dismiss();
+            popWindow = null;
+            WindowManager.LayoutParams params = this.getWindow().getAttributes();
+            params.alpha = 1f;
+            this.getWindow().setAttributes(params);
         }
     }
 

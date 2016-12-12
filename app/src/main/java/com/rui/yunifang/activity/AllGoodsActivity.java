@@ -54,7 +54,7 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
         setContentView(R.layout.activity_allgoods);
         initView();
 
-        getData(BaseData.LONG_TIME);
+        getData(BaseData.NO_TIME);
 
     }
 
@@ -242,7 +242,7 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
             protected void setFailData(String error_type) {
 
             }
-        }.getData(UrlUtils.ALL_GOODS_URL, null, time, 0);
+        }.getData(UrlUtils.ALL_GOODS_URL, null, time, 0,false);
     }
 
     @Override

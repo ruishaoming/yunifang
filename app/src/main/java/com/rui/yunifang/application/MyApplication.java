@@ -21,7 +21,7 @@ public class MyApplication extends Application {
     private static Handler handler;
     private static int mainThreadId;
     private static ExecutorService threadPool;
-    public static boolean isLogin = false;//定义是否登录
+    public static boolean isLogin = false;//判定是否登录
 
     @Override
     public void onCreate() {

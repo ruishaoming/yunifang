@@ -73,6 +73,7 @@
             android:numColumns="2"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:verticalSpacing="15px"></GridView>
+            android:padding="5px"
+            android:verticalSpacing="20px"></GridView>
     </com.liaoinstan.springview.widget.SpringView>
 </LinearLayout>
