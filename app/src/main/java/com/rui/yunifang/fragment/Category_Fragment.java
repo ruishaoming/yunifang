@@ -140,6 +140,7 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
                 Intent intent = new Intent(getActivity(), GoodsActivity.class);
                 intent.putExtra("id", sortBean.data.goodsBrief.get(position).id);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
             }
         });
     }
@@ -261,5 +262,6 @@ public class Category_Fragment extends BaseFragment implements SpringView.OnFres
         intent.putExtras(bundle);
         intent.putExtra("id", id);
         startActivity(intent);
+        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
     }
 }

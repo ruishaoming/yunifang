@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <include layout="@layout/title_layout" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/car_rela_haveShop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/car_rela_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_alignParentBottom="true">
+
+            <CheckBox
+                android:id="@+id/car_all_check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15px"
+                android:button="@null"
+                android:drawableLeft="@drawable/cart_chick_all"
+                android:gravity="center_vertical"
+                android:text="   全选"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/title" />
+
+            <Button
+                android:id="@+id/car_btn"
+                android:layout_width="160px"
+                android:layout_height="80px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="15px"
+                android:background="@color/colorTextMain"
+                android:gravity="center"
+                android:padding="5px"
+                android:text="结算"
+                android:textSize="@dimen/common_text"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/car_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/car_btn"
+                android:gravity="center_vertical"
+                android:text="总计 : ￥0.00"
+                android:textColor="@color/colorTextMain"
+                android:textSize="@dimen/title" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <com.liaoinstan.springview.widget.SpringView
+            android:id="@+id/car_springView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/car_rela_bottom">
+
+            <ListView
+                android:id="@+id/car_listView"
+                android:layout_width="match_parent"
+                android:scrollbars="none"
+                android:layout_height="match_parent"
+                android:dividerHeight="20px">
+
+            </ListView>
+        </com.liaoinstan.springview.widget.SpringView>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/car_rela_noShop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/shopping_trolley_empty" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20px"
+                android:gravity="center_horizontal"
+                android:text="购物车还是空的哦"
+                android:textSize="@dimen/common_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="快去逛逛吧"
+                android:textSize="@dimen/common_text" />
+
+            <Button
+                android:id="@+id/noshop_btn"
+                android:layout_width="300px"
+                android:layout_height="80px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20px"
+                android:background="@color/colorTextMain"
+                android:text="逛一逛"
+                android:textColor="@color/colorWhite" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -11,7 +11,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.rui.yunifang.R;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.factory.FragmentFactory;
+import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.view.NoScrollViewPager;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -21,6 +23,14 @@ public class MainActivity extends AutoLayoutActivity {
 
     private NoScrollViewPager vp;
     private RadioGroup rg;
+
+    public RadioGroup getRg() {
+        return rg;
+    }
+
+    public NoScrollViewPager getVp() {
+        return vp;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

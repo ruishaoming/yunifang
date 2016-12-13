@@ -1,49 +1,345 @@
 package com.rui.yunifang.fragment;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.liaoinstan.springview.container.DefaultHeader;
+import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.rui.yunifang.base.BaseData;
+import com.rui.yunifang.R;
+import com.rui.yunifang.activity.GoodsActivity;
+import com.rui.yunifang.activity.LoginActivity;
+import com.rui.yunifang.activity.MainActivity;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.base.BaseFragment;
-import com.rui.yunifang.utils.UrlUtils;
+import com.rui.yunifang.bean.GoodsCarInfo;
+import com.rui.yunifang.db.GoodsCarDao;
+import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.view.ShowingPage;
+import com.zhy.adapter.abslistview.CommonAdapter;
+import com.zhy.adapter.abslistview.ViewHolder;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import java.util.ArrayList;
 
 /**
  * Created by 少明 on 2016/11/28.
  */
-public class Cart_Fragment extends BaseFragment {
+public class Cart_Fragment extends BaseFragment implements View.OnClickListener, SpringView.OnFreshListener {
     public String s;
+    private int shopCount = 1;
+    private MainActivity mainActivity;
+    private boolean edit = true;
+    private TextView right_tv;
+    private SpringView springView;
+    private ListView listView;
+    private RelativeLayout haveShop;
+    private RelativeLayout noShop;
+    private CommonAdapter adapter;
+    private CheckBox checkAll;
+    private ArrayList<GoodsCarInfo> listGoods;
+    private LinearLayout setNumLayout;
+    private int pop_tag;
+    private ImageView pledge;
+    private ImageView coupons;
+    private ImageButton add_ib;
+    private ImageButton re_ib;
+    private TextView pop_num_tv;
+    private TextView price_tv;
+    private int selectCount = 0;
+    private CheckBox item_check;
+    private TextView item_num;
+    private Button car_btn;
+    private GoodsCarDao carDao;
+    private TextView title;
 
     @Override
     protected void onLoad() {
-        BaseData baseData = new BaseData() {
-            @Override
-            protected void setResultData(String data) {
-                Cart_Fragment.this.s = data;
-                Cart_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
-            }
-
-            @Override
-            protected void setFailData(String error_type) {
-                
-            }
-        };
-        baseData.getData(UrlUtils.HOME_URl, "",BaseData.SHORT_TIME, 0,false);
-
+        Cart_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_SUCCESS);
     }
 
     @Override
     protected View createSuccessView() {
-        ImageView imageView = new ImageView(getActivity());
-        ImageLoader.getInstance().displayImage("http://img1.gtimg.com/sports/pics/hv1/169/148/2135/138866284.jpg", imageView);
-        return imageView;
+        mainActivity = (MainActivity) getActivity();
+        View rootView = CommonUtils.inflate(R.layout.fragment_car);
+        rootView = initView(rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();//初始化数据
+    }
+
+    private void initData() {
+        carDao = new GoodsCarDao(getActivity());
+        listGoods = carDao.query("rui");
+        title.setText("购物车(" + listGoods.size() + ")");
+        //如果购物车中有商品
+        if (listGoods.size() > 0) {
+            haveShop.setVisibility(View.VISIBLE);
+            noShop.setVisibility(View.GONE);
+            setLvAdapter(listGoods);
+        } else {
+            haveShop.setVisibility(View.GONE);
+            noShop.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //如果是未登录状态
+        if (MyApplication.isLogin) {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        }
+    }
+
+    @NonNull
+    private View initView(View rootView) {
+        rootView.findViewById(R.id.title_back_iv).setVisibility(View.INVISIBLE);
+        title = (TextView) rootView.findViewById(R.id.title_center_tv);
+        right_tv = (TextView) rootView.findViewById(R.id.title_right_tv);
+        right_tv.setTextColor(getResources().getColor(R.color.colorTextMain));
+        right_tv.setText("编辑");
+        right_tv.setOnClickListener(this);
+        //有商品的界面
+        haveShop = (RelativeLayout) rootView.findViewById(R.id.car_rela_haveShop);
+        //无商品的界面
+        noShop = (RelativeLayout) rootView.findViewById(R.id.car_rela_noShop);
+        rootView.findViewById(R.id.noshop_btn).setOnClickListener(this);//逛一逛
+        springView = (SpringView) rootView.findViewById(R.id.car_springView);
+        springView.setHeader(new DefaultHeader(getActivity()));
+        springView.setListener(this);
+        springView.setType(SpringView.Type.FOLLOW);
+        listView = (ListView) rootView.findViewById(R.id.car_listView);
+        checkAll = (CheckBox) rootView.findViewById(R.id.car_all_check);
+        price_tv = (TextView) rootView.findViewById(R.id.car_price_tv);
+        car_btn = (Button) rootView.findViewById(R.id.car_btn);
+        car_btn.setOnClickListener(this);
+        checkAll.setOnClickListener(this);
+        return rootView;
+    }
+
+    //设置数据适配器
+    private void setLvAdapter(final ArrayList<GoodsCarInfo> listGoods) {
+        adapter = new CommonAdapter<GoodsCarInfo>(getActivity(), R.layout.fragment_car_lv_item, listGoods) {
+            @Override
+            protected void convert(ViewHolder viewHolder, GoodsCarInfo item, final int position) {
+                viewHolder.setText(R.id.car_item_name, listGoods.get(position).getGoods_name());
+                viewHolder.setText(R.id.car_item_price, "￥" + listGoods.get(position).getGoods_price());
+                item_num = viewHolder.getView(R.id.car_item_num);
+                ImageView icon = viewHolder.getView(R.id.car_item_icon);
+                ImageLoader.getInstance().displayImage(listGoods.get(position).getGoods_img(), icon);
+                pledge = viewHolder.getView(R.id.car_item_pledge);
+                coupons = viewHolder.getView(R.id.car_item_coupons);
+                add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
+                re_ib = viewHolder.getView(R.id.goods_pop_ib_reduce);
+                add_ib.setOnClickListener(Cart_Fragment.this);
+                add_ib.setTag(position);
+                re_ib.setOnClickListener(Cart_Fragment.this);
+                re_ib.setTag(position);
+                pop_num_tv = viewHolder.getView(R.id.goods_pop_num_tv);
+                item_check = viewHolder.getView(R.id.car_item_check);
+                setNumLayout = viewHolder.getView(R.id.car_lv_num_layout);
+                setNumLayout.setVisibility(View.GONE);
+                item_check.setChecked(listGoods.get(position).isChick());
+                item_num.setText("数量：" + listGoods.get(position).getGoods_num());
+                setAdapterData(position);//设置其他数据
+            }
+        };
+        listView.setAdapter(adapter);
+
+        //点击条目跳转至商品详情界面
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                intent.putExtra("id", listGoods.get(position).getGoods_id());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
+            }
+        });
+    }
+
+    //结算
+    private void getSumPrice() {
+        float priceSum = 0;
+        for (int i = 0; i < listGoods.size(); i++) {
+            if (listGoods.get(i).isChick()) {
+                priceSum += Float.parseFloat(listGoods.get(i).getGoods_price()) * listGoods.get(i).getGoods_num();
+            }
+        }
+        priceSum = (float) (Math.round(priceSum * 100)) / 100;
+        price_tv.setText("总计：" + priceSum);
+    }
+
+    //设置适配器中的数据
+    private void setAdapterData(final int position) {
+        //设置优惠券和抵用券的显示隐藏
+        if (listGoods.get(position).isGoods_coupons()) {
+            coupons.setVisibility(View.VISIBLE);
+        } else {
+            coupons.setVisibility(View.INVISIBLE);
+        }
+        if (listGoods.get(position).isGoods_pledge()) {
+            pledge.setVisibility(View.VISIBLE);
+        } else {
+            pledge.setVisibility(View.INVISIBLE);
+        }
+        //设置数量的隐藏显示
+        if (!edit) {
+            setNumLayout.setVisibility(View.VISIBLE);
+        } else {
+            setNumLayout.setVisibility(View.GONE);
+        }
+
+        //设置条目的选中状态
+        item_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listGoods.get(position).isChick()) {
+                    selectCount--;
+                    listGoods.get(position).setChick(false);
+                } else {
+                    selectCount++;
+                    listGoods.get(position).setChick(true);
+                }
+                if (selectCount >= listGoods.size()) {
+                    checkAll.setChecked(true);
+                } else {
+                    checkAll.setChecked(false);
+                }
+                getSumPrice();
+            }
+        });
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            //购物车是空的，点击前去逛逛
+            case R.id.noshop_btn:
+                //移动至Home页
+                mainActivity.getVp().setCurrentItem(0);
+                RadioButton rbHome = (RadioButton) mainActivity.getRg().getChildAt(0);
+                rbHome.setChecked(true);
+                rbHome.setTextColor(getResources().getColor(R.color.colorTextMain));
+                break;
+            //点击编辑或者完成
+            case R.id.title_right_tv:
+                if (edit) {
+                    right_tv.setText("完成");
+                    car_btn.setText("删除");
+                    item_num.setVisibility(View.INVISIBLE);
+                    price_tv.setVisibility(View.INVISIBLE);
+                } else {
+                    right_tv.setText("编辑");
+                    car_btn.setText("结算");
+                    item_num.setVisibility(View.VISIBLE);
+                    price_tv.setVisibility(View.VISIBLE);
+                    int add_position = (int) add_ib.getTag();
+                    int re_position = (int) re_ib.getTag();
+                    if (add_position == re_position) {
+                        listGoods.get(add_position).setGoods_num(pop_tag);//重新设置数量
+                    }
+                }
+                edit = !edit;
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.car_all_check:
+                if (checkAll.isChecked()) {
+                    selectCount = listGoods.size();
+                    for (int i = 0; i < listGoods.size(); i++) {
+                        listGoods.get(i).setChick(true);
+                    }
+                } else {
+                    for (int i = 0; i < listGoods.size(); i++) {
+                        listGoods.get(i).setChick(false);
+                    }
+                    selectCount = 0;
+                }
+                getSumPrice();
+                adapter.notifyDataSetChanged();
+                break;
+            //添加数量
+            case R.id.goods_pop_ib_add:
+                if (pop_tag == 5) {
+                    return;
+                }
+                pop_tag++;
+                initPopTag();
+                break;
+            //减少数量
+            case R.id.goods_pop_ib_reduce:
+                if (pop_tag == 1) {
+                    return;
+                }
+                pop_tag--;
+                initPopTag();
+                break;
+            //结算或者删除
+            case R.id.car_btn:
+                if (car_btn.getText().toString().equals("删除")) {
+                    for (int i = listGoods.size()-1; i > -1; i--) {
+                        if (listGoods.get(i).isChick()) {
+                            //删除选中的条目
+                            carDao.delete(listGoods.get(i).getUser_name(), listGoods.get(i).getGoods_name());
+                            listGoods.remove(i);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    if (selectCount <= 0) {
+                        Toast.makeText(getActivity(), "您还没有选中任何商品哦", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getActivity(), "检测到您的钱包是空的，无法完成支付", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
+    }
+
+    private void initPopTag() {
+        if (pop_tag > 1 && pop_tag < 5) {
+            re_ib.setImageResource(R.mipmap.reduce_able);
+        } else if (pop_tag == 5) {
+            add_ib.setImageResource(R.mipmap.add_unable);
+        } else {
+            re_ib.setImageResource(R.mipmap.reduce_unable);
+            add_ib.setImageResource(R.mipmap.add_able);
+        }
+        pop_num_tv.setText("" + pop_tag);
+    }
+
+    @Override
+    public void onRefresh() {
+        stopLoad();
+    }
+
+    public void stopLoad() {
+        springView.onFinishFreshAndLoad();
+    }
+
+    @Override
+    public void onLoadmore() {
+        stopLoad();
     }
 }

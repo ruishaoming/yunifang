@@ -134,7 +134,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             protected void setFailData(String error_type) {
                 Home_Fragment.this.showCurrentPage(ShowingPage.StateType.STATE_LOAD_ERROR);
             }
-        }.getData(UrlUtils.HOME_URl, "", time, 0,true);
+        }.getData(UrlUtils.HOME_URl, "", time, 0, true);
     }
 
     @Override
@@ -334,6 +334,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                         Intent intent = new Intent(getActivity(), GoodsActivity.class);
                         intent.putExtra("id", item.goodsList.get(position).id);
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
                     }
                 });
 //                    LinearLayout home_lv_item_line = holder.getView(R.id.home_lv_item_line);
@@ -385,6 +386,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 Intent intent = new Intent(getActivity(), GoodsActivity.class);
                 intent.putExtra("id", homeData.data.defaultGoodsList.get(position).id);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
             }
         });
     }

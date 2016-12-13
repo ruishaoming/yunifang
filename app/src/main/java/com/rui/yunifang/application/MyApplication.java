@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Process;
 
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import org.xutils.x;
 
@@ -27,6 +28,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //初始化操作
+        AutoLayoutConifg.getInstance().useDeviceSize();
         ImageLoaderUtils.initConfiguration(getApplicationContext());
         context = getApplicationContext();
         handler = new Handler();//创建Handle

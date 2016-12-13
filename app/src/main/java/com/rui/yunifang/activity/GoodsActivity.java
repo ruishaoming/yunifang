@@ -32,8 +32,10 @@ import com.rui.yunifang.R;
 import com.rui.yunifang.adapter.ViewHolder;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.CommonAdapter;
+import com.rui.yunifang.bean.GoodsCarInfo;
 import com.rui.yunifang.bean.GoodsDesc;
 import com.rui.yunifang.bean.GoodsInfo;
+import com.rui.yunifang.db.GoodsCarDao;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
 import com.rui.yunifang.utils.LogUtils;
@@ -85,6 +87,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
     private ImageButton add_ib;
     private ImageButton re_ib;
     private TextView pop_num_tv;
+    private boolean joinCar = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,7 +299,14 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 break;
             //加入购物车、立即购买
             case R.id.goods_joinCar_tv:
+                joinCar = true;
+                if (goodsInfo == null) {
+                    return;
+                }
+                showPopwindow();
+                break;
             case R.id.goods_buy_tv:
+                joinCar = false;
                 if (goodsInfo == null) {
                     return;
                 }
@@ -304,11 +314,18 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 break;
             //弹出窗确定购买
             case R.id.goods_pop_btn:
-                Toast.makeText(GoodsActivity.this, "确定购买", Toast.LENGTH_SHORT).show();
+                if (joinCar) {
+                    joinCarMethod();
+                    Toast.makeText(GoodsActivity.this, "成功加入购物车！", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+                popWindow.dismiss();
                 break;
             case R.id.goods_pop_close:
                 closePopupWindow();
                 break;
+            //PopupWindow添加数量
             case R.id.goods_pop_ib_add:
                 if (pop_tag == goodsInfo.data.goods.restrict_purchase_num) {
                     return;
@@ -316,6 +333,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 pop_tag++;
                 initPopTag();
                 break;
+            //PopupWindow减少数量
             case R.id.goods_pop_ib_reduce:
                 if (pop_tag == 1) {
                     return;
@@ -324,6 +342,26 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 initPopTag();
                 break;
         }
+    }
+
+    //开启线程加入购物车
+    private void joinCarMethod() {
+        CommonUtils.executeRunnalbe(new Runnable() {
+            @Override
+            public void run() {
+                GoodsCarDao goodsCarDao = new GoodsCarDao(GoodsActivity.this);
+                GoodsCarInfo goodsCarInfo = new GoodsCarInfo();
+                goodsCarInfo.setUser_name("rui");
+                goodsCarInfo.setGoods_name(goodsInfo.data.goods.goods_name);
+                goodsCarInfo.setGoods_id(id);
+                goodsCarInfo.setGoods_img(goodsInfo.data.goods.gallery.get(0).normal_url);
+                goodsCarInfo.setGoods_price(goodsInfo.data.goods.shop_price + "");
+                goodsCarInfo.setGoods_num(pop_tag);
+                goodsCarInfo.setGoods_coupons(goodsInfo.data.goods.is_coupon_allowed);//可使用优惠券
+                goodsCarInfo.setGoods_pledge(true);//可抵
+                goodsCarDao.add(goodsCarInfo);
+            }
+        });
     }
 
     private void initPopTag() {
@@ -377,8 +415,8 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         ImageView pop_close_iv = (ImageView) view.findViewById(R.id.goods_pop_close);
         add_ib = (ImageButton) view.findViewById(R.id.goods_pop_ib_add);
         re_ib = (ImageButton) view.findViewById(R.id.goods_pop_ib_reduce);
-        TextView limit_tv = (TextView) view.findViewById(R.id.goods_pop_limit_tv);
         pop_num_tv = (TextView) view.findViewById(R.id.goods_pop_num_tv);
+        TextView limit_tv = (TextView) view.findViewById(R.id.goods_pop_limit_tv);
         TextView price_tv = (TextView) view.findViewById(R.id.goods_pop_price_tv);
         TextView save_tv = (TextView) view.findViewById(R.id.goods_pop_savenum_tv);
         Button pop_btn = (Button) view.findViewById(R.id.goods_pop_btn);
