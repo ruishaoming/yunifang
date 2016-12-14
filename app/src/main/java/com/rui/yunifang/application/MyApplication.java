@@ -23,6 +23,7 @@ public class MyApplication extends Application {
     private static int mainThreadId;
     private static ExecutorService threadPool;
     public static boolean isLogin = false;//判定是否登录
+    public static boolean gotoShop = false;//逛一逛
 
     @Override
     public void onCreate() {

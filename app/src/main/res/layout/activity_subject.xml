@@ -6,7 +6,7 @@
     android:scrollbars="none"
     tools:context=".activity.SubjectActivity">
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -49,5 +49,5 @@
             android:scrollbars="none">
 
         </com.rui.yunifang.view.InnerGridView>
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 </ScrollView>

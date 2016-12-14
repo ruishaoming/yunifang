@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.bean.HomeData;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
@@ -29,6 +30,7 @@ public class MoreShopActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_shop);
         getSupportActionBar().hide();
+
         findViewById(R.id.title_back_iv).setOnClickListener(this);
         findViewById(R.id.title_right_tv).setVisibility(View.GONE);
         TextView title = (TextView) findViewById(R.id.title_center_tv);
@@ -120,6 +122,14 @@ public class MoreShopActivity extends AppCompatActivity implements View.OnClickL
             case R.id.title_back_iv:
                 CommonUtils.finishActivity(MoreShopActivity.this);
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.gotoShop){
+            finish();
         }
     }
 }

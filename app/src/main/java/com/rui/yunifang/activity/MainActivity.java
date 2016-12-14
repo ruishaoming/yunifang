@@ -37,6 +37,7 @@ public class MainActivity extends AutoLayoutActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
 //        vp.setOffscreenPageLimit(3);
@@ -67,6 +68,11 @@ public class MainActivity extends AutoLayoutActivity {
                 }
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.gotoShop = false;//当前所在位置即是逛一逛的目的地
     }
 }

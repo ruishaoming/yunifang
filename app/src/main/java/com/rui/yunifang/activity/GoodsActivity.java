@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -25,17 +27,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.adapter.ViewHolder;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.GoodsCarInfo;
 import com.rui.yunifang.bean.GoodsDesc;
 import com.rui.yunifang.bean.GoodsInfo;
 import com.rui.yunifang.db.GoodsCarDao;
+import com.rui.yunifang.fragment.Cart_Fragment;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
 import com.rui.yunifang.utils.LogUtils;
@@ -199,6 +204,10 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         collect_num = (TextView) findViewById(R.id.goods_collect_num);
         sell_num = (TextView) findViewById(R.id.goods_sell_num);
         findViewById(R.id.shop_title_back).setOnClickListener(this);
+        ImageView title_car = (ImageView) findViewById(R.id.shop_title_car);
+        title_car.setOnClickListener(this);
+        ImageView title_share = (ImageView) findViewById(R.id.shop_title_share);
+        title_share.setOnClickListener(this);
 
         goods_vp = (ViewPager) findViewById(R.id.goods_vp);
         scrollView = (GoodsScrollView) findViewById(R.id.goods_scrollView);
@@ -320,7 +329,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 } else {
 
                 }
-                popWindow.dismiss();
+                closePopupWindow();
                 break;
             case R.id.goods_pop_close:
                 closePopupWindow();
@@ -340,6 +349,17 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 }
                 pop_tag--;
                 initPopTag();
+                break;
+            //右上角购物车按钮
+            case R.id.shop_title_car:
+                MyApplication.gotoShop = true;
+                //开启事务添加Fragment
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.goods_frame, new Cart_Fragment());
+                transaction.addToBackStack("car_fragment");
+                transaction.commit();
+                overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
                 break;
         }
     }
@@ -424,10 +444,14 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         pop_close_iv.setOnClickListener(this);
         add_ib.setOnClickListener(this);
         re_ib.setOnClickListener(this);
-        ImageLoader.getInstance().displayImage(goodsInfo.data.goods.gallery.get(0).normal_url, pop_icon);
+//        ImageLoader.getInstance().displayImage(goodsInfo.data.goods.gallery.get(0).normal_url, pop_icon);
         price_tv.setText("￥" + goodsInfo.data.goods.shop_price);
         limit_tv.setText("限购" + goodsInfo.data.goods.restrict_purchase_num + "件");
         save_tv.setText("库存" + goodsInfo.data.goods.stock_number + "件");
+        Glide.with(GoodsActivity.this)
+                .load(goodsInfo.data.goods.gallery.get(0).normal_url)
+                .error(R.drawable.default_1)
+                .into(pop_icon);
     }
 
     //设置当前窗口背景背景

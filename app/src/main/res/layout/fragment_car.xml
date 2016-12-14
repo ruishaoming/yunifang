@@ -2,6 +2,7 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout" />
@@ -41,8 +42,8 @@
                 android:gravity="center"
                 android:padding="5px"
                 android:text="结算"
-                android:textSize="@dimen/common_text"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/common_text" />
 
             <TextView
                 android:id="@+id/car_price_tv"
@@ -64,9 +65,9 @@
             <ListView
                 android:id="@+id/car_listView"
                 android:layout_width="match_parent"
-                android:scrollbars="none"
                 android:layout_height="match_parent"
-                android:dividerHeight="20px">
+                android:dividerHeight="20px"
+                android:scrollbars="none">
 
             </ListView>
         </com.liaoinstan.springview.widget.SpringView>

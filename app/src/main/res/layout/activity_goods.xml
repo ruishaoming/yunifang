@@ -1,315 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.zhy.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goods_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/goods_top_title"
-        layout="@layout/shop_title" />
-
-    <LinearLayout
-        android:id="@+id/goods_top_line"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="100px"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </LinearLayout>
+        <include
+            android:id="@+id/goods_top_title"
+            layout="@layout/shop_title" />
 
-    <com.rui.yunifang.view.GoodsScrollView
-        android:id="@+id/goods_scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/goods_top_line"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="100px"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/goods_line_getY"
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.rui.yunifang.view.GoodsScrollView
+            android:id="@+id/goods_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/goods_line_getY"
                     android:layout_width="match_parent"
-                    android:layout_height="600px">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/goods_vp"
+                    <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+                        android:layout_height="600px">
 
-                    <LinearLayout
-                        android:layout_width="100px"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/goods_vp"
-                        android:layout_centerHorizontal="true">
-
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200px">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="10px">
-
-                        <TextView
-                            android:id="@+id/goods_title"
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/goods_vp"
                             android:layout_width="match_parent"
+                            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="100px"
                             android:layout_height="wrap_content"
-                            android:lines="2"
-                            android:padding="5px"
-                            android:text="数据库尽vdzklvlk的vzmlk"
-                            android:textColor="@color/colorTextBlack"
-                            android:textSize="@dimen/title" />
+                            android:layout_alignBottom="@+id/goods_vp"
+                            android:layout_centerHorizontal="true">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
+                        </com.zhy.autolayout.AutoLinearLayout>
+                    </com.zhy.autolayout.AutoRelativeLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200px">
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="10px">
+
+                            <TextView
+                                android:id="@+id/goods_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="2"
+                                android:padding="5px"
+                                android:text="数据库尽vdzklvlk的vzmlk"
+                                android:textColor="@color/colorTextBlack"
+                                android:textSize="@dimen/title" />
+
+                            <com.zhy.autolayout.AutoLinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/goods_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5px"
+                                    android:gravity="center_vertical"
+                                    android:text="￥99.90"
+                                    android:textColor="@color/colorTextMain"
+                                    android:textSize="@dimen/goods_price" />
+
+                                <TextView
+                                    android:id="@+id/goods_oldprice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5px"
+                                    android:gravity="center_vertical"
+                                    android:text="￥297.00"
+                                    android:textColor="@color/colorGray"
+                                    android:textSize="@dimen/common_text" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="15px"
+                                    android:src="@mipmap/coupons" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="15px"
+                                    android:src="@mipmap/pledge" />
+
+                            </com.zhy.autolayout.AutoLinearLayout>
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="150px"
+                            android:layout_gravity="center_vertical"
+                            android:button="@null"
+                            android:drawableTop="@drawable/shop_collect"
+                            android:gravity="center_vertical"
+                            android:padding="25px"
+                            android:text="收藏"
+                            android:textColor="@color/colorTextBlack" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40px"
+                        android:layout_marginBottom="10px"
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px">
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/goods_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5px"
-                                android:gravity="center_vertical"
-                                android:text="￥99.90"
-                                android:textColor="@color/colorTextMain"
-                                android:textSize="@dimen/goods_price" />
-
-                            <TextView
-                                android:id="@+id/goods_oldprice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5px"
-                                android:gravity="center_vertical"
-                                android:text="￥297.00"
-                                android:textColor="@color/colorGray"
+                                android:gravity="right|center_vertical"
+                                android:text="运费 "
+                                android:textColor="@color/colortvGray"
                                 android:textSize="@dimen/common_text" />
 
-                            <ImageView
+                            <TextView
+                                android:id="@+id/goods_sell_type"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center_vertical"
+                                android:text="包邮"
+                                android:textColor="@color/colorTextMain"
+                                android:textSize="@dimen/common_text" />
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="right|center_vertical"
+                                android:text="销量 "
+                                android:textColor="@color/colortvGray"
+                                android:textSize="@dimen/common_text" />
+
+                            <TextView
+                                android:id="@+id/goods_sell_num"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="9.51万"
+                                android:textColor="@color/colorTextMain"
+                                android:textSize="@dimen/common_text" />
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="right|center_vertical"
+                                android:text="收藏 "
+                                android:textColor="@color/colortvGray"
+                                android:textSize="@dimen/common_text" />
+
+                            <TextView
+                                android:id="@+id/goods_collect_num"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="15px"
-                                android:src="@mipmap/coupons" />
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="11043"
+                                android:textColor="@color/colorTextMain"
+                                android:textSize="@dimen/common_text" />
+                        </com.zhy.autolayout.AutoLinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="15px"
-                                android:src="@mipmap/pledge" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20px"
+                        android:background="@color/grayBg"
+                        android:padding="10px" />
 
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="150px"
-                        android:layout_gravity="center_vertical"
-                        android:button="@null"
-                        android:drawableTop="@drawable/shop_collect"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="70px"
+                        android:layout_marginTop="20px"
+                        android:drawableRight="@mipmap/ico_big_right"
                         android:gravity="center_vertical"
-                        android:padding="25px"
-                        android:text="收藏"
-                        android:textColor="@color/colorTextBlack" />
-                </LinearLayout>
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px"
+                        android:text="双十二狂欢趴：扫货攻略"
+                        android:textSize="@dimen/shop_price" />
 
-                <LinearLayout
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="80px"
+                        android:layout_marginTop="10px"
+                        android:background="@drawable/share_square"
+                        android:drawableRight="@mipmap/ico_big_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px"
+                        android:text="邀请有礼·270元面膜免费领"
+                        android:textSize="@dimen/shop_price" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="70px"
+                        android:layout_marginBottom="20px"
+                        android:drawableRight="@mipmap/ico_big_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px"
+                        android:text="购物须知·客服时间8:30-23:30"
+                        android:textSize="@dimen/shop_price" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/goods_bottom_line"
                     android:layout_width="match_parent"
-                    android:layout_height="40px"
-                    android:layout_marginBottom="10px"
-                    android:paddingLeft="30px"
-                    android:paddingRight="30px">
+                    android:layout_height="100px">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                    <include layout="@layout/goods_top_layout" />
+                </com.zhy.autolayout.AutoLinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|center_vertical"
-                            android:text="运费 "
-                            android:textColor="@color/colortvGray"
-                            android:textSize="@dimen/common_text" />
-
-                        <TextView
-                            android:id="@+id/goods_sell_type"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="包邮"
-                            android:textColor="@color/colorTextMain"
-                            android:textSize="@dimen/common_text" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="right|center_vertical"
-                            android:text="销量 "
-                            android:textColor="@color/colortvGray"
-                            android:textSize="@dimen/common_text" />
-
-                        <TextView
-                            android:id="@+id/goods_sell_num"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="9.51万"
-                            android:textColor="@color/colorTextMain"
-                            android:textSize="@dimen/common_text" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="right|center_vertical"
-                            android:text="收藏 "
-                            android:textColor="@color/colortvGray"
-                            android:textSize="@dimen/common_text" />
-
-                        <TextView
-                            android:id="@+id/goods_collect_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="11043"
-                            android:textColor="@color/colorTextMain"
-                            android:textSize="@dimen/common_text" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:background="@color/grayBg"
-                    android:padding="10px" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="70px"
-                    android:layout_marginTop="20px"
-                    android:drawableRight="@mipmap/ico_big_right"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="30px"
-                    android:paddingRight="30px"
-                    android:text="双十二狂欢趴：扫货攻略"
-                    android:textSize="@dimen/shop_price" />
+                    <com.rui.yunifang.view.MyListView
+                        android:id="@+id/goods_bottom_iv_lv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="80px"
-                    android:layout_marginTop="10px"
-                    android:background="@drawable/share_square"
-                    android:drawableRight="@mipmap/ico_big_right"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="30px"
-                    android:paddingRight="30px"
-                    android:text="邀请有礼·270元面膜免费领"
-                    android:textSize="@dimen/shop_price" />
+                    </com.rui.yunifang.view.MyListView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="70px"
-                    android:layout_marginBottom="20px"
-                    android:drawableRight="@mipmap/ico_big_right"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="30px"
-                    android:paddingRight="30px"
-                    android:text="购物须知·客服时间8:30-23:30"
-                    android:textSize="@dimen/shop_price" />
-            </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
-            <LinearLayout
-                android:id="@+id/goods_bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="100px">
+        </com.rui.yunifang.view.GoodsScrollView>
 
-                <include layout="@layout/goods_top_layout" />
-            </LinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="2"
+                android:drawableLeft="@mipmap/public_contact_service_icon"
+                android:gravity="center_vertical"
+                android:paddingLeft="20px"
+                android:text=" 客服"
+                android:textSize="@dimen/shop_title" />
 
-                <com.rui.yunifang.view.MyListView
-                    android:id="@+id/goods_bottom_iv_lv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/goods_joinCar_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#8ff0"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/shop_title" />
 
-                </com.rui.yunifang.view.MyListView>
+            <TextView
+                android:id="@+id/goods_buy_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#8f00"
+                android:gravity="center"
+                android:text="立即购买"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/shop_title" />
 
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.rui.yunifang.view.GoodsScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:drawableLeft="@mipmap/public_contact_service_icon"
-            android:gravity="center_vertical"
-            android:paddingLeft="20px"
-            android:text=" 客服"
-            android:textSize="@dimen/shop_title" />
-
-        <TextView
-            android:id="@+id/goods_joinCar_tv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#8ff0"
-            android:gravity="center"
-            android:text="加入购物车"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/shop_title" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#8f00"
-            android:id="@+id/goods_buy_tv"
-            android:gravity="center"
-            android:text="立即购买"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/shop_title" />
-
-    </LinearLayout>
-</LinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoFrameLayout>

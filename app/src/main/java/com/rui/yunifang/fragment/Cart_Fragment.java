@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,6 +32,7 @@ import com.rui.yunifang.base.BaseFragment;
 import com.rui.yunifang.bean.GoodsCarInfo;
 import com.rui.yunifang.db.GoodsCarDao;
 import com.rui.yunifang.utils.CommonUtils;
+import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.view.ShowingPage;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -41,9 +43,9 @@ import java.util.ArrayList;
  * Created by 少明 on 2016/11/28.
  */
 public class Cart_Fragment extends BaseFragment implements View.OnClickListener, SpringView.OnFreshListener {
+    private static final String TAG = "TAG";
     public String s;
     private int shopCount = 1;
-    private MainActivity mainActivity;
     private boolean edit = true;
     private TextView right_tv;
     private SpringView springView;
@@ -75,7 +77,6 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     protected View createSuccessView() {
-        mainActivity = (MainActivity) getActivity();
         View rootView = CommonUtils.inflate(R.layout.fragment_car);
         rootView = initView(rootView);
         return rootView;
@@ -91,6 +92,11 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         carDao = new GoodsCarDao(getActivity());
         listGoods = carDao.query("rui");
         title.setText("购物车(" + listGoods.size() + ")");
+        initCurrentView();
+    }
+
+    //设置当前的布局界面
+    private void initCurrentView() {
         //如果购物车中有商品
         if (listGoods.size() > 0) {
             haveShop.setVisibility(View.VISIBLE);
@@ -142,19 +148,32 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         adapter = new CommonAdapter<GoodsCarInfo>(getActivity(), R.layout.fragment_car_lv_item, listGoods) {
             @Override
             protected void convert(ViewHolder viewHolder, GoodsCarInfo item, final int position) {
+                LogUtils.i(TAG,"viewHolder-------------------"+viewHolder);
                 viewHolder.setText(R.id.car_item_name, listGoods.get(position).getGoods_name());
                 viewHolder.setText(R.id.car_item_price, "￥" + listGoods.get(position).getGoods_price());
                 item_num = viewHolder.getView(R.id.car_item_num);
                 ImageView icon = viewHolder.getView(R.id.car_item_icon);
-                ImageLoader.getInstance().displayImage(listGoods.get(position).getGoods_img(), icon);
+                Glide.with(getActivity())
+                        .load(listGoods.get(position).getGoods_img())
+                        .into(icon);
+//                ImageLoader.getInstance().displayImage(listGoods.get(position).getGoods_img(), icon);
                 pledge = viewHolder.getView(R.id.car_item_pledge);
                 coupons = viewHolder.getView(R.id.car_item_coupons);
                 add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
                 re_ib = viewHolder.getView(R.id.goods_pop_ib_reduce);
-                add_ib.setOnClickListener(Cart_Fragment.this);
-                add_ib.setTag(position);
-                re_ib.setOnClickListener(Cart_Fragment.this);
-                re_ib.setTag(position);
+                //设置当前的数量改变监听
+                add_ib.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setShopCount(true, listGoods.get(position).getGoods_num(), position);
+                    }
+                });
+                re_ib.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setShopCount(false, listGoods.get(position).getGoods_num(), position);
+                    }
+                });
                 pop_num_tv = viewHolder.getView(R.id.goods_pop_num_tv);
                 item_check = viewHolder.getView(R.id.car_item_check);
                 setNumLayout = viewHolder.getView(R.id.car_lv_num_layout);
@@ -176,6 +195,37 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
                 getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
             }
         });
+    }
+
+    //设置当前的数量
+    private void setShopCount(boolean add, int currentNum, int position) {
+        LogUtils.i(TAG, "当前下标-------------------" + position);
+        if (add) {
+            //添加数量
+            if (currentNum == 5) {
+                return;
+            }
+            currentNum++;
+            LogUtils.i(TAG, "加-------------------" + currentNum);
+        } else {
+            //减少数量
+            if (currentNum == 1) {
+                return;
+            }
+            currentNum--;
+            LogUtils.i(TAG, "减-------------------" + currentNum);
+        }
+        if (currentNum > 1 && currentNum < 5) {
+            re_ib.setImageResource(R.mipmap.reduce_able);
+        } else if (currentNum >= 5) {
+            add_ib.setImageResource(R.mipmap.add_unable);
+        } else {
+            re_ib.setImageResource(R.mipmap.reduce_unable);
+            add_ib.setImageResource(R.mipmap.add_able);
+        }
+        listGoods.get(position).setGoods_num(currentNum);
+        pop_num_tv.setText("" + listGoods.get(position).getGoods_num());
+        adapter.notifyDataSetChanged();
     }
 
     //结算
@@ -204,10 +254,14 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
             pledge.setVisibility(View.INVISIBLE);
         }
         //设置数量的隐藏显示
-        if (!edit) {
-            setNumLayout.setVisibility(View.VISIBLE);
-        } else {
+        if (right_tv.getText().toString().trim().equals("编辑")) {
             setNumLayout.setVisibility(View.GONE);
+            price_tv.setVisibility(View.VISIBLE);
+            item_num.setVisibility(View.VISIBLE);
+        } else {
+            setNumLayout.setVisibility(View.VISIBLE);
+            item_num.setVisibility(View.INVISIBLE);
+            price_tv.setVisibility(View.INVISIBLE);
         }
 
         //设置条目的选中状态
@@ -231,35 +285,34 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         });
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //购物车是空的，点击前去逛逛
             case R.id.noshop_btn:
-                //移动至Home页
-                mainActivity.getVp().setCurrentItem(0);
-                RadioButton rbHome = (RadioButton) mainActivity.getRg().getChildAt(0);
-                rbHome.setChecked(true);
-                rbHome.setTextColor(getResources().getColor(R.color.colorTextMain));
+                if (MyApplication.gotoShop) {
+                    getActivity().finish();
+                } else {
+                    //移动至Home页
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.getVp().setCurrentItem(0);
+                    RadioButton rbHome = (RadioButton) mainActivity.getRg().getChildAt(0);
+                    rbHome.setChecked(true);
+                    rbHome.setTextColor(getResources().getColor(R.color.colorTextMain));
+                }
                 break;
             //点击编辑或者完成
             case R.id.title_right_tv:
-                if (edit) {
+                if (right_tv.getText().toString().trim().equals("编辑")) {
                     right_tv.setText("完成");
                     car_btn.setText("删除");
                     item_num.setVisibility(View.INVISIBLE);
-                    price_tv.setVisibility(View.INVISIBLE);
+                    price_tv.setVisibility(View.VISIBLE);
                 } else {
                     right_tv.setText("编辑");
                     car_btn.setText("结算");
+                    price_tv.setVisibility(View.INVISIBLE);
                     item_num.setVisibility(View.VISIBLE);
-                    price_tv.setVisibility(View.VISIBLE);
-                    int add_position = (int) add_ib.getTag();
-                    int re_position = (int) re_ib.getTag();
-                    if (add_position == re_position) {
-                        listGoods.get(add_position).setGoods_num(pop_tag);//重新设置数量
-                    }
                 }
                 edit = !edit;
                 adapter.notifyDataSetChanged();
@@ -279,54 +332,28 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
                 getSumPrice();
                 adapter.notifyDataSetChanged();
                 break;
-            //添加数量
-            case R.id.goods_pop_ib_add:
-                if (pop_tag == 5) {
-                    return;
-                }
-                pop_tag++;
-                initPopTag();
-                break;
-            //减少数量
-            case R.id.goods_pop_ib_reduce:
-                if (pop_tag == 1) {
-                    return;
-                }
-                pop_tag--;
-                initPopTag();
-                break;
             //结算或者删除
             case R.id.car_btn:
                 if (car_btn.getText().toString().equals("删除")) {
-                    for (int i = listGoods.size()-1; i > -1; i--) {
+                    for (int i = listGoods.size() - 1; i > -1; i--) {
                         if (listGoods.get(i).isChick()) {
                             //删除选中的条目
                             carDao.delete(listGoods.get(i).getUser_name(), listGoods.get(i).getGoods_name());
                             listGoods.remove(i);
                         }
                     }
+                    checkAll.setChecked(false);
+                    initCurrentView();
                     adapter.notifyDataSetChanged();
                 } else {
                     if (selectCount <= 0) {
                         Toast.makeText(getActivity(), "您还没有选中任何商品哦", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), "检测到您的钱包是空的，无法完成支付", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
         }
-    }
-
-    private void initPopTag() {
-        if (pop_tag > 1 && pop_tag < 5) {
-            re_ib.setImageResource(R.mipmap.reduce_able);
-        } else if (pop_tag == 5) {
-            add_ib.setImageResource(R.mipmap.add_unable);
-        } else {
-            re_ib.setImageResource(R.mipmap.reduce_unable);
-            add_ib.setImageResource(R.mipmap.add_able);
-        }
-        pop_num_tv.setText("" + pop_tag);
     }
 
     @Override

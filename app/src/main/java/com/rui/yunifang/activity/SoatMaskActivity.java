@@ -28,6 +28,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.adapter.ViewHolder;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.MaskInfo;
@@ -223,4 +224,11 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.gotoShop){
+            finish();
+        }
+    }
 }

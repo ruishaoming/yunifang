@@ -1,9 +1,11 @@
 package com.rui.yunifang.activity;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.adapter.ViewHolder;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.HomeData;
 import com.rui.yunifang.utils.CommonUtils;
@@ -36,7 +39,7 @@ public class SubjectActivity extends AutoLayoutActivity implements View.OnClickL
     }
 
     private void initData() {
-        HomeData.DataBean.SubjectsBean subject = (HomeData.DataBean.SubjectsBean) getIntent().getSerializableExtra("subject");
+        final HomeData.DataBean.SubjectsBean subject = (HomeData.DataBean.SubjectsBean) getIntent().getSerializableExtra("subject");
 
         sub_title.setText("#" + subject.title + "#");
         sub_detail.setText(subject.detail);
@@ -56,6 +59,16 @@ public class SubjectActivity extends AutoLayoutActivity implements View.OnClickL
                 price.setText("￥" + item.shop_price);
                 oldprice.setText("￥" + item.market_price);
                 oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+        });
+
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SubjectActivity.this, GoodsActivity.class);
+                intent.putExtra("id", subject.goodsList.get(position).id);
+                startActivity(intent);
+                overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
             }
         });
     }
@@ -79,6 +92,14 @@ public class SubjectActivity extends AutoLayoutActivity implements View.OnClickL
             case R.id.title_back_iv:
                 CommonUtils.finishActivity(this);
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.gotoShop){
+            finish();
         }
     }
 }

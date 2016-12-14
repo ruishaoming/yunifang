@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80px"
     android:padding="3dp">
@@ -32,4 +32,4 @@
         android:text="注册"
         android:textSize="13sp" />
 
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

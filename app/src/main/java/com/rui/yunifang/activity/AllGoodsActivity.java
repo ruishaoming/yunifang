@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.adapter.ViewHolder;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.base.BaseData;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.AllGoodsBean;
@@ -53,7 +54,9 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allgoods);
         initView();
-
+        if (MyApplication.gotoShop){
+            finish();
+        }
         getData(BaseData.NO_TIME);
 
     }

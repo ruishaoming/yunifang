@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="800px"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -21,7 +21,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/home_special_triangle" />
-    </RelativeLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:scrollbars="none"
         android:layout_weight="1">
 
-        <LinearLayout
+        <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -49,6 +49,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/home_rank_list_more" />
-        </LinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
     </HorizontalScrollView>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

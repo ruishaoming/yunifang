@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -27,13 +27,13 @@
             android:overScrollMode="never"
             android:scrollbars="none">
 
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <!--按属性-->
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="700px"
                     android:background="@color/colorWhite">
@@ -47,13 +47,13 @@
                         android:scaleType="fitXY"
                         android:src="@mipmap/classify_facial_mask" />
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <com.zhy.autolayout.AutoLinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1">
@@ -74,9 +74,9 @@
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/classify_body_lotion" />
-                        </LinearLayout>
+                        </com.zhy.autolayout.AutoLinearLayout>
 
-                        <LinearLayout
+                        <com.zhy.autolayout.AutoLinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1">
@@ -98,7 +98,7 @@
                                 android:padding="10px"
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/classify_other" />
-                        </LinearLayout>
+                        </com.zhy.autolayout.AutoLinearLayout>
 
                         <ImageView
                             android:id="@+id/category_kit"
@@ -108,10 +108,10 @@
                             android:padding="10px"
                             android:scaleType="fitXY"
                             android:src="@mipmap/classify_kit" />
-                    </LinearLayout>
-                </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
                 <!--按功效-->
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230px"
                     android:layout_marginTop="30px"
@@ -134,7 +134,7 @@
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/common_text" />
 
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginTop="10px"
@@ -186,11 +186,11 @@
                             android:padding="5px"
                             android:scaleType="fitXY"
                             android:src="@mipmap/classify_firming" />
-                    </LinearLayout>
-                </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <!--按肤质-->
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30px"
@@ -226,16 +226,16 @@
 
                     </com.rui.yunifang.view.InnerGridView>
 
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <!--明星产品-->
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30px"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -253,7 +253,7 @@
                             android:text="明星产品"
                             android:textColor="@color/colorTextBlack"
                             android:textSize="@dimen/shop_title" />
-                    </RelativeLayout>
+                    </com.zhy.autolayout.AutoRelativeLayout>
 
                     <com.rui.yunifang.view.InnerGridView
                         android:id="@+id/category_star_gv"
@@ -265,7 +265,7 @@
                         android:numColumns="2"
                         android:padding="5px"
                         android:verticalSpacing="10px"></com.rui.yunifang.view.InnerGridView>
-                </LinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <TextView
                     android:id="@+id/category_allshop_tv"
@@ -276,7 +276,7 @@
                     android:text="查看所有商品"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/shop_title" />
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
         </ScrollView>
     </com.liaoinstan.springview.widget.SpringView>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

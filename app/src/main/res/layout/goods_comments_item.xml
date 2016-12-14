@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150px"
     android:orientation="horizontal">
@@ -11,14 +11,14 @@
         android:padding="10px"
         android:src="@mipmap/user_icon_no_set" />
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:padding="10px">
 
-        <RelativeLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -38,7 +38,7 @@
                 android:text="2016/12/07"
                 android:textColor="@color/colorGray"
                 android:textSize="@dimen/common_text" />
-        </RelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
 
         <TextView
             android:id="@+id/goods_comment_contnet"
@@ -54,5 +54,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="4"></com.rui.yunifang.view.InnerGridView>
-    </LinearLayout>
-</LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
