@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150px"
+    android:layout_height="200px"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/goods_comment_icon"
-        android:layout_width="120px"
-        android:layout_height="120px"
+        android:layout_width="130px"
+        android:layout_height="130px"
         android:padding="10px"
         android:src="@mipmap/user_icon_no_set" />
 

@@ -1,5 +1,6 @@
 package com.rui.yunifang.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,17 +10,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.rui.yunifang.R;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import org.xutils.x;
+
+import java.util.Map;
 
 public class LoginActivity extends AutoLayoutActivity implements View.OnClickListener {
 
@@ -30,6 +39,7 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
     private LinearLayout login_layout;
     private LinearLayout login_bg;
     private DisplayImageOptions imageOptions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +70,7 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
         imageOptions = ImageLoaderUtils.initOptions();
 
     }
+
     public void login_btn(View view) {
 
     }
@@ -107,6 +118,12 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
             case R.id.title_right_tv:
 
                 break;
+            //QQ登录
+            case R.id.login_pop_qq:
+                UMShareAPI mShareAPI = UMShareAPI.get(LoginActivity.this);
+//                mShareAPI.doOauthVerify(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+                mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+                break;
             default:
                 break;
         }
@@ -119,7 +136,8 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
 
         // 利用layoutInflater获得View
         View view = CommonUtils.inflate(R.layout.login_pop_bottom);
-
+        ImageView qq_login = (ImageView) view.findViewById(R.id.login_pop_qq);
+        qq_login.setOnClickListener(this);
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
         popWindow = new PopupWindow(view,
@@ -161,6 +179,33 @@ public class LoginActivity extends AutoLayoutActivity implements View.OnClickLis
             this.getWindow().setAttributes(params);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            MyApplication.isLogin = true;//设置登录状态
+            CommonUtils.saveSp("user_name", data.get("screen_name"));//用户民
+            CommonUtils.saveSp("user_icon", data.get("profile_image_url"));//头像
+            finish();
+            Toast.makeText(getApplicationContext(), "登录成功！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText(getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText(getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+        }
+    };
 }
 
 

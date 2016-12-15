@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rui.yunifang.R;
+import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.DataClearManager;
 import com.zhy.autolayout.AutoLayoutActivity;
@@ -22,6 +24,7 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
     private TextView tv_cacheSize;
     private String cacheSize;
     private TextView tv_number;
+    private Button exitLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
         tv_number = (TextView) findViewById(R.id.settings_tv_number);
         findViewById(R.id.settings_line_update).setOnClickListener(this);
         line_clearCache.setOnClickListener(this);
+        exitLogin = (Button) findViewById(R.id.settings_exitLogin);
+        exitLogin.setOnClickListener(this);
         getCacheSize();
     }
 
@@ -95,6 +100,12 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
             //版本更新
             case R.id.settings_line_update:
                 CommonUtils.finishActivity(SettingsActivity.this);
+                break;
+            //退出登录
+            case R.id.settings_exitLogin:
+                MyApplication.isLogin = false;//设置登录状态
+                CommonUtils.saveSp("user_name", null);//用户民
+                CommonUtils.saveSp("user_icon", null);//头像
                 break;
         }
     }

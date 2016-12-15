@@ -34,7 +34,7 @@ public class HomeLvRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerHold
 
     @Override
     public HomeRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = CommonUtils.inflate(R.layout.home_line_hotweek_item);
+        View view = CommonUtils.inflate(R.layout.home_recycle_item);
         HomeRecyclerHolder homeRecyclerHolder = new HomeRecyclerHolder(view);
         return homeRecyclerHolder;
     }

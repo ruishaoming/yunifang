@@ -21,17 +21,17 @@ import com.rui.yunifang.R;
 public class ImageLoaderUtils {
 
     public static void initConfiguration(Context context) {
-        ImageLoaderConfiguration.Builder configuration = new ImageLoaderConfiguration.Builder(context);
-//                .memoryCacheExtraOptions(480, 800)
-//                .threadPoolSize(5)
-//                .threadPriority(Thread.MIN_PRIORITY + 4)
-//                // 一次性加载几张图片
-//                .tasksProcessingOrder(QueueProcessingType.FIFO)
-//                .denyCacheImageMultipleSizesInMemory()
-//                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-//                .discCacheSize(50 * 1024 * 1024) // 缓冲大小
-//                .discCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-//                .imageDownloader(new BaseImageDownloader(context)); // default
+        ImageLoaderConfiguration.Builder configuration = new ImageLoaderConfiguration.Builder(context)
+                .memoryCacheExtraOptions(480, 800)
+                .threadPoolSize(5)
+                .threadPriority(Thread.MIN_PRIORITY + 4)
+                // 一次性加载几张图片
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(30 * 1024 * 1024))
+                .discCacheSize(500 * 1024 * 1024) // 缓冲大小
+                .discCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+                .imageDownloader(new BaseImageDownloader(context)); // default
 
 //---------------------------------------------------------------------
         ImageLoader.getInstance().init(configuration.build());

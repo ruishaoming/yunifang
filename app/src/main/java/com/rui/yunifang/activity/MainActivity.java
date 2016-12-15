@@ -1,5 +1,6 @@
 package com.rui.yunifang.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -45,6 +46,12 @@ public class MainActivity extends AutoLayoutActivity {
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+                if (position == 2) {
+                    //如果是未登录状态
+                    if (!MyApplication.isLogin) {
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                }
                 return FragmentFactory.getFragment(position);
             }
 

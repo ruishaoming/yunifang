@@ -21,16 +21,16 @@
 
     <ImageView
         android:id="@+id/shop_title_car"
-        android:layout_width="40px"
-        android:layout_height="40px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="10px"
         android:src="@mipmap/goods_shopping_cart" />
 
     <ImageView
         android:id="@+id/shop_title_share"
-        android:layout_width="40px"
-        android:layout_height="40px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="10px"
         android:src="@mipmap/share_normal" />

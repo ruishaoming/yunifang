@@ -42,6 +42,7 @@ import com.rui.yunifang.utils.UrlUtils;
 import com.rui.yunifang.view.InnerGridView;
 import com.rui.yunifang.view.RootViewPager;
 import com.rui.yunifang.view.ShowingPage;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
 
@@ -146,7 +147,6 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             home_lv.setFocusable(false);
     }
 
-
     private void initViewData() {
 
         //ViewPager无限轮播
@@ -158,7 +158,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
 //        tv_hotweek_title.setText("~~~ " + homeData.data.bestSellers.get(0).name + " ~~~");
 
-//        initHotWeek(line_hot_week);
+        initHotWeek(line_hot_week);
 
         initLvData();
         initGvData();
@@ -186,7 +186,8 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         home_vp.setOnRootViewPagerClickListener(new RootViewPager.OnRootViewPagerClickListener() {
             @Override
             public void setOnPage(int position) {
-                homeStartActivity(DynamicActivity.class, homeData.data.ad1.get(position % imageList.size()).ad_type_dynamic_data, homeData.data.ad1.get(position % imageList.size()).ad_type_dynamic);
+                if (homeData.data.ad1.get(position % imageList.size()).ad_type_dynamic_data != null)
+                    homeStartActivity(DynamicActivity.class, homeData.data.ad1.get(position % imageList.size()).ad_type_dynamic_data, homeData.data.ad1.get(position % imageList.size()).ad_type_dynamic);
             }
         });
     }
@@ -228,39 +229,43 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     }
 
     //本周热销
-//    private void initHotWeek(LinearLayout linearLayout) {
-//        linearLayout.removeAllViews();
-//        for (int i = 0; i < 6; i++) {
-//            View hotweek_item = CommonUtils.inflate(R.layout.home_line_hotweek_item);
-//            ImageView hotweek_iv = (ImageView) hotweek_item.findViewById(R.id.home_line_hot_week_iv);
-//            TextView hotweek_title = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_title);
-//            TextView hotweek_price = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_price);
-//            TextView hotweek_oldprice = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_oldPrice);
-//            ImageLoader.getInstance().displayImage(homeData.data.bestSellers.get(0).goodsList.get(i).goods_img, hotweek_iv, options);
-//            hotweek_title.setText(homeData.data.bestSellers.get(0).goodsList.get(i).goods_name);
-//            hotweek_price.setText("￥" + homeData.data.bestSellers.get(0).goodsList.get(i).shop_price);
-//            hotweek_oldprice.setText("￥" + homeData.data.bestSellers.get(0).goodsList.get(i).market_price);
-//            hotweek_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//            hotweek_item.setLayoutParams(new LinearLayout.LayoutParams(300, 480));
-//            linearLayout.addView(hotweek_item);
-//        }
-//        ImageView hotweek_right_iv = new ImageView(getActivity());
-//        hotweek_right_iv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MoreShopActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("week_hot", homeData.data.bestSellers.get(0));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//        hotweek_right_iv.setImageResource(R.mipmap.home_rank_list_more);
-//        LinearLayout.LayoutParams hotweek_right_iv_params = new LinearLayout.LayoutParams(100, 120);
-//        hotweek_right_iv_params.setMargins(20, 0, 20, 0);
-//        hotweek_right_iv.setLayoutParams(hotweek_right_iv_params);
-//        linearLayout.addView(hotweek_right_iv);
-//    }
+    private void initHotWeek(LinearLayout linearLayout) {
+        linearLayout.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(320, 400);
+        params.setMargins(18, 0, 0, 0);
+        for (int i = 0; i < 6; i++) {
+            View hotweek_item = CommonUtils.inflate(R.layout.home_line_hotweek_item);
+            ImageView hotweek_iv = (ImageView) hotweek_item.findViewById(R.id.home_line_hot_week_iv);
+            AutoLinearLayout hotWeek_item = (AutoLinearLayout) hotweek_item.findViewById(R.id.home_line_hotweek_item);
+            hotWeek_item.setOnClickListener(this);
+            TextView hotweek_title = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_title);
+            TextView hotweek_price = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_price);
+            TextView hotweek_oldprice = (TextView) hotweek_item.findViewById(R.id.home_line_hot_week_tv_oldPrice);
+            ImageLoader.getInstance().displayImage(homeData.data.bestSellers.get(0).goodsList.get(i).goods_img, hotweek_iv, options);
+            hotweek_title.setText(homeData.data.bestSellers.get(0).goodsList.get(i).goods_name);
+            hotweek_price.setText("￥" + homeData.data.bestSellers.get(0).goodsList.get(i).shop_price);
+            hotweek_oldprice.setText("￥" + homeData.data.bestSellers.get(0).goodsList.get(i).market_price);
+            hotweek_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            hotweek_item.setLayoutParams(params);
+            linearLayout.addView(hotweek_item);
+        }
+        ImageView hotweek_right_iv = new ImageView(getActivity());
+        hotweek_right_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MoreShopActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("week_hot", homeData.data.bestSellers.get(0));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        hotweek_right_iv.setImageResource(R.mipmap.home_rank_list_more);
+        LinearLayout.LayoutParams hotweek_right_iv_params = new LinearLayout.LayoutParams(100, 120);
+        hotweek_right_iv_params.setMargins(20, 0, 20, 0);
+        hotweek_right_iv.setLayoutParams(hotweek_right_iv_params);
+        linearLayout.addView(hotweek_right_iv);
+    }
 
     //优惠活动
     private void initYhVpData() {
@@ -429,6 +434,17 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 for (int i = 0; i < line_ad5.getChildCount(); i++) {
                     if (line_ad5.getChildAt(i) == v) {
 //                        homeStartActivity(DynamicActivity.class, homeData.data.ad5.get(i).ad_type_dynamic_data, homeData.data.ad5.get(i).title);
+                    }
+                }
+                break;
+            //本周热销条目点击
+            case R.id.home_line_hotweek_item:
+                for (int i = 0; i < line_hot_week.getChildCount(); i++) {
+                    if (line_hot_week.getChildAt(i) == v) {
+                        Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("id", homeData.data.bestSellers.get(0).goodsList.get(i).id);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
                     }
                 }
                 break;

@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -59,9 +60,6 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     private int pop_tag;
     private ImageView pledge;
     private ImageView coupons;
-    private ImageButton add_ib;
-    private ImageButton re_ib;
-    private TextView pop_num_tv;
     private TextView price_tv;
     private int selectCount = 0;
     private CheckBox item_check;
@@ -90,7 +88,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
 
     private void initData() {
         carDao = new GoodsCarDao(getActivity());
-        listGoods = carDao.query("rui");
+        listGoods = carDao.query(CommonUtils.getSp("user_name"));
         title.setText("购物车(" + listGoods.size() + ")");
         initCurrentView();
     }
@@ -101,20 +99,18 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         if (listGoods.size() > 0) {
             haveShop.setVisibility(View.VISIBLE);
             noShop.setVisibility(View.GONE);
+            right_tv.setVisibility(View.VISIBLE);
             setLvAdapter(listGoods);
         } else {
             haveShop.setVisibility(View.GONE);
             noShop.setVisibility(View.VISIBLE);
+            right_tv.setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //如果是未登录状态
-        if (MyApplication.isLogin) {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-        }
     }
 
     @NonNull
@@ -148,33 +144,34 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         adapter = new CommonAdapter<GoodsCarInfo>(getActivity(), R.layout.fragment_car_lv_item, listGoods) {
             @Override
             protected void convert(ViewHolder viewHolder, GoodsCarInfo item, final int position) {
-                LogUtils.i(TAG,"viewHolder-------------------"+viewHolder);
+                LogUtils.i(TAG, "viewHolder-------------------" + viewHolder);
                 viewHolder.setText(R.id.car_item_name, listGoods.get(position).getGoods_name());
                 viewHolder.setText(R.id.car_item_price, "￥" + listGoods.get(position).getGoods_price());
                 item_num = viewHolder.getView(R.id.car_item_num);
                 ImageView icon = viewHolder.getView(R.id.car_item_icon);
+                final TextView pop_num_tv = viewHolder.getView(R.id.goods_pop_num_tv);
+                pop_num_tv.setTag(position);
                 Glide.with(getActivity())
                         .load(listGoods.get(position).getGoods_img())
                         .into(icon);
 //                ImageLoader.getInstance().displayImage(listGoods.get(position).getGoods_img(), icon);
                 pledge = viewHolder.getView(R.id.car_item_pledge);
                 coupons = viewHolder.getView(R.id.car_item_coupons);
-                add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
-                re_ib = viewHolder.getView(R.id.goods_pop_ib_reduce);
+               final ImageButton add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
+                final ImageButton re_ib = viewHolder.getView(R.id.goods_pop_ib_reduce);
                 //设置当前的数量改变监听
                 add_ib.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setShopCount(true, listGoods.get(position).getGoods_num(), position);
+                        setShopCount(true, listGoods.get(position).getGoods_num(), position,pop_num_tv,add_ib,re_ib);
                     }
                 });
                 re_ib.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setShopCount(false, listGoods.get(position).getGoods_num(), position);
+                        setShopCount(false, listGoods.get(position).getGoods_num(), position,pop_num_tv,add_ib,re_ib);
                     }
                 });
-                pop_num_tv = viewHolder.getView(R.id.goods_pop_num_tv);
                 item_check = viewHolder.getView(R.id.car_item_check);
                 setNumLayout = viewHolder.getView(R.id.car_lv_num_layout);
                 setNumLayout.setVisibility(View.GONE);
@@ -198,33 +195,31 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     }
 
     //设置当前的数量
-    private void setShopCount(boolean add, int currentNum, int position) {
-        LogUtils.i(TAG, "当前下标-------------------" + position);
+    private void setShopCount(boolean add, int currentNum, int position,TextView itemCount,ImageButton ad,ImageButton re) {
         if (add) {
             //添加数量
             if (currentNum == 5) {
                 return;
             }
             currentNum++;
-            LogUtils.i(TAG, "加-------------------" + currentNum);
         } else {
             //减少数量
             if (currentNum == 1) {
                 return;
             }
             currentNum--;
-            LogUtils.i(TAG, "减-------------------" + currentNum);
         }
         if (currentNum > 1 && currentNum < 5) {
-            re_ib.setImageResource(R.mipmap.reduce_able);
+            re.setImageResource(R.mipmap.reduce_able);
         } else if (currentNum >= 5) {
-            add_ib.setImageResource(R.mipmap.add_unable);
+            ad.setImageResource(R.mipmap.add_unable);
         } else {
-            re_ib.setImageResource(R.mipmap.reduce_unable);
-            add_ib.setImageResource(R.mipmap.add_able);
+            re.setImageResource(R.mipmap.reduce_unable);
+            ad.setImageResource(R.mipmap.add_able);
         }
+
         listGoods.get(position).setGoods_num(currentNum);
-        pop_num_tv.setText("" + listGoods.get(position).getGoods_num());
+        itemCount.setText("" + listGoods.get(position).getGoods_num());
         adapter.notifyDataSetChanged();
     }
 

@@ -23,13 +23,30 @@
                 android:src="@mipmap/mine_setting" />
 
             <com.rui.yunifang.view.XCRoundImageView
-                android:id="@+id/mine_login_iv"
+                android:id="@+id/mine_nologin_iv"
+                android:layout_width="160px"
+                android:layout_height="160px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/user_icon_no_set" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/mine_islogin_iv"
                 android:layout_width="160px"
                 android:layout_height="160px"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/user_icon_no_set" />
         </com.zhy.autolayout.AutoRelativeLayout>
+
+        <TextView
+            android:id="@+id/mine_login_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="10px"
+            android:gravity="center" />
 
         <Button
             android:id="@+id/mine_login_btn"
@@ -117,11 +134,11 @@
 
             <TextView
                 android:id="@+id/tv_mine_order_icon"
-                android:background="@drawable/click_bg"
                 android:layout_width="match_parent"
                 android:layout_height="75px"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
+                android:background="@drawable/click_bg"
                 android:drawableLeft="@mipmap/mine_order_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
                 android:gravity="center_vertical"
@@ -142,9 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="75px"
                 android:layout_below="@+id/mine_view_color_top"
-                android:background="@drawable/click_bg"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
+                android:background="@drawable/click_bg"
                 android:drawableLeft="@mipmap/mine_invite_gift_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
                 android:gravity="center_vertical"
@@ -183,10 +200,10 @@
                 android:layout_below="@+id/mine_view_color_bottom"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
+                android:background="@drawable/click_bg"
                 android:drawableLeft="@mipmap/mine_coupon_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
                 android:gravity="center_vertical"
-                android:background="@drawable/click_bg"
                 android:padding="15px"
                 android:text="   我的现金券"
                 android:textColor="@color/colorTextBlack"
@@ -199,8 +216,8 @@
                 android:layout_below="@+id/tv_mine_coupon_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
-                android:drawableLeft="@mipmap/mine_lottery_icon"
                 android:background="@drawable/click_bg"
+                android:drawableLeft="@mipmap/mine_lottery_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
                 android:gravity="center_vertical"
                 android:padding="15px"
@@ -215,9 +232,9 @@
                 android:layout_below="@+id/tv_mine_lottery_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
+                android:background="@drawable/click_bg"
                 android:drawableLeft="@mipmap/mine_collection_icon"
                 android:drawableRight="@mipmap/mine_vip_arrows_right"
-                android:background="@drawable/click_bg"
                 android:gravity="center_vertical"
                 android:padding="15px"
                 android:text="   我收藏的商品"

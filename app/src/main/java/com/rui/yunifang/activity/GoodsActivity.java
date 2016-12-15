@@ -47,6 +47,9 @@ import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.utils.UrlUtils;
 import com.rui.yunifang.view.GoodsScrollView;
 import com.rui.yunifang.view.InnerGridView;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.ArrayList;
@@ -306,15 +309,24 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
             case R.id.shop_title_back:
                 CommonUtils.finishActivity(GoodsActivity.this);
                 break;
-            //加入购物车、立即购买
+            //加入购物车、
             case R.id.goods_joinCar_tv:
+                if (!MyApplication.isLogin) {
+                    CommonUtils.startActivity(GoodsActivity.this, LoginActivity.class);
+                    return;
+                }
                 joinCar = true;
                 if (goodsInfo == null) {
                     return;
                 }
                 showPopwindow();
                 break;
+            //立即购买
             case R.id.goods_buy_tv:
+                if (!MyApplication.isLogin) {
+                    CommonUtils.startActivity(GoodsActivity.this, LoginActivity.class);
+                    return;
+                }
                 joinCar = false;
                 if (goodsInfo == null) {
                     return;
@@ -329,9 +341,6 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 } else {
 
                 }
-                closePopupWindow();
-                break;
-            case R.id.goods_pop_close:
                 closePopupWindow();
                 break;
             //PopupWindow添加数量
@@ -361,7 +370,61 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                 transaction.commit();
                 overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
                 break;
+            //右上角分享按钮
+            case R.id.shop_title_share:
+                showPopwindowShare();
+                break;
+            //关闭popupWindow
+            case R.id.goods_pop_close:
+                //分享取消
+            case R.id.share_but_cancel:
+                closePopupWindow();
+                break;
+            //QQ分享
+            case R.id.share_btn_qq:
+                new ShareAction(GoodsActivity.this).setPlatform(SHARE_MEDIA.QQ)
+                        .withTitle(goodsInfo.data.goods.goods_name)
+                        .withTargetUrl(UrlUtils.GOODS_URL + id)
+                        .setCallback(umShareListener)
+                        .share();
+                break;
         }
+    }
+
+    //展示分享的PopUpWindow
+    private void showPopwindowShare() {
+        // 利用layoutInflater获得View
+        View view = CommonUtils.inflate(R.layout.pop_share);
+        initPopViewShare(view);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        popWindow = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT, 500);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        popWindow.setFocusable(true);
+        setBackgroundAlpha();
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                closePopupWindow();
+                return false;
+            }
+        });
+        // 设置popWindow的显示和消失动画
+        popWindow.setAnimationStyle(R.style.popupAnimation);
+        // 在底部显示
+        popWindow.showAtLocation(gods_price, Gravity.BOTTOM, 0, 0);
+    }
+
+    private void initPopViewShare(View view) {
+        Button share_cancle = (Button) view.findViewById(R.id.share_but_cancel);
+        share_cancle.setOnClickListener(this);
+        Button share_qq = (Button) view.findViewById(R.id.share_btn_qq);
+        share_qq.setOnClickListener(this);
     }
 
     //开启线程加入购物车
@@ -371,7 +434,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
             public void run() {
                 GoodsCarDao goodsCarDao = new GoodsCarDao(GoodsActivity.this);
                 GoodsCarInfo goodsCarInfo = new GoodsCarInfo();
-                goodsCarInfo.setUser_name("rui");
+                goodsCarInfo.setUser_name(CommonUtils.getSp("user_name"));
                 goodsCarInfo.setGoods_name(goodsInfo.data.goods.goods_name);
                 goodsCarInfo.setGoods_id(id);
                 goodsCarInfo.setGoods_img(goodsInfo.data.goods.gallery.get(0).normal_url);
@@ -409,7 +472,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
         popWindow = new PopupWindow(view,
-                WindowManager.LayoutParams.MATCH_PARENT, 450);
+                WindowManager.LayoutParams.MATCH_PARENT, 500);
 
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
         popWindow.setFocusable(true);
@@ -471,5 +534,27 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
             this.getWindow().setAttributes(params);
         }
     }
+
+    //友盟第三方分享
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(GoodsActivity.this, platform + " 成功分享！", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(GoodsActivity.this, platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            if (t != null) {
+                Log.d("throw", "throw:" + t.getMessage());
+            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(GoodsActivity.this, platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

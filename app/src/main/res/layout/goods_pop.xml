@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="450px"
+    android:layout_height="500px"
     android:orientation="vertical">
 
 
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/goods_pop_bottom"
         android:layout_width="match_parent"
-        android:layout_height="450px"
+        android:layout_height="500px"
         android:layout_marginTop="25px"
         android:background="#fff"
         android:orientation="vertical"

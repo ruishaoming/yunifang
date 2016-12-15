@@ -86,9 +86,8 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
     }
 
     /**
-     *
-     * @param rg 设置需要加载的RadioGroup
-     * @param size 设置ViewPager中Fragment的个数
+     * @param rg     设置需要加载的RadioGroup
+     * @param size   设置ViewPager中Fragment的个数
      * @param typeId 判断当前传入的条目的类型
      */
     private void initData(final RadioGroup rg, final int size, final int typeId) {
@@ -157,12 +156,12 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
         title.setText(maskData.cat_name);
         RadioGroup hotiRadioGroup = new RadioGroup(this);
         hotiRadioGroup.setOrientation(RadioGroup.HORIZONTAL);
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(250, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
         for (int i = 0; i < maskData.children.size(); i++) {
             RadioButton radioButton = initRadipButton(0, i);
-            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(0, RadioGroup.LayoutParams.MATCH_PARENT, 1.0f);
             hotiRadioGroup.addView(radioButton, params);
         }
-        horizontal.addView(hotiRadioGroup,new RadioGroup.LayoutParams(1000,RadioGroup.LayoutParams.MATCH_PARENT));
+        horizontal.addView(hotiRadioGroup, new HorizontalScrollView.LayoutParams(1000, RadioGroup.LayoutParams.MATCH_PARENT));
         initData(hotiRadioGroup, maskData.children.size(), 0);
         maskVp.setCurrentItem(getId);
     }
@@ -227,7 +226,7 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        if (MyApplication.gotoShop){
+        if (MyApplication.gotoShop) {
             finish();
         }
     }

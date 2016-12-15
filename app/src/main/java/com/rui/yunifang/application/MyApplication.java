@@ -4,8 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Process;
+import android.text.TextUtils;
 
+import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import org.xutils.x;
@@ -37,6 +41,12 @@ public class MyApplication extends Application {
         threadPool = Executors.newFixedThreadPool(5);//创建线程池
         x.Ext.init(this);
         x.Ext.setDebug(true);
+        UMShareAPI.get(this);
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        String user_name = CommonUtils.getSp("user_name");
+        if (!TextUtils.isEmpty(user_name)) {
+            MyApplication.isLogin = true;
+        }
     }
 
     public static Context getContext() {
