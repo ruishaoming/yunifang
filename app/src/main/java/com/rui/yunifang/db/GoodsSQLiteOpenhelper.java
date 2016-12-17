@@ -21,6 +21,10 @@ public class GoodsSQLiteOpenhelper extends SQLiteOpenHelper {
                 "user_name varchar(20),goods_name varchar(50),goods_img varchar(200)," +
                 "goods_price varchar(50),goods_id varchar(10),goods_num integer," +
                 "goods_pledge varchar(10),goods_coupons varchar(10))");
+
+        //创建收货地址数据库
+        db.execSQL("create table address(_id integer primary key autoincrement,user_name varchar(20)," +
+                "ad_name varchar(20),ad_number varchar(20),ad_city varchar(30),ad_district varchar(50))");
     }
 
     //版本更新的时候调用

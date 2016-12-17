@@ -105,4 +105,19 @@ public class GoodsCarInfo {
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
+
+    @Override
+    public String toString() {
+        return "GoodsCarInfo{" +
+                "goods_coupons=" + goods_coupons +
+                ", user_name='" + user_name + '\'' +
+                ", goods_name='" + goods_name + '\'' +
+                ", goods_img='" + goods_img + '\'' +
+                ", goods_price='" + goods_price + '\'' +
+                ", goods_id='" + goods_id + '\'' +
+                ", goods_num=" + goods_num +
+                ", goods_pledge=" + goods_pledge +
+                ", isChick=" + isChick +
+                '}';
+    }
 }

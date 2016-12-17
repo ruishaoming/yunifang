@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:padding="10px">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="收货人："
+            android:textColor="@color/colortvGray"
+            android:textSize="@dimen/common_text" />
+
+        <EditText
+            android:id="@+id/frag_add_et_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/share_square"
+            android:lines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:padding="10px">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="手机："
+            android:textColor="@color/colortvGray"
+            android:textSize="@dimen/common_text" />
+
+        <EditText
+            android:id="@+id/frag_add_et_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/share_square"
+            android:lines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:padding="10px">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="省市区："
+            android:textColor="@color/colortvGray"
+            android:textSize="@dimen/common_text" />
+
+        <EditText
+            android:id="@+id/frag_add_et_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/share_square"
+            android:lines="1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:gravity="center_vertical"
+        android:padding="10px"
+        android:text="详细地址："
+        android:textColor="@color/colortvGray"
+        android:textSize="@dimen/common_text" />
+
+    <EditText
+        android:id="@+id/frag_add_et_address"
+        android:layout_width="match_parent"
+        android:layout_height="250px"
+        android:background="@drawable/share_square"
+        android:gravity="top"
+        android:lines="4"
+        android:padding="10px" />
+
+</LinearLayout>

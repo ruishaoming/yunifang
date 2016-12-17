@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180px"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:padding="10px">
+
+            <TextView
+                android:id="@+id/address_item_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="某某"
+                android:textColor="@color/colortvGray"
+                android:textSize="@dimen/common_text" />
+
+            <TextView
+                android:id="@+id/address_item_number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50px"
+                android:gravity="center_vertical|right"
+                android:text="1231354"
+                android:textColor="@color/colortvGray"
+                android:textSize="@dimen/common_text" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/address_item_dis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lines="2"
+            android:padding="10px"
+            android:text="从昆明召开了你了每次看名字的"
+            android:textColor="@color/colortvGray"
+            android:textSize="@dimen/common_text" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/address_item_click"
+        android:layout_width="90px"
+        android:focusable="false"
+        android:layout_height="match_parent"
+        android:button="@null"
+        android:drawableLeft="@drawable/cart_chick_all"
+        android:paddingLeft="20px" />
+
+</LinearLayout>

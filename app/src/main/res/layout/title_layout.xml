@@ -31,5 +31,4 @@
         android:gravity="center"
         android:text="注册"
         android:textSize="13sp" />
-
 </com.zhy.autolayout.AutoRelativeLayout>

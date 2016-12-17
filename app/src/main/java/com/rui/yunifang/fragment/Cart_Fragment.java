@@ -26,6 +26,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.activity.GoodsActivity;
+import com.rui.yunifang.activity.IndentActivity;
 import com.rui.yunifang.activity.LoginActivity;
 import com.rui.yunifang.activity.MainActivity;
 import com.rui.yunifang.application.MyApplication;
@@ -67,6 +68,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     private Button car_btn;
     private GoodsCarDao carDao;
     private TextView title;
+    private static ArrayList<GoodsCarInfo> chioceList = new ArrayList<>();
 
     @Override
     protected void onLoad() {
@@ -157,19 +159,19 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
 //                ImageLoader.getInstance().displayImage(listGoods.get(position).getGoods_img(), icon);
                 pledge = viewHolder.getView(R.id.car_item_pledge);
                 coupons = viewHolder.getView(R.id.car_item_coupons);
-               final ImageButton add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
+                final ImageButton add_ib = viewHolder.getView(R.id.goods_pop_ib_add);
                 final ImageButton re_ib = viewHolder.getView(R.id.goods_pop_ib_reduce);
                 //设置当前的数量改变监听
                 add_ib.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setShopCount(true, listGoods.get(position).getGoods_num(), position,pop_num_tv,add_ib,re_ib);
+                        setShopCount(true, listGoods.get(position).getGoods_num(), position, pop_num_tv, add_ib, re_ib);
                     }
                 });
                 re_ib.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setShopCount(false, listGoods.get(position).getGoods_num(), position,pop_num_tv,add_ib,re_ib);
+                        setShopCount(false, listGoods.get(position).getGoods_num(), position, pop_num_tv, add_ib, re_ib);
                     }
                 });
                 item_check = viewHolder.getView(R.id.car_item_check);
@@ -195,7 +197,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     }
 
     //设置当前的数量
-    private void setShopCount(boolean add, int currentNum, int position,TextView itemCount,ImageButton ad,ImageButton re) {
+    private void setShopCount(boolean add, int currentNum, int position, TextView itemCount, ImageButton ad, ImageButton re) {
         if (add) {
             //添加数量
             if (currentNum == 5) {
@@ -344,11 +346,23 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
                     if (selectCount <= 0) {
                         Toast.makeText(getActivity(), "您还没有选中任何商品哦", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "检测到您的钱包是空的，无法完成支付", Toast.LENGTH_SHORT).show();
+                        chioceList.clear();
+                        for (int i = 0; i < listGoods.size(); i++) {
+                            if (listGoods.get(i).isChick()) {
+                                chioceList.add(listGoods.get(i));
+                            }
+                        }
+                        //前往确认订单
+                        CommonUtils.startActivity(getActivity(), IndentActivity.class);
                     }
                 }
                 break;
         }
+    }
+
+    //获得选中的商品
+    public static ArrayList<GoodsCarInfo> getGoods() {
+        return chioceList;
     }
 
     @Override

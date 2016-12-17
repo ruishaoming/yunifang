@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/address_fram"
+    android:layout_height="match_parent"
+    tools:context="com.rui.yunifang.activity.AddressActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/address_title"
+            layout="@layout/title_layout" />
+
+        <LinearLayout
+            android:id="@+id/address_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/share_square"
+            android:gravity="center"
+            android:paddingTop="1px">
+
+            <Button
+                android:layout_width="250px"
+                android:layout_height="80px"
+                android:background="@color/colorTextMain"
+                android:gravity="center"
+                android:onClick="addAddressBtn"
+                android:text="添加收货地址"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/common_text" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/address_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/address_bottom"
+            android:layout_below="@+id/address_title"></ListView>
+    </RelativeLayout>
+</FrameLayout>
