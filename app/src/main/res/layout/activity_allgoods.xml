@@ -67,13 +67,13 @@
         <GridView
             android:id="@+id/goods_gv"
             android:layout_width="match_parent"
+            android:layout_margin="5px"
             android:layout_height="match_parent"
             android:horizontalSpacing="20px"
             android:listSelector="#00000000"
             android:numColumns="2"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:padding="5px"
             android:verticalSpacing="20px"></GridView>
     </com.liaoinstan.springview.widget.SpringView>
 </com.zhy.autolayout.AutoLinearLayout>

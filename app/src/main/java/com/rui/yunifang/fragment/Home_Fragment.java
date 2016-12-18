@@ -72,6 +72,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     private CommonAdapter<HomeData.DataBean.DefaultGoodsListBean> gvCommonAdapter;
     private InnerGridView ad5_gv;
     private View rootView;
+    private ImageView iv_more;
 
     @Override
     protected void onLoad() {
@@ -101,6 +102,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         home_tv_more.setOnClickListener(this);
         ad5_gv = (InnerGridView) view.findViewById(R.id.home_gv_ad5);
         springView.setHeader(new DefaultHeader(getActivity()));
+        iv_more = (ImageView) view.findViewById(R.id.home_lv_more);
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
     }
@@ -231,7 +233,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     //本周热销
     private void initHotWeek(LinearLayout linearLayout) {
         linearLayout.removeAllViews();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(320, 400);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(320, 450);
         params.setMargins(18, 0, 0, 0);
         for (int i = 0; i < 6; i++) {
             View hotweek_item = CommonUtils.inflate(R.layout.home_line_hotweek_item);
@@ -249,8 +251,10 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
             hotweek_item.setLayoutParams(params);
             linearLayout.addView(hotweek_item);
         }
-        ImageView hotweek_right_iv = new ImageView(getActivity());
-        hotweek_right_iv.setOnClickListener(new View.OnClickListener() {
+//        ImageView hotweek_right_iv = new ImageView(getActivity());
+//        hotweek_right_iv.setBackgroundColor(getResources().getColor(R.color.moreColor));
+//        hotweek_right_iv.setPadding(60,60,60,60);
+        iv_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MoreShopActivity.class);
@@ -260,11 +264,11 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 startActivity(intent);
             }
         });
-        hotweek_right_iv.setImageResource(R.mipmap.home_rank_list_more);
-        LinearLayout.LayoutParams hotweek_right_iv_params = new LinearLayout.LayoutParams(100, 120);
-        hotweek_right_iv_params.setMargins(20, 0, 20, 0);
-        hotweek_right_iv.setLayoutParams(hotweek_right_iv_params);
-        linearLayout.addView(hotweek_right_iv);
+//        hotweek_right_iv.setImageResource(R.mipmap.home_rank_list_more);
+//        LinearLayout.LayoutParams hotweek_right_iv_params = new LinearLayout.LayoutParams(250, 120);
+//        hotweek_right_iv_params.setMargins(20, 0, 20, 0);
+//        hotweek_right_iv.setLayoutParams(hotweek_right_iv_params);
+//        linearLayout.addView(hotweek_right_iv);
     }
 
     //优惠活动
@@ -330,7 +334,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 RecyclerView home_lv_recy = holder.getView(R.id.home_lv_item_recycler);
 
                 home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                home_lv_recy.addItemDecoration(new SpacesItemDecoration(8));//设置间距
+                home_lv_recy.addItemDecoration(new SpacesItemDecoration(2));//设置间距
                 HomeLvRecyclerAdapter recyclerAdapter = new HomeLvRecyclerAdapter(getActivity(), item.goodsList);
                 home_lv_recy.setAdapter(recyclerAdapter);
                 recyclerAdapter.setOnitemClickListener(new HomeLvRecyclerAdapter.OnitemClickListener() {

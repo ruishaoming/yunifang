@@ -34,6 +34,8 @@ public class GoodsCarInfo {
 
     }
 
+
+
     public boolean isChick() {
         return isChick;
     }

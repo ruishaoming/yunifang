@@ -1,5 +1,6 @@
 package com.rui.yunifang.activity;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -90,6 +92,15 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
         } else {
             goodsAdapter.notifyDataSetChanged();
         }
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(AllGoodsActivity.this, GoodsActivity.class);
+                intent.putExtra("id", goodsBean.data.get(position).id);
+                startActivity(intent);
+                overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
+            }
+        });
     }
 
     //初始化控件

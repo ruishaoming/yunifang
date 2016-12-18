@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="800px"
+    android:layout_height="900px"
     android:orientation="vertical">
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -42,10 +42,10 @@
 
             <ImageView
                 android:id="@+id/home_lv_item_more"
-                android:layout_width="200px"
+                android:layout_width="250px"
                 android:layout_margin="10px"
-                android:padding="50px"
-                android:background="#ece8e8"
+                android:padding="60px"
+                android:background="@color/moreColor"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/home_rank_list_more" />

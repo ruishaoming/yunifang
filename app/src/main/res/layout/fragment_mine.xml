@@ -62,9 +62,9 @@
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120px"
+            android:layout_height="100px"
             android:layout_marginBottom="10px"
-            android:layout_marginTop="30px">
+            android:layout_marginTop="25px">
 
             <TextView
                 android:id="@+id/tv_mine_wait_pay"
@@ -129,13 +129,12 @@
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20px">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_mine_order_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
                 android:background="@drawable/click_bg"
@@ -150,14 +149,14 @@
             <View
                 android:id="@+id/mine_view_color_top"
                 android:layout_width="match_parent"
-                android:layout_height="20px"
+                android:layout_height="15px"
                 android:layout_below="@+id/tv_mine_order_icon"
                 android:background="#e4dbd4" />
 
             <TextView
                 android:id="@+id/tv_mine_invite_gift_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/mine_view_color_top"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
@@ -173,7 +172,7 @@
             <TextView
                 android:id="@+id/tv_mine_face_test_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/tv_mine_invite_gift_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
@@ -189,14 +188,14 @@
             <View
                 android:id="@+id/mine_view_color_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="20px"
+                android:layout_height="15px"
                 android:layout_below="@+id/tv_mine_face_test_icon"
                 android:background="#e4dbd4" />
 
             <TextView
                 android:id="@+id/tv_mine_coupon_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/mine_view_color_bottom"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
@@ -212,7 +211,7 @@
             <TextView
                 android:id="@+id/tv_mine_lottery_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/tv_mine_coupon_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
@@ -228,7 +227,7 @@
             <TextView
                 android:id="@+id/tv_mine_collection_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/tv_mine_lottery_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
@@ -244,7 +243,7 @@
             <TextView
                 android:id="@+id/tv_mine_contact_service_icon"
                 android:layout_width="match_parent"
-                android:layout_height="75px"
+                android:layout_height="72px"
                 android:layout_below="@+id/tv_mine_collection_icon"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"

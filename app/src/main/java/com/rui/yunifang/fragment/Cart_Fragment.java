@@ -68,7 +68,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     private Button car_btn;
     private GoodsCarDao carDao;
     private TextView title;
-    private static ArrayList<GoodsCarInfo> chioceList = new ArrayList<>();
+    public static ArrayList<GoodsCarInfo> chioceList = new ArrayList<>();
 
     @Override
     protected void onLoad() {
@@ -91,19 +91,27 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
     private void initData() {
         carDao = new GoodsCarDao(getActivity());
         listGoods = carDao.query(CommonUtils.getSp("user_name"));
-        title.setText("购物车(" + listGoods.size() + ")");
         initCurrentView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (checkAll != null)
+            checkAll.setChecked(false);
     }
 
     //设置当前的布局界面
     private void initCurrentView() {
         //如果购物车中有商品
         if (listGoods.size() > 0) {
+            title.setText("购物车(" + listGoods.size() + ")");
             haveShop.setVisibility(View.VISIBLE);
             noShop.setVisibility(View.GONE);
             right_tv.setVisibility(View.VISIBLE);
             setLvAdapter(listGoods);
         } else {
+            title.setText("购物车");
             haveShop.setVisibility(View.GONE);
             noShop.setVisibility(View.VISIBLE);
             right_tv.setVisibility(View.INVISIBLE);
@@ -146,7 +154,6 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
         adapter = new CommonAdapter<GoodsCarInfo>(getActivity(), R.layout.fragment_car_lv_item, listGoods) {
             @Override
             protected void convert(ViewHolder viewHolder, GoodsCarInfo item, final int position) {
-                LogUtils.i(TAG, "viewHolder-------------------" + viewHolder);
                 viewHolder.setText(R.id.car_item_name, listGoods.get(position).getGoods_name());
                 viewHolder.setText(R.id.car_item_price, "￥" + listGoods.get(position).getGoods_price());
                 item_num = viewHolder.getView(R.id.car_item_num);
@@ -339,6 +346,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
                             listGoods.remove(i);
                         }
                     }
+
                     checkAll.setChecked(false);
                     initCurrentView();
                     adapter.notifyDataSetChanged();

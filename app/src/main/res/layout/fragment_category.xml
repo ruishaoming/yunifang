@@ -4,17 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/category_ed_search"
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_margin="20px"
-        android:background="@null"
+        android:background="@drawable/share_square"
+        android:layout_height="80px"
+        android:paddingLeft="10px"
         android:drawableLeft="@mipmap/icon_search"
-        android:scrollbars="none"
-        android:textColor="@color/colorTextBlack">
+        android:gravity="center_vertical"
+        android:hint=" 请输入商品名称"
+        android:textColorHint="@color/colorTextBlack"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/common_text" />
 
-    </SearchView>
 
     <com.liaoinstan.springview.widget.SpringView
         android:id="@+id/category_springView"
@@ -35,7 +36,7 @@
                 <!--按属性-->
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="700px"
+                    android:layout_height="600px"
                     android:background="@color/colorWhite">
 
                     <ImageView
@@ -72,6 +73,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:padding="10px"
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/classify_body_lotion" />
                         </com.zhy.autolayout.AutoLinearLayout>
@@ -153,7 +155,6 @@
                             android:id="@+id/category_soothing"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="5px"
                             android:layout_weight="1"
                             android:padding="5px"
                             android:scaleType="fitXY"
@@ -181,7 +182,6 @@
                             android:id="@+id/category_firming"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="5px"
                             android:layout_weight="1"
                             android:padding="5px"
                             android:scaleType="fitXY"

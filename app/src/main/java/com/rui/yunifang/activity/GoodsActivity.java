@@ -339,7 +339,14 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                     joinCarMethod();
                     Toast.makeText(GoodsActivity.this, "成功加入购物车！", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    //确定购买
+                    Cart_Fragment.chioceList = new ArrayList<>();
+                    String user_name = CommonUtils.getSp("user_name");
+                    GoodsCarInfo goods = new GoodsCarInfo(goodsInfo.data.goods.is_coupon_allowed,
+                            goodsInfo.data.goods.id, goodsInfo.data.goods.goods_img, goodsInfo.data.goods.goods_name,
+                            goodsInfo.data.goods.stock_number, true,String.valueOf(goodsInfo.data.goods.shop_price), user_name, true);
+                    Cart_Fragment.chioceList.add(goods);
+                    CommonUtils.startActivity(GoodsActivity.this,IndentActivity.class);
                 }
                 closePopupWindow();
                 break;
@@ -400,7 +407,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
         popWindow = new PopupWindow(view,
-                WindowManager.LayoutParams.MATCH_PARENT, 500);
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
         popWindow.setFocusable(true);
@@ -417,7 +424,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         // 设置popWindow的显示和消失动画
         popWindow.setAnimationStyle(R.style.popupAnimation);
         // 在底部显示
-        popWindow.showAtLocation(gods_price, Gravity.BOTTOM, 0, 0);
+        popWindow.showAtLocation(goods_vp, Gravity.BOTTOM, 0, 0);
     }
 
     private void initPopViewShare(View view) {
@@ -472,7 +479,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
         popWindow = new PopupWindow(view,
-                WindowManager.LayoutParams.MATCH_PARENT, 500);
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
         popWindow.setFocusable(true);
@@ -489,7 +496,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
         // 设置popWindow的显示和消失动画
         popWindow.setAnimationStyle(R.style.popupAnimation);
         // 在底部显示
-        popWindow.showAtLocation(gods_price, Gravity.BOTTOM, 0, 0);
+        popWindow.showAtLocation(title, Gravity.BOTTOM, 0, 0);
     }
 
     //初始化PopWindow控件

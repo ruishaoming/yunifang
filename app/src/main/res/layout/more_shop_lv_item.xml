@@ -27,7 +27,7 @@
             android:layout_weight="3"
             android:text="4ssdgds"
             android:textColor="@color/colorTextBlack"
-            android:textSize="10sp" />
+            android:textSize="@dimen/shop_title" />
 
         <TextView
             android:id="@+id/more_item_tv_price"
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:text="45646"
             android:textColor="@color/colorTextMain"
-            android:textSize="10sp" />
+            android:textSize="@dimen/shop_price" />
 
         <TextView
             android:id="@+id/more_item_tv_oldprice"
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:text="45646"
             android:textColor="@color/colorGray"
-            android:textSize="8sp" />
+            android:textSize="30px" />
 
     </com.zhy.autolayout.AutoLinearLayout>
 
@@ -61,7 +61,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:gravity="bottom"
+        android:gravity="bottom|center_horizontal"
         android:padding="20px"
+        android:textSize="@dimen/goods_price"
         android:visibility="gone" />
 </com.zhy.autolayout.AutoLinearLayout>
