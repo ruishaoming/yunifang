@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/showing_error_iv_error"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/colorTextBlack"
         android:background="#fff"
         android:text="重新加载" />
 

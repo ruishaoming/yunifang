@@ -19,6 +19,8 @@ import com.rui.yunifang.utils.CommonUtils;
 import com.rui.yunifang.utils.ImageLoaderUtils;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
 public class MoreShopActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -69,8 +71,8 @@ public class MoreShopActivity extends AppCompatActivity implements View.OnClickL
                     } else if (position == 2) {
                         iv.setVisibility(View.VISIBLE);
                         sort.setVisibility(View.GONE);
-                    } else {
                         iv.setImageResource(R.mipmap.hot_rank_3);
+                    } else {
                         iv.setVisibility(View.GONE);
                         sort.setVisibility(View.VISIBLE);
                         sort.setText("No." + (++position));

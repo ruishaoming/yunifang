@@ -5,7 +5,7 @@
     android:layout_weight="1"
     android:background="@drawable/goods_radio_bg_button_select"
     android:button="@null"
-    android:padding="5px"
+    android:padding="3px"
     android:gravity="center"
     android:textSize="@dimen/shop_price">
 

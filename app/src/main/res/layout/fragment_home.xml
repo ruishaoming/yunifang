@@ -72,13 +72,19 @@
                     android:verticalSpacing="20px">
 
                 </com.rui.yunifang.view.InnerGridView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10px"
+                    android:background="@color/moreColor" />
+
                 <!--本周热销-->
                 <TextView
                     android:id="@+id/home_line_hot_week_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10px"
+                    android:layout_marginTop="20px"
                     android:drawableLeft="@mipmap/home_rank_list_title"
                     android:drawableRight="@mipmap/home_rank_list_title"
                     android:text="本周热销"
@@ -120,6 +126,11 @@
 
                 </HorizontalScrollView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10px"
+                    android:background="@color/moreColor" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,6 +158,11 @@
                         android:layout_marginRight="110px"
                         android:clipChildren="false"></android.support.v4.view.ViewPager>
                 </com.zhy.autolayout.AutoFrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10px"
+                    android:background="@color/moreColor" />
 
                 <TextView
                     android:layout_width="match_parent"

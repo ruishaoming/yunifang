@@ -3,6 +3,8 @@ package com.rui.yunifang.fragment;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -51,6 +53,7 @@ import java.util.ArrayList;
  */
 public class Home_Fragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
+    private static final int SUCCESS = 0;
     private String data;
     private LinearLayout line_ad5;
     private DisplayImageOptions options;
@@ -73,6 +76,15 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
     private InnerGridView ad5_gv;
     private View rootView;
     private ImageView iv_more;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==SUCCESS){
+                initViewData();//更新数据
+            }
+        }
+    };
 
     @Override
     protected void onLoad() {
@@ -125,12 +137,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 options = ImageLoaderUtils.initOptions();
                 Gson gson = new Gson();
                 homeData = gson.fromJson(data, HomeData.class);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initViewData();
-                    }
-                });
+                handler.obtainMessage(SUCCESS).sendToTarget();
             }
 
             @Override
@@ -334,7 +341,7 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
                 RecyclerView home_lv_recy = holder.getView(R.id.home_lv_item_recycler);
 
                 home_lv_recy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                home_lv_recy.addItemDecoration(new SpacesItemDecoration(2));//设置间距
+                home_lv_recy.addItemDecoration(new SpacesItemDecoration(5));//设置间距
                 HomeLvRecyclerAdapter recyclerAdapter = new HomeLvRecyclerAdapter(getActivity(), item.goodsList);
                 home_lv_recy.setAdapter(recyclerAdapter);
                 recyclerAdapter.setOnitemClickListener(new HomeLvRecyclerAdapter.OnitemClickListener() {

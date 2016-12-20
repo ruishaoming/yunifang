@@ -59,7 +59,7 @@ public class IndentActivity extends AutoLayoutActivity implements View.OnClickLi
             if (address != null) {
                 address_name.setText(address.getAd_name());
                 address_number.setText(address.getAd_number() + "");
-                address_dis.setText(address.getAd_district());
+                address_dis.setText(address.getAd_city() + " " + address.getAd_district());
                 no_address.setVisibility(View.GONE);
                 line_address.setVisibility(View.VISIBLE);
             } else {

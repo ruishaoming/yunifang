@@ -77,7 +77,11 @@ public class AddressActivity extends AutoLayoutActivity implements View.OnClickL
                 viewHolder.setText(R.id.address_item_number, item.getAd_number() + "");
                 viewHolder.setText(R.id.address_item_dis, item.getAd_city() + " " + item.getAd_district());
                 CheckBox click = viewHolder.getView(R.id.address_item_click);
-                click.setChecked(item.isCheck());
+                if (item.isCheck()) {
+                    click.setVisibility(View.VISIBLE);
+                } else {
+                    click.setVisibility(View.INVISIBLE);
+                }
             }
         };
         lvAddress.setAdapter(adapter);

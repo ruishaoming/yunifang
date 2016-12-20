@@ -41,7 +41,7 @@ public class MainActivity extends AutoLayoutActivity {
 
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
-//        vp.setOffscreenPageLimit(3);
+//        vp.setOffscreenPageLimit(2);
 
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -50,6 +50,8 @@ public class MainActivity extends AutoLayoutActivity {
                     //如果是未登录状态
                     if (!MyApplication.isLogin) {
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    } else {
+                        return FragmentFactory.getFragment(position);
                     }
                 }
                 return FragmentFactory.getFragment(position);

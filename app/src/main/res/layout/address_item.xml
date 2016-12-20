@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="180px"
+    android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -12,7 +12,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:padding="10px">
 
             <TextView
@@ -21,7 +22,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="某某"
                 android:textColor="@color/colortvGray"
                 android:textSize="@dimen/common_text" />
 
@@ -31,7 +31,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="50px"
                 android:gravity="center_vertical|right"
-                android:text="1231354"
                 android:textColor="@color/colortvGray"
                 android:textSize="@dimen/common_text" />
         </LinearLayout>
@@ -43,7 +42,6 @@
             android:gravity="center_vertical"
             android:lines="2"
             android:padding="10px"
-            android:text="从昆明召开了你了每次看名字的"
             android:textColor="@color/colortvGray"
             android:textSize="@dimen/common_text" />
     </LinearLayout>
@@ -52,6 +50,7 @@
         android:id="@+id/address_item_click"
         android:layout_width="90px"
         android:focusable="false"
+        android:checked="true"
         android:layout_height="match_parent"
         android:button="@null"
         android:drawableLeft="@drawable/cart_chick_all"

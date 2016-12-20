@@ -39,14 +39,14 @@
             android:name="UMENG_APPKEY"
             android:value="561cae6ae0f55abd990035bf"></meta-data>
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LaunchActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AllGoodsActivity" />
         <activity android:name=".activity.DynamicActivity" />

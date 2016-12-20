@@ -3,8 +3,11 @@ package com.rui.yunifang.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.rui.yunifang.R;
@@ -60,6 +63,14 @@ public abstract class ShowingPage extends FrameLayout implements View.OnClickLis
 
         if (showingpage_unload == null) {
             showingpage_unload = CommonUtils.inflate(R.layout.showingpage_unload);
+            ImageView loading = (ImageView) showingpage_unload.findViewById(R.id.loading_data_img);
+            RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 360.0f,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f);
+            rotateAnimation.setDuration(500);
+            rotateAnimation.setRepeatCount(100);
+            rotateAnimation.setRepeatMode(Animation.RESTART);
+            loading.setAnimation(rotateAnimation);
             this.addView(showingpage_unload, params);
         }
 

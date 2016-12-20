@@ -76,15 +76,15 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
                 break;
             //购物须知
             case R.id.settings_tv_notice:
-                CommonUtils.finishActivity(SettingsActivity.this);
+                Toast.makeText(SettingsActivity.this, "开心购物", Toast.LENGTH_SHORT).show();
                 break;
             //意见反馈
             case R.id.settings_tv_idea:
-                CommonUtils.finishActivity(SettingsActivity.this);
+                Toast.makeText(SettingsActivity.this, "有意见直接和芮靖林说。", Toast.LENGTH_SHORT).show();
                 break;
             //关于我们
             case R.id.settings_tv_about_us:
-                CommonUtils.finishActivity(SettingsActivity.this);
+
                 break;
             //拨打电话
             case R.id.settings_line_call:
@@ -99,7 +99,7 @@ public class SettingsActivity extends AutoLayoutActivity implements View.OnClick
                 break;
             //版本更新
             case R.id.settings_line_update:
-                CommonUtils.finishActivity(SettingsActivity.this);
+                Toast.makeText(SettingsActivity.this, "当前已是最新版本！", Toast.LENGTH_SHORT).show();
                 break;
             //退出登录
             case R.id.settings_exitLogin:

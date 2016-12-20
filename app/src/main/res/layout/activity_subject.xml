@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTextBlack"
-            android:textSize="11sp" />
+            android:textSize="@dimen/shop_title" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:id="@+id/subject_tv_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp" />
+            android:textSize="@dimen/common_text" />
 
 
         <com.rui.yunifang.view.InnerGridView

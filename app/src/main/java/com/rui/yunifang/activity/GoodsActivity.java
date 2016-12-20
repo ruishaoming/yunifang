@@ -343,8 +343,7 @@ public class GoodsActivity extends AutoLayoutActivity implements View.OnClickLis
                     Cart_Fragment.chioceList = new ArrayList<>();
                     String user_name = CommonUtils.getSp("user_name");
                     GoodsCarInfo goods = new GoodsCarInfo(goodsInfo.data.goods.is_coupon_allowed,
-                            goodsInfo.data.goods.id, goodsInfo.data.goods.goods_img, goodsInfo.data.goods.goods_name,
-                            goodsInfo.data.goods.stock_number, true,String.valueOf(goodsInfo.data.goods.shop_price), user_name, true);
+                            goodsInfo.data.goods.id, goodsInfo.data.goods.goods_img, goodsInfo.data.goods.goods_name,pop_tag, true,String.valueOf(goodsInfo.data.goods.shop_price), user_name, true);
                     Cart_Fragment.chioceList.add(goods);
                     CommonUtils.startActivity(GoodsActivity.this,IndentActivity.class);
                 }

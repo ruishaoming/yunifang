@@ -59,7 +59,6 @@
                     android:id="@+id/indent_no_address_tv"
                     android:layout_width="match_parent"
                     android:layout_height="80px"
-                    android:visibility="gone"
                     android:drawableLeft="@mipmap/address"
                     android:drawableRight="@mipmap/mine_vip_arrows_right"
                     android:gravity="center_vertical"
@@ -70,18 +69,20 @@
                 <LinearLayout
                     android:id="@+id/indent_address"
                     android:layout_width="match_parent"
-                    android:layout_height="180px">
+                    android:layout_height="180px"
+                    android:visibility="gone">
 
                     <ImageView
-                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:src="@mipmap/address" />
 
                     <include
-                        android:layout_width="wrap_content"
+                        layout="@layout/address_item"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        layout="@layout/address_item"/>
+                        android:layout_marginLeft="10px" />
                 </LinearLayout>
 
                 <com.rui.yunifang.view.InnerGridView
@@ -172,7 +173,8 @@
 
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300px">
+                    android:layout_height="300px"
+                    android:layout_marginBottom="500px">
 
                     <RadioGroup
                         android:layout_width="0dp"
