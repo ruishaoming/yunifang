@@ -95,11 +95,4 @@ public class SubjectActivity extends AutoLayoutActivity implements View.OnClickL
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (MyApplication.gotoShop){
-            finish();
-        }
-    }
 }

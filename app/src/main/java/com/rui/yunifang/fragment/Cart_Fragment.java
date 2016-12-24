@@ -295,7 +295,7 @@ public class Cart_Fragment extends BaseFragment implements View.OnClickListener,
             //购物车是空的，点击前去逛逛
             case R.id.noshop_btn:
                 if (MyApplication.gotoShop) {
-                    getActivity().finish();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {
                     //移动至Home页
                     MainActivity mainActivity = (MainActivity) getActivity();

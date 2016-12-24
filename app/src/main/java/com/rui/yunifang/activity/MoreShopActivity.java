@@ -138,11 +138,4 @@ public class MoreShopActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (MyApplication.gotoShop){
-            finish();
-        }
-    }
 }

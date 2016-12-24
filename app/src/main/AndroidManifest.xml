@@ -39,7 +39,8 @@
             android:name="UMENG_APPKEY"
             android:value="561cae6ae0f55abd990035bf"></meta-data>
 
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTask"></activity>
         <activity android:name=".activity.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

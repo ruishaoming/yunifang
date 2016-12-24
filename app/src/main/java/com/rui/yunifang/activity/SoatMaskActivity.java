@@ -222,12 +222,4 @@ public class SoatMaskActivity extends AutoLayoutActivity implements View.OnClick
                 break;
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (MyApplication.gotoShop) {
-            finish();
-        }
-    }
 }

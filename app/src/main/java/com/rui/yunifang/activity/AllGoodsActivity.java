@@ -56,9 +56,6 @@ public class AllGoodsActivity extends AutoLayoutActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allgoods);
         initView();
-        if (MyApplication.gotoShop){
-            finish();
-        }
         getData(BaseData.NO_TIME);
 
     }

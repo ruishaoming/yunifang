@@ -31,7 +31,7 @@ public class AddressActivity extends AutoLayoutActivity implements View.OnClickL
     private AddressDao addressDao;
     public static ArrayList<AddressInfo> listAddress;
     private ListView lvAddress;
-    private CommonAdapter adapter;
+    public CommonAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class AddressActivity extends AutoLayoutActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-
+        LogUtils.i("TAG", "resume---------------------");
         //得到所有的收货地址的信息
         String user_name = CommonUtils.getSp("user_name");
         listAddress = addressDao.queryAll(user_name);

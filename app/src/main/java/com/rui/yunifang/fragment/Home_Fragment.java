@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -113,8 +114,9 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
         home_tv_more = (TextView) view.findViewById(R.id.home_bottom_tv_more);
         home_tv_more.setOnClickListener(this);
         ad5_gv = (InnerGridView) view.findViewById(R.id.home_gv_ad5);
-        springView.setHeader(new DefaultHeader(getActivity()));
         iv_more = (ImageView) view.findViewById(R.id.home_lv_more);
+
+        springView.setHeader(new DefaultHeader(getActivity()));
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);//设置隐藏
     }
@@ -425,7 +427,8 @@ public class Home_Fragment extends BaseFragment implements SpringView.OnFreshLis
 
     //设置springView的位置
     public void stopLoad() {
-        springView.scrollTo(0, 0);
+//        springView.scrollTo(0, 0);
+        springView.onFinishFreshAndLoad();
     }
 
     //------上拉加载

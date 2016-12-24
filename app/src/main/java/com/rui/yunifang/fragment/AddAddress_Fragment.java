@@ -13,18 +13,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.liaoinstan.springview.container.DefaultFooter;
+import com.liaoinstan.springview.container.DefaultHeader;
+import com.liaoinstan.springview.widget.SpringView;
 import com.rui.yunifang.R;
 import com.rui.yunifang.activity.AddressActivity;
 import com.rui.yunifang.bean.AddressInfo;
 import com.rui.yunifang.db.AddressDao;
 import com.rui.yunifang.utils.CommonUtils;
+import com.rui.yunifang.utils.LogUtils;
 
 /**
  * Created by 芮靖林
  * on 2016/12/17.
  */
 
-public class AddAddress_Fragment extends Fragment implements View.OnClickListener {
+public class AddAddress_Fragment extends Fragment implements View.OnClickListener{
 
     private View rootView;
     private AddressDao addressDao;
@@ -71,7 +75,6 @@ public class AddAddress_Fragment extends Fragment implements View.OnClickListene
                     addressDao.add(addressInfo);
                     Toast.makeText(getActivity(), "已成功添加！", Toast.LENGTH_SHORT).show();
                 }
-                AddressActivity.listAddress = addressDao.queryAll(CommonUtils.getSp("user_name"));
                 closeThis();
                 break;
             case R.id.title_back_iv:
@@ -85,6 +88,10 @@ public class AddAddress_Fragment extends Fragment implements View.OnClickListene
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.xin_left, R.anim.xout_right);
         fragmentTransaction.remove(AddAddress_Fragment.this);
+        AddressActivity addressActivity = (AddressActivity) getActivity();
+        AddressActivity.listAddress = addressDao.queryAll(CommonUtils.getSp("user_name"));
+        addressActivity.adapter.notifyDataSetChanged();
         fragmentTransaction.commit();
     }
+
 }

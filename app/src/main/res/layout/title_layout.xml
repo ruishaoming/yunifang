@@ -4,12 +4,15 @@
     android:layout_height="80px"
     android:padding="3dp">
 
+
     <ImageView
         android:id="@+id/title_back_iv"
-        android:layout_width="40px"
-        android:layout_height="30px"
+        android:layout_width="100px"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:src="@drawable/back_iv"></ImageView>
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:src="@drawable/back_iv" />
 
     <TextView
         android:id="@+id/title_center_tv"
@@ -29,6 +32,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:gravity="center"
+        android:padding="10px"
         android:text="注册"
         android:textSize="@dimen/shop_title" />
 </com.zhy.autolayout.AutoRelativeLayout>
