@@ -1,5 +1,6 @@
 package com.rui.yunifang.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.activity.LoginActivity;
 import com.rui.yunifang.R;
 import com.rui.yunifang.activity.MainActivity;
+import com.rui.yunifang.activity.MyOrderActivity;
 import com.rui.yunifang.activity.SettingsActivity;
 import com.rui.yunifang.application.MyApplication;
 import com.rui.yunifang.utils.CommonUtils;
@@ -119,6 +121,33 @@ public class Mine_Fragment extends Fragment implements View.OnClickListener {
             case R.id.mine_login_name:
                 CommonUtils.startActivity(getActivity(), SettingsActivity.class);
                 break;
+            //待付款
+            case R.id.tv_mine_wait_pay:
+                enterOrderActivity(0);
+                break;
+            //待发货
+            case R.id.tv_mine_wait_send_good:
+                enterOrderActivity(1);
+                break;
+            //待收货
+            case R.id.tv_mine_wait_receive_good:
+                enterOrderActivity(2);
+                break;
+            //待评价
+            case R.id.tv_mine_wait_evaluate:
+                enterOrderActivity(3);
+                break;
+            //退款
+            case R.id.tv_mine_wait_refund:
+                enterOrderActivity(4);
+                break;
         }
+    }
+
+    private void enterOrderActivity(int position) {
+        Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+        intent.putExtra("order_position",position);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
     }
 }

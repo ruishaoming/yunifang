@@ -9,13 +9,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rui.yunifang.R;
 import com.rui.yunifang.base.CommonAdapter;
 import com.rui.yunifang.bean.AddressInfo;
 import com.rui.yunifang.bean.GoodsCarInfo;
+import com.rui.yunifang.bean.OrderInfo;
 import com.rui.yunifang.db.AddressDao;
+import com.rui.yunifang.db.OrderDao;
 import com.rui.yunifang.fragment.Cart_Fragment;
 import com.rui.yunifang.paydemo.PayDemoActivity;
 import com.rui.yunifang.utils.CommonUtils;
@@ -23,7 +26,10 @@ import com.rui.yunifang.utils.LogUtils;
 import com.rui.yunifang.view.InnerGridView;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import static com.rui.yunifang.activity.AddressActivity.listAddress;
 
 public class IndentActivity extends AutoLayoutActivity implements View.OnClickListener {
 
@@ -188,7 +194,30 @@ public class IndentActivity extends AutoLayoutActivity implements View.OnClickLi
     public void indentPay(View view) {
         if (!TextUtils.isEmpty(address_id)) {
             //前往付款
-            CommonUtils.startActivity(this, PayDemoActivity.class);
+//            CommonUtils.startActivity(this, PayDemoActivity.class);
+
+            final OrderDao orderDao = new OrderDao(IndentActivity.this);
+            final ArrayList<OrderInfo> listOrder = new ArrayList<>();
+
+            for (int i = 0; i < goodsList.size(); i++) {
+                OrderInfo orderInfo = new OrderInfo(goodsList.get(i).getGoods_id(), goodsList.get(i).getGoods_img(), goodsList.get(i).getGoods_name(),
+                        goodsList.get(i).getGoods_num(), goodsList.get(i).getGoods_price(), OrderDao.WAIT_PAY, goodsList.get(i).getUser_name(), null,Integer.parseInt(CommonUtils.getSp("address_id")));
+                listOrder.add(orderInfo);
+            }
+            CommonUtils.executeRunnalbe(new Runnable() {
+                @Override
+                public void run() {
+                    orderDao.add(listOrder);//存入数据库
+                }
+            });
+
+            Intent intent = new Intent(this, PayDemoActivity.class);
+            intent.putExtra("listOrder", (Serializable) listOrder);
+            startActivity(intent);
+            overridePendingTransition(R.animator.xin_right, R.animator.xout_left);
+
+        }else {
+            Toast.makeText(this, "请填写收货地址！", Toast.LENGTH_SHORT).show();
         }
     }
 

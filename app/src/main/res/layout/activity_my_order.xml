@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <RadioGroup
+        android:id="@+id/my_order_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/my_order_all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/goods_radio_bg_button_select"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="3px"
+            android:text="全部"
+            android:textSize="@dimen/shop_price" />
+
+        <RadioButton
+            android:id="@+id/my_order_wait_pay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/goods_radio_bg_button_select"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="3px"
+            android:text="待付款"
+            android:textSize="@dimen/shop_price" />
+
+        <RadioButton
+            android:id="@+id/my_order_wait_send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/goods_radio_bg_button_select"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="3px"
+            android:text="待发货"
+            android:textSize="@dimen/shop_price" />
+
+        <RadioButton
+            android:id="@+id/my_order_wait_receive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/goods_radio_bg_button_select"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="3px"
+            android:text="待收货"
+            android:textSize="@dimen/shop_price" />
+
+        <RadioButton
+            android:id="@+id/my_order_wait_evaluate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/goods_radio_bg_button_select"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="3px"
+            android:text="待评价"
+            android:textSize="@dimen/shop_price" />
+
+    </RadioGroup>
+
+    <com.rui.yunifang.view.LazyViewPager
+        android:id="@+id/my_order_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.rui.yunifang.view.LazyViewPager>
+
+</LinearLayout>

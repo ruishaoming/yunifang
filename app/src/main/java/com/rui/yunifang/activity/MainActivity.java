@@ -41,7 +41,7 @@ public class MainActivity extends AutoLayoutActivity {
 
         vp = (NoScrollViewPager) findViewById(R.id.vp_main);
         rg = (RadioGroup) findViewById(R.id.rg_main);
-        vp.setOffscreenPageLimit(2);
+//        vp.setOffscreenPageLimit(2);
 
         vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

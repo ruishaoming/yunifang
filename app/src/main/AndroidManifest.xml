@@ -37,16 +37,19 @@
             android:value="1280" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="561cae6ae0f55abd990035bf"></meta-data>
+            android:value="561cae6ae0f55abd990035bf" />
 
-        <activity android:name=".activity.MainActivity"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.LaunchActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.LaunchActivity">
+
         </activity>
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AllGoodsActivity" />
@@ -56,7 +59,7 @@
         <activity android:name=".activity.GoodsActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.SoatMaskActivity"></activity>
+        <activity android:name=".activity.SoatMaskActivity" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -75,23 +78,22 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.IndentActivity"></activity>
-        <activity android:name=".activity.AddressActivity"></activity>
+        <activity android:name=".activity.IndentActivity" />
+        <activity android:name=".activity.AddressActivity" />
         <activity android:name=".paydemo.PayDemoActivity" />
-
         <activity
             android:name=".paydemo.H5PayDemoActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
         <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.MyOrderActivity"></activity>
     </application>
 
 </manifest>

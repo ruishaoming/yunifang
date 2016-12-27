@@ -1,7 +1,8 @@
 package com.rui.yunifang.bean;
 
 /**
- * Created by 少明 on 2016/12/16.
+ * Created by 芮靖林
+ * on 2016/12/16.
  */
 public class AddressInfo {
     private String user_name;
@@ -87,5 +88,18 @@ public class AddressInfo {
 
     public void setCheck(boolean check) {
         isCheck = check;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressInfo{" +
+                "_id=" + _id +
+                ", user_name='" + user_name + '\'' +
+                ", ad_name='" + ad_name + '\'' +
+                ", ad_number='" + ad_number + '\'' +
+                ", ad_city='" + ad_city + '\'' +
+                ", ad_district='" + ad_district + '\'' +
+                ", isCheck=" + isCheck +
+                '}';
     }
 }

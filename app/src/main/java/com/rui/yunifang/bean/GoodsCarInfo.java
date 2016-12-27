@@ -1,11 +1,16 @@
 package com.rui.yunifang.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by 芮靖林
  * on 2016/12/13.
  * 购物车商品的Bean
  */
-public class GoodsCarInfo {
+public class GoodsCarInfo implements Serializable {
 
     //用用户名作为标识
     private String user_name;
